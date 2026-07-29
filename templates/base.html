@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Radar de Licitações - PNCP{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="/" class="header-logo">🏛️ Agregador de Licitações</a>
+    </div>
+</header>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <p>Dados obtidos em tempo real da API pública do <a href="https://pncp.gov.br" target="_blank">PNCP</a></p>
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Ambiente
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Pastas geradas
+temp/
+saida/
+
+# Editor
+.vscode/
+.idea/

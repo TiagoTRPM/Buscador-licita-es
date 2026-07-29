@@ -1,0 +1,682 @@
+{% extends "base.html" %}
+{% block title %}Resultados: {{ termo }} — PNCP
+<script>
+    async function buscarValor(btn, numeroControle) {
+        btn.textContent = '⏳';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(`/api/valor/${encodeURIComponent(numeroControle)}`);
+            const data = await res.json();
+
+            const td = btn.parentElement;
+
+            if (data.valor) {
+                td.innerHTML = `<span style="color:#16a34a; font-weight:600; font-size:0.85rem;">
+                ${data.valor}
+            </span>`;
+            } else {
+                td.innerHTML = `<span style="color:#9ca3af; font-size:0.8rem;" title="${data.info || data.erro || ''}">
+                Não informado
+            </span>`;
+            }
+        } catch (e) {
+            btn.textContent = '💰 Ver valor';
+            btn.disabled = false;
+        }
+    }
+</script>
+
+<script>
+    // ── Atualizador de cache ────────────────────────────
+    let _atualizadorInterval = null;
+
+    async function iniciarAtualizacao() {
+        const res = await fetch('/api/atualizar/iniciar', { method: 'POST' });
+        const data = await res.json();
+
+        if (!data.ok) {
+            document.getElementById('atu-status').textContent = '⚠️ ' + data.erro;
+            return;
+        }
+
+        document.getElementById('btn-atualizar').classList.add('hidden');
+        document.getElementById('btn-cancelar-atu').classList.remove('hidden');
+        document.getElementById('atu-barra-container').classList.remove('hidden');
+        document.getElementById('atu-status').textContent = `Iniciando... ${data.total} editais pendentes`;
+
+        _atualizadorInterval = setInterval(atualizarProgresso, 2000);
+    }
+
+    async function cancelarAtualizacao() {
+        await fetch('/api/atualizar/cancelar', { method: 'POST' });
+    }
+
+    async function atualizarProgresso() {
+        try {
+            const res = await fetch('/api/atualizar/progresso');
+            const data = await res.json();
+
+            const pct = data.total > 0 ? Math.round((data.atual / data.total) * 100) : 0;
+            document.getElementById('atu-barra').style.width = pct + '%';
+
+            const execStr = `(${data.execucoes_hoje}/2 execuções hoje)`;
+
+            if (data.status === 'rodando') {
+                document.getElementById('atu-status').textContent =
+                    `⏳ ${data.atual}/${data.total} processados... ${execStr}`;
+            } else if (data.status === 'concluido') {
+                document.getElementById('atu-status').textContent =
+                    `✅ Concluído! ${data.total} editais processados ${execStr} — ${data.inicio} → ${data.fim}`;
+                document.getElementById('btn-atualizar').classList.remove('hidden');
+                document.getElementById('btn-cancelar-atu').classList.add('hidden');
+                clearInterval(_atualizadorInterval);
+            } else if (data.status === 'cancelado') {
+                document.getElementById('atu-status').textContent = `⏹ Cancelado em ${data.atual}/${data.total}`;
+                document.getElementById('btn-atualizar').classList.remove('hidden');
+                document.getElementById('btn-cancelar-atu').classList.add('hidden');
+                clearInterval(_atualizadorInterval);
+            }
+
+            // Atualiza log
+            if (data.log && data.log.length > 0) {
+                const log = document.getElementById('atu-log');
+                log.innerHTML = data.log.slice(-20).join('<br>');
+                log.scrollTop = log.scrollHeight;
+            }
+
+        } catch (e) {
+            clearInterval(_atualizadorInterval);
+        }
+    }
+
+    // Verifica status ao carregar (caso esteja rodando em background)
+    window.addEventListener('load', async () => {
+        const res = await fetch('/api/atualizar/progresso');
+        const data = await res.json();
+        if (data.status === 'rodando') {
+            document.getElementById('btn-atualizar').classList.add('hidden');
+            document.getElementById('btn-cancelar-atu').classList.remove('hidden');
+            document.getElementById('atu-barra-container').classList.remove('hidden');
+            _atualizadorInterval = setInterval(atualizarProgresso, 2000);
+        } else {
+            // Mostra stats do cache
+            const stats = await fetch('/api/cache/stats').then(r => r.json());
+            if (stats.total > 0) {
+                document.getElementById('atu-status').textContent =
+                    `Cache: ${stats.com_valor} com valor, ${stats.sem_valor} pendentes`;
+            }
+        }
+    });
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+{% macro tabela(lista, colunas) %}
+{% if lista %}
+<div class="table-wrapper">
+    <table class="tabela">
+        <thead>
+            <tr>
+                {% for col in colunas %}<th>{{ col }}</th>{% endfor %}
+                <th>Edital</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in lista %}
+            <tr>
+                <td class="td-uf">{{ l.uf }}</td>
+                <td>{{ l.municipio }}</td>
+                {% if "Status" in colunas %}
+                <td><span
+                        class="badge {% if l.status == 'Em Aberto' %}badge-green{% elif l.status == 'Encerrado' %}badge-red{% elif l.status == 'Em Julgamento' %}badge-yellow{% elif l.status == 'Aguardando Abertura' %}badge-blue{% else %}badge-gray{% endif %}">{{
+                        l.status }}</span></td>
+                {% endif %}
+                <td class="td-prazo">{{ l.prazo }}</td>
+                <td class="td-data">{% if l.encerramento != 'Não informada' %}{{ l.encerramento }}{% else %}{{
+                    l.publicacao }}{% endif %}</td>
+                <td class="td-objeto" title="{{ l.objeto }}">{{ l.objeto[:120] }}{% if l.objeto|length > 120 %}…{% endif
+                    %}</td>
+                <td class="td-valor">
+                    {% if l._numeroControlePNCP %}
+                    <button onclick="buscarValor(this, '{{ l._numeroControlePNCP }}')" style="background:#f0f4ff; border:1px solid #c7d2fe; color:#4f46e5;
+                           padding:3px 8px; border-radius:4px; cursor:pointer; font-size:0.8rem;
+                           white-space:nowrap;">
+                        💰 Ver valor
+                    </button>
+                    {% else %}
+                    <span style="color:#9ca3af; font-size:0.8rem;">—</span>
+                    {% endif %}
+                </td>
+                <td class="td-modal">{{ l.modalidade }}</td>
+                <td class="td-orgao" title="{{ l.orgao }}">{{ l.orgao[:45] }}{% if l.orgao|length > 45 %}…{% endif %}
+                </td>
+                <td><a href="{{ l.link }}" target="_blank" class="btn-link">🔗 Ver</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="vazio">Nenhum resultado encontrado para este filtro.</div>
+{% endif %}
+{% endmacro %}
+
+<div class="card search-card">
+    <form method="post" action="/buscar" id="form-busca">
+
+        <!-- Linha 1: Termo -->
+        <div class="form-row">
+            <div class="form-group flex-4">
+                <label for="termo">🔍 Objeto desejado</label>
+                <input type="text" id="termo" name="termo" value="{{ termo }}"
+                    placeholder="Ex: pneus, merenda, asfalto..." required autocomplete="off" />
+            </div>
+        </div>
+
+        <!-- Linha 2: Datas + Limite + Checkbox -->
+        <div class="form-row">
+            <div class="form-group flex-1">
+                <label for="data_inicial">📅 Data Inicial</label>
+                <input type="date" id="data_inicial" name="data_inicial" value="{{ data_inicial }}" />
+            </div>
+            <div class="form-group flex-1">
+                <label for="data_final">📅 Data Final</label>
+                <input type="date" id="data_final" name="data_final" value="{{ data_final }}" />
+            </div>
+            <div class="form-group flex-1">
+                <label for="limite_registros">🔢 Limite</label>
+                <select id="limite_registros" name="limite_registros">
+                    <option value="20" {% if limite_registros==20 %}selected{% endif %}>20</option>
+                    <option value="50" {% if limite_registros==50 %}selected{% endif %}>50</option>
+                    <option value="100" {% if limite_registros==100 %}selected{% endif %}>100</option>
+                    <option value="200" {% if limite_registros==200 %}selected{% endif %}>200</option>
+                    <option value="0" {% if limite_registros==0 %}selected{% endif %}>Sem limite</option>
+                </select>
+            </div>
+            <div class="form-group flex-2 check-group">
+                <label class="check-label">
+                    <input type="checkbox" name="incluir_sem_periodo" value="sim" {% if incluir_sem_periodo=="sim"
+                        %}checked{% endif %} />
+                    Incluir editais sem data de encerramento definida
+                </label>
+            </div>
+        </div>
+
+        <!-- Linha 3: Modalidades -->
+        <div class="estados-wrapper">
+            <div class="estados-header">
+                <span class="estados-titulo">📋 Modalidades</span>
+                <button type="button" class="btn btn-sm btn-outline" onclick="toggleModalidades()">Marcar/Desmarcar
+                    todas</button>
+            </div>
+            <div class="modalidades-lista" style="display:flex; flex-wrap:wrap; gap:8px 20px; padding:10px 0;">
+                {% for cod, nome in modalidades.items() %}
+                <label style="display:flex; align-items:center; gap:5px; cursor:pointer; font-size:0.9rem;">
+                    <input type="checkbox" name="modalidades" value="{{ cod }}" {% if cod in modalidades_selecionadas
+                        %}checked{% endif %} /> {{ nome }}
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Linha 4: Estados e Cidades -->
+        <div class="estados-wrapper">
+            <div class="estados-header">
+                <span class="estados-titulo">📍 Estados e Cidades</span>
+                <button type="button" class="btn btn-sm btn-outline" onclick="adicionarEstado()">+ Adicionar
+                    Estado</button>
+            </div>
+            <div id="lista-estados">
+                {% for uf in ufs_selecionadas %}
+                <div class="estado-bloco" data-uf="{{ uf }}">
+                    <div class="estado-bloco-header">
+                        <select class="select-uf" name="ufs" onchange="trocouUF(this)">
+                            {% for estado in estados %}
+                            <option value="{{ estado }}" {% if estado==uf %}selected{% endif %}>{{ estado }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="button" class="btn-remover-estado" onclick="removerEstado(this)">✕</button>
+                    </div>
+                    <div class="cidades-container">
+                        <div style="position:relative; margin-bottom:6px;">
+                            <input type="text" class="input-cidade-busca"
+                                placeholder="🔍 Filtrar cidades... (vazio = todo o estado)"
+                                oninput="filtrarCidades(this)" onfocus="mostrarDropdown(this)"
+                                onblur="setTimeout(()=>esconderDropdown(this),200)" autocomplete="off" style="width:100%; padding:7px 12px; border:1px solid #d1d5db;
+                                       border-radius:6px; font-size:0.9rem; box-sizing:border-box;" />
+                            <div class="cidade-dropdown hidden" style="position:absolute; top:100%; left:0; right:0; max-height:220px;
+                                       overflow-y:auto; background:#fff; border:1px solid #d1d5db;
+                                       border-top:none; border-radius:0 0 6px 6px; z-index:100;
+                                       box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                            </div>
+                        </div>
+                        <div class="cidades-tags" style="display:flex; flex-wrap:wrap; gap:6px; min-height:10px;">
+                            {% if municipios_por_uf.get(uf) %}
+                            {% for cidade in municipios_por_uf[uf] %}
+                            <div style="display:flex; align-items:center; gap:5px; background:#dbeafe;
+                                color:#1e40af; padding:4px 10px; border-radius:20px; font-size:0.85rem;">
+                                <input type="hidden" name="cidades_filtro" value="{{ uf }}:{{ cidade }}" />
+                                📍 {{ cidade }}
+                                <span onclick="this.parentElement.remove(); salvarEstado()"
+                                    style="cursor:pointer; font-weight:bold; color:#6b7280; margin-left:2px;">✕</span>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <p style="font-size:0.78rem; color:#9ca3af; margin:5px 0 0;">
+                            Sem seleção = busca em todo o estado
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-row" style="margin-top:1rem;">
+            <div class="form-group flex-4 btn-group">
+                <button type="submit" class="btn btn-primary btn-buscar-lg" id="btn-buscar">🚀 Buscar
+                    Licitações</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <p>Consultando a API do PNCP...</p>
+</div>
+
+<!-- Resumo -->
+<div class="resumo">
+    <span class="resumo-titulo">
+        Resultados para <strong>"{{ termo }}"</strong>
+        em <strong>{{ ufs_selecionadas | join(", ") }}</strong>
+        — de <strong>{{ data_inicial }}</strong> até <strong>{{ data_final }}</strong>
+    </span>
+    <div class="resumo-badges">
+        <span class="badge badge-green">🟢 {{ abertos|length }} Em Aberto</span>
+        <span class="badge badge-blue">🕐 {{ aguardando|length }} Aguardando</span>
+        <span class="badge badge-yellow">⚖️ {{ julgamento|length }} Em Julgamento</span>
+        <span class="badge badge-red">🔴 {{ encerrados|length }} Encerrados</span>
+        <span class="badge badge-blue">📊 {{ total }} Total</span>
+    </div>
+</div>
+
+
+<!-- Painel de atualização de cache -->
+<div class="card filtro-card" id="painel-atualizador" style="margin-bottom:10px;">
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <button id="btn-atualizar" onclick="iniciarAtualizacao()" class="btn btn-outline"
+            style="background:#f0fdf4; border-color:#86efac; color:#16a34a;">
+            🔄 Atualizar valores em background
+        </button>
+        <button id="btn-cancelar-atu" onclick="cancelarAtualizacao()" class="btn btn-outline hidden"
+            style="background:#fff1f2; border-color:#fca5a5; color:#dc2626;">
+            ⏹ Cancelar
+        </button>
+        <span id="atu-status" style="font-size:0.85rem; color:#6b7280;"></span>
+    </div>
+
+    <!-- Barra de progresso -->
+    <div id="atu-barra-container" class="hidden" style="margin-top:10px;">
+        <div style="background:#e5e7eb; border-radius:4px; height:6px;">
+            <div id="atu-barra"
+                style="background:#16a34a; height:6px; border-radius:4px; width:0%; transition:width 0.4s;"></div>
+        </div>
+        <div id="atu-log" style="font-size:0.78rem; color:#6b7280; margin-top:6px;
+            max-height:80px; overflow-y:auto; font-family:monospace;"></div>
+    </div>
+</div>
+
+<!-- Exportar -->
+<div class="card filtro-card">
+    <a href="/exportar/excel" class="btn btn-export">📥 Exportar Excel</a>
+</div>
+
+<!-- Abas -->
+<div class="tabs">
+    <button class="tab-btn active" onclick="mostrarAba('abertos', this)">🟢 Em Aberto ({{ abertos|length }})</button>
+    <button class="tab-btn" onclick="mostrarAba('aguardando', this)">🕐 Aguardando ({{ aguardando|length }})</button>
+    <button class="tab-btn" onclick="mostrarAba('julgamento', this)">⚖️ Em Julgamento ({{ julgamento|length }})</button>
+    <button class="tab-btn" onclick="mostrarAba('encerrados', this)">🔴 Encerrados ({{ encerrados|length }})</button>
+    <button class="tab-btn" onclick="mostrarAba('todos', this)">📊 Todos ({{ total }})</button>
+    {% if indefinidos|length > 0 %}
+    <button class="tab-btn" onclick="mostrarAba('indefinidos', this)">❓ Sem classificação ({{ indefinidos|length
+        }})</button>
+    {% endif %}
+</div>
+
+<div id="aba-abertos" class="aba-content">
+    {{ tabela(abertos, ["UF","Município","Prazo","Encerramento","Objeto","Valor Estimado","Modalidade","Órgão"]) }}
+</div>
+<div id="aba-aguardando" class="aba-content hidden">
+    {{ tabela(aguardando, ["UF","Município","Prazo","Encerramento","Objeto","Valor Estimado","Modalidade","Órgão"]) }}
+</div>
+<div id="aba-julgamento" class="aba-content hidden">
+    {{ tabela(julgamento, ["UF","Município","Prazo","Encerramento","Objeto","Valor Estimado","Modalidade","Órgão"]) }}
+</div>
+<div id="aba-encerrados" class="aba-content hidden">
+    {{ tabela(encerrados, ["UF","Município","Situação","Data","Objeto","Valor Estimado","Modalidade","Órgão"]) }}
+</div>
+<div id="aba-todos" class="aba-content hidden">
+    {{ tabela(todos, ["UF","Município","Status","Prazo","Data","Objeto","Valor Estimado","Modalidade","Órgão"]) }}
+</div>
+{% if indefinidos|length > 0 %}
+<div id="aba-indefinidos" class="aba-content hidden">
+    {{ tabela(indefinidos, ["UF","Município","Prazo","Publicação","Objeto","Valor Estimado","Modalidade","Órgão"]) }}
+</div>
+{% endif %}
+
+<script>
+    const ESTADOS_LIST = JSON.parse('{{ estados | tojson | safe }}');
+    const STORAGE_KEY = 'buscador_estado';
+    let MUNICIPIOS = {};
+
+    fetch('/static/data/municipios.json')
+        .then(r => r.json())
+        .then(data => { MUNICIPIOS = data; })
+        .catch(() => console.warn('municipios.json não carregado'));
+
+    // ── Persistência ────────────────────────────────────
+
+    function salvarEstado() {
+        const estado = {
+            termo: document.getElementById('termo')?.value || '',
+            data_inicial: document.getElementById('data_inicial')?.value || '',
+            data_final: document.getElementById('data_final')?.value || '',
+            limite_registros: document.getElementById('limite_registros')?.value || '200',
+            incluir_sem_periodo: document.querySelector('input[name="incluir_sem_periodo"]')?.checked || false,
+            modalidades: [...document.querySelectorAll('input[name="modalidades"]')]
+                .filter(c => c.checked).map(c => c.value),
+            estados: [...document.querySelectorAll('.estado-bloco')].map(bloco => ({
+                uf: bloco.querySelector('.select-uf').value,
+                cidades: [...bloco.querySelectorAll('input[name="cidades_filtro"]')]
+                    .map(i => ({
+                        value: i.value,
+                        cidade: i.value.split(':')[1] || ''
+                    }))
+            }))
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+    }
+
+    // ── Autocomplete de cidades ─────────────────────────
+
+    function getUF(input) {
+        return input.closest('.estado-bloco').querySelector('.select-uf').value;
+    }
+
+    function removerAcentos(str) {
+        return str.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    }
+
+    function filtrarCidades(input) {
+        const uf = getUF(input);
+        const termo = input.value.trim().toLowerCase();
+        const dropdown = input.nextElementSibling;
+        const lista = MUNICIPIOS[uf] || [];
+
+        if (!termo) { dropdown.classList.add('hidden'); dropdown.innerHTML = ''; return; }
+
+        const filtradas = lista.filter(m =>
+            removerAcentos(m.toLowerCase()).includes(removerAcentos(termo))
+        ).slice(0, 50);
+
+        if (filtradas.length === 0) { dropdown.classList.add('hidden'); return; }
+
+        dropdown.innerHTML = filtradas.map(m => `
+        <div onclick="selecionarCidade(this, '${m.replace(/'/g, "\'")}', '${uf}')"
+            style="padding:8px 12px; cursor:pointer; font-size:0.88rem; border-bottom:1px solid #f3f4f6;"
+            onmouseover="this.style.background='#f0f4ff'"
+            onmouseout="this.style.background=''">
+            ${m}
+        </div>`).join('');
+
+        dropdown.classList.remove('hidden');
+    }
+
+    function mostrarDropdown(input) {
+        if (input.value.trim().length > 0) filtrarCidades(input);
+    }
+
+    function esconderDropdown(input) {
+        input.nextElementSibling.classList.add('hidden');
+        input.value = '';
+    }
+
+    function selecionarCidade(el, cidade, uf) {
+        const bloco = el.closest('.estado-bloco');
+        const tags = bloco.querySelector('.cidades-tags');
+        const dropdown = el.closest('.cidade-dropdown');
+        const input = dropdown.previousElementSibling;
+
+        const jaExiste = [...tags.querySelectorAll('input[type=hidden]')]
+            .some(i => i.value === `${uf}:${cidade}`);
+        if (jaExiste) { dropdown.classList.add('hidden'); input.value = ''; return; }
+
+        const tag = document.createElement('div');
+        tag.style.cssText = `display:flex; align-items:center; gap:5px; background:#dbeafe;
+        color:#1e40af; padding:4px 10px; border-radius:20px; font-size:0.85rem;`;
+        tag.innerHTML = `
+        <input type="hidden" name="cidades_filtro" value="${uf}:${cidade}"/>
+        📍 ${cidade}
+        <span onclick="this.parentElement.remove(); salvarEstado()"
+            style="cursor:pointer; font-weight:bold; color:#6b7280; margin-left:2px;">✕</span>`;
+        tags.appendChild(tag);
+
+        dropdown.classList.add('hidden');
+        input.value = '';
+        input.focus();
+        salvarEstado();
+    }
+
+    // ── Estados ─────────────────────────────────────────
+
+    function toggleModalidades() {
+        const checks = document.querySelectorAll("input[name='modalidades']");
+        const todas = [...checks].every(c => c.checked);
+        checks.forEach(c => c.checked = !todas);
+        salvarEstado();
+    }
+
+    function criarBlocoEstado(uf) {
+        const opts = ESTADOS_LIST.map(e =>
+            `<option value="${e}" ${e === uf ? 'selected' : ''}>${e}</option>`).join('');
+        const div = document.createElement('div');
+        div.className = 'estado-bloco';
+        div.dataset.uf = uf;
+        div.innerHTML = `
+        <div class="estado-bloco-header">
+            <select class="select-uf" name="ufs" onchange="trocouUF(this)">${opts}</select>
+            <button type="button" class="btn-remover-estado" onclick="removerEstado(this)">✕</button>
+        </div>
+        <div class="cidades-container">
+            <div style="position:relative; margin-bottom:6px;">
+                <input type="text" class="input-cidade-busca"
+                    placeholder="🔍 Filtrar cidades... (vazio = todo o estado)"
+                    oninput="filtrarCidades(this)"
+                    onfocus="mostrarDropdown(this)"
+                    onblur="setTimeout(()=>esconderDropdown(this),200)"
+                    autocomplete="off"
+                    style="width:100%; padding:7px 12px; border:1px solid #d1d5db;
+                           border-radius:6px; font-size:0.9rem; box-sizing:border-box;"/>
+                <div class="cidade-dropdown hidden"
+                    style="position:absolute; top:100%; left:0; right:0; max-height:220px;
+                           overflow-y:auto; background:#fff; border:1px solid #d1d5db;
+                           border-top:none; border-radius:0 0 6px 6px; z-index:100;
+                           box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+            <div class="cidades-tags" style="display:flex; flex-wrap:wrap; gap:6px; min-height:10px;"></div>
+            <p style="font-size:0.78rem; color:#9ca3af; margin:5px 0 0;">Sem seleção = busca em todo o estado</p>
+        </div>`;
+        return div;
+    }
+
+    function adicionarEstado() {
+        document.getElementById('lista-estados').appendChild(criarBlocoEstado('SP'));
+        salvarEstado();
+    }
+
+    function removerEstado(btn) {
+        const lista = document.getElementById('lista-estados');
+        if (lista.querySelectorAll('.estado-bloco').length > 1) {
+            btn.closest('.estado-bloco').remove();
+            salvarEstado();
+        }
+    }
+
+    function trocouUF(select) {
+        const bloco = select.closest('.estado-bloco');
+        bloco.dataset.uf = select.value;
+        bloco.querySelector('.cidades-tags').innerHTML = '';
+        bloco.querySelector('.input-cidade-busca').value = '';
+        bloco.querySelector('.cidade-dropdown').classList.add('hidden');
+        salvarEstado();
+    }
+
+    // ── Abas ────────────────────────────────────────────
+
+    function mostrarAba(nome, botao) {
+        document.querySelectorAll('.aba-content').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        const aba = document.getElementById('aba-' + nome);
+        if (aba) aba.classList.remove('hidden');
+        if (botao) botao.classList.add('active');
+    }
+
+    // ── Salva estado ao mudar qualquer campo ────────────
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('termo')?.addEventListener('input', salvarEstado);
+        document.getElementById('data_inicial')?.addEventListener('change', salvarEstado);
+        document.getElementById('data_final')?.addEventListener('change', salvarEstado);
+        document.getElementById('limite_registros')?.addEventListener('change', salvarEstado);
+        document.querySelector('input[name="incluir_sem_periodo"]')?.addEventListener('change', salvarEstado);
+        document.querySelectorAll('input[name="modalidades"]').forEach(c =>
+            c.addEventListener('change', salvarEstado));
+
+        // Salva antes de buscar
+        document.getElementById('btn-buscar')?.addEventListener('click', salvarEstado);
+
+        // Salva quando cidades do servidor forem removidas via ✕
+        new MutationObserver(salvarEstado)
+            .observe(document.getElementById('lista-estados'), { childList: true, subtree: true });
+    });
+</script>
+
+<script>
+    async function buscarValor(btn, numeroControle) {
+        btn.textContent = '⏳';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(`/api/valor/${encodeURIComponent(numeroControle)}`);
+            const data = await res.json();
+
+            const td = btn.parentElement;
+
+            if (data.valor) {
+                td.innerHTML = `<span style="color:#16a34a; font-weight:600; font-size:0.85rem;">
+                ${data.valor}
+            </span>`;
+            } else {
+                td.innerHTML = `<span style="color:#9ca3af; font-size:0.8rem;" title="${data.info || data.erro || ''}">
+                Não informado
+            </span>`;
+            }
+        } catch (e) {
+            btn.textContent = '💰 Ver valor';
+            btn.disabled = false;
+        }
+    }
+</script>
+
+<script>
+    // ── Atualizador de cache ────────────────────────────
+    let _atualizadorInterval = null;
+
+    async function iniciarAtualizacao() {
+        const res = await fetch('/api/atualizar/iniciar', { method: 'POST' });
+        const data = await res.json();
+
+        if (!data.ok) {
+            document.getElementById('atu-status').textContent = '⚠️ ' + data.erro;
+            return;
+        }
+
+        document.getElementById('btn-atualizar').classList.add('hidden');
+        document.getElementById('btn-cancelar-atu').classList.remove('hidden');
+        document.getElementById('atu-barra-container').classList.remove('hidden');
+        document.getElementById('atu-status').textContent = `Iniciando... ${data.total} editais pendentes`;
+
+        _atualizadorInterval = setInterval(atualizarProgresso, 2000);
+    }
+
+    async function cancelarAtualizacao() {
+        await fetch('/api/atualizar/cancelar', { method: 'POST' });
+    }
+
+    async function atualizarProgresso() {
+        try {
+            const res = await fetch('/api/atualizar/progresso');
+            const data = await res.json();
+
+            const pct = data.total > 0 ? Math.round((data.atual / data.total) * 100) : 0;
+            document.getElementById('atu-barra').style.width = pct + '%';
+
+            const execStr = `(${data.execucoes_hoje}/2 execuções hoje)`;
+
+            if (data.status === 'rodando') {
+                document.getElementById('atu-status').textContent =
+                    `⏳ ${data.atual}/${data.total} processados... ${execStr}`;
+            } else if (data.status === 'concluido') {
+                document.getElementById('atu-status').textContent =
+                    `✅ Concluído! ${data.total} editais processados ${execStr} — ${data.inicio} → ${data.fim}`;
+                document.getElementById('btn-atualizar').classList.remove('hidden');
+                document.getElementById('btn-cancelar-atu').classList.add('hidden');
+                clearInterval(_atualizadorInterval);
+            } else if (data.status === 'cancelado') {
+                document.getElementById('atu-status').textContent = `⏹ Cancelado em ${data.atual}/${data.total}`;
+                document.getElementById('btn-atualizar').classList.remove('hidden');
+                document.getElementById('btn-cancelar-atu').classList.add('hidden');
+                clearInterval(_atualizadorInterval);
+            }
+
+            // Atualiza log
+            if (data.log && data.log.length > 0) {
+                const log = document.getElementById('atu-log');
+                log.innerHTML = data.log.slice(-20).join('<br>');
+                log.scrollTop = log.scrollHeight;
+            }
+
+        } catch (e) {
+            clearInterval(_atualizadorInterval);
+        }
+    }
+
+    // Verifica status ao carregar (caso esteja rodando em background)
+    window.addEventListener('load', async () => {
+        const res = await fetch('/api/atualizar/progresso');
+        const data = await res.json();
+        if (data.status === 'rodando') {
+            document.getElementById('btn-atualizar').classList.add('hidden');
+            document.getElementById('btn-cancelar-atu').classList.remove('hidden');
+            document.getElementById('atu-barra-container').classList.remove('hidden');
+            _atualizadorInterval = setInterval(atualizarProgresso, 2000);
+        } else {
+            // Mostra stats do cache
+            const stats = await fetch('/api/cache/stats').then(r => r.json());
+            if (stats.total > 0) {
+                document.getElementById('atu-status').textContent =
+                    `Cache: ${stats.com_valor} com valor, ${stats.sem_valor} pendentes`;
+            }
+        }
+    });
+</script>
+
+{% endblock %}
