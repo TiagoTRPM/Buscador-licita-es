@@ -340,6 +340,13 @@ async def buscar_stream(request: Request):
             "modalidades_selecionadas": modalidades_selecionadas,
         }
 
+        print(f"[debug] Total final: {len(todas_licitacoes)}")
+        print(f"[debug] Abertos: {len(abertos)}, Aguardando: {len(aguardando)}, Julgamento: {len(julgamento)}, Encerrados: {len(encerrados)}, Indefinidos: {len(indefinidos)}")
+        if todas_licitacoes:
+            print(f"[debug] Status ex: {todas_licitacoes[0].get('status')}")
+            print(f"[debug] Objeto ex: {todas_licitacoes[0].get('objeto','')[:60]}")
+        else:
+            print("[debug] LISTA VAZIA!")
         yield f"data: {{\"tipo\": \"concluido\", \"total\": {len(todas_licitacoes)}, \"redirect\": \"/resultados\"}}\n\n"
 
     return StreamingResponse(

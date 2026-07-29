@@ -15,9 +15,11 @@
             <div class="form-group flex-4">
                 <label for="termo">🔍 Objeto desejado</label>
                 <div style="display:flex; gap:8px; align-items:center;">
-                    <input type="text" id="termo" name="termo" placeholder="Ex: pneus, merenda, asfalto, software..."
-                        required autocomplete="off" style="flex:1;" />
-                    <button type="button" class="btn btn-outline" id="btn-variacoes" onclick="buscarVariacoes()">
+                    <input type="text" id="termo" name="termo"
+                        placeholder="Ex: pneus, merenda, asfalto, software..."
+                        required autocomplete="off" style="flex:1;"/>
+                    <button type="button" class="btn btn-outline" id="btn-variacoes"
+                        onclick="buscarVariacoes()">
                         🔀 Incluir variações
                     </button>
                 </div>
@@ -55,7 +57,7 @@
                         <div style="display:flex; gap:6px; align-items:center;">
                             <input type="text" id="input-manual-incluir" placeholder="Ex: chromebook"
                                 style="padding:5px 10px; border:1px solid #a5b4fc; border-radius:6px; font-size:0.88rem; width:180px;"
-                                onkeydown="if(event.key==='Enter'){event.preventDefault();adicionarManual('incluir');}" />
+                                onkeydown="if(event.key==='Enter'){event.preventDefault();adicionarManual('incluir');}"/>
                             <button type="button" class="btn btn-sm"
                                 style="background:#dcfce7; color:#16a34a; border:1px solid #86efac;"
                                 onclick="adicionarManual('incluir')">✅ Incluir</button>
@@ -63,7 +65,7 @@
                         <div style="display:flex; gap:6px; align-items:center;">
                             <input type="text" id="input-manual-excluir" placeholder="Ex: locação"
                                 style="padding:5px 10px; border:1px solid #fca5a5; border-radius:6px; font-size:0.88rem; width:180px;"
-                                onkeydown="if(event.key==='Enter'){event.preventDefault();adicionarManual('excluir');}" />
+                                onkeydown="if(event.key==='Enter'){event.preventDefault();adicionarManual('excluir');}"/>
                             <button type="button" class="btn btn-sm"
                                 style="background:#fee2e2; color:#dc2626; border:1px solid #fca5a5;"
                                 onclick="adicionarManual('excluir')">❌ Excluir</button>
@@ -71,8 +73,8 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-sm btn-outline" onclick="limparVariacoes()"
-                    style="margin-top:10px;">
+                <button type="button" class="btn btn-sm btn-outline"
+                    onclick="limparVariacoes()" style="margin-top:10px;">
                     ✕ Remover variações
                 </button>
             </div>
@@ -82,11 +84,11 @@
         <div class="form-row">
             <div class="form-group flex-1">
                 <label for="data_inicial">📅 Data Inicial</label>
-                <input type="date" id="data_inicial" name="data_inicial" value="{{ data_inicial }}" />
+                <input type="date" id="data_inicial" name="data_inicial" value="{{ data_inicial }}"/>
             </div>
             <div class="form-group flex-1">
                 <label for="data_final">📅 Data Final</label>
-                <input type="date" id="data_final" name="data_final" value="{{ data_final }}" />
+                <input type="date" id="data_final" name="data_final" value="{{ data_final }}"/>
             </div>
             <div class="form-group flex-1">
                 <label for="limite_registros">🔢 Limite</label>
@@ -100,7 +102,7 @@
             </div>
             <div class="form-group flex-2 check-group">
                 <label class="check-label">
-                    <input type="checkbox" name="incluir_sem_periodo" value="sim" />
+                    <input type="checkbox" name="incluir_sem_periodo" value="sim"/>
                     Incluir editais sem data de encerramento definida
                 </label>
             </div>
@@ -110,13 +112,12 @@
         <div class="estados-wrapper">
             <div class="estados-header">
                 <span class="estados-titulo">📋 Modalidades</span>
-                <button type="button" class="btn btn-sm btn-outline" onclick="toggleModalidades()">Marcar/Desmarcar
-                    todas</button>
+                <button type="button" class="btn btn-sm btn-outline" onclick="toggleModalidades()">Marcar/Desmarcar todas</button>
             </div>
             <div class="modalidades-lista" style="display:flex; flex-wrap:wrap; gap:8px 20px; padding:10px 0;">
                 {% for cod, nome in modalidades.items() %}
                 <label style="display:flex; align-items:center; gap:5px; cursor:pointer; font-size:0.9rem;">
-                    <input type="checkbox" name="modalidades" value="{{ cod }}" checked /> {{ nome }}
+                    <input type="checkbox" name="modalidades" value="{{ cod }}" checked/> {{ nome }}
                 </label>
                 {% endfor %}
             </div>
@@ -126,15 +127,14 @@
         <div class="estados-wrapper">
             <div class="estados-header">
                 <span class="estados-titulo">📍 Estados e Cidades</span>
-                <button type="button" class="btn btn-sm btn-outline" onclick="adicionarEstado()">+ Adicionar
-                    Estado</button>
+                <button type="button" class="btn btn-sm btn-outline" onclick="adicionarEstado()">+ Adicionar Estado</button>
             </div>
             <div id="lista-estados">
                 <div class="estado-bloco" data-uf="PR">
                     <div class="estado-bloco-header">
                         <select class="select-uf" name="ufs" onchange="trocouUF(this)">
                             {% for estado in estados %}
-                            <option value="{{ estado }}" {% if estado=="PR" %}selected{% endif %}>{{ estado }}</option>
+                            <option value="{{ estado }}" {% if estado == "PR" %}selected{% endif %}>{{ estado }}</option>
                             {% endfor %}
                         </select>
                         <button type="button" class="btn-remover-estado" onclick="removerEstado(this)">✕</button>
@@ -145,10 +145,14 @@
                         <div style="position:relative; margin-bottom:6px;">
                             <input type="text" class="input-cidade-busca"
                                 placeholder="🔍 Filtrar cidades... (vazio = busca em todo o estado)"
-                                oninput="filtrarCidades(this)" onfocus="mostrarDropdown(this)"
-                                onblur="setTimeout(()=>esconderDropdown(this), 200)" autocomplete="off" style="width:100%; padding:7px 12px; border:1px solid #d1d5db;
-                                       border-radius:6px; font-size:0.9rem; box-sizing:border-box;" />
-                            <div class="cidade-dropdown hidden" style="position:absolute; top:100%; left:0; right:0; max-height:220px;
+                                oninput="filtrarCidades(this)"
+                                onfocus="mostrarDropdown(this)"
+                                onblur="setTimeout(()=>esconderDropdown(this), 200)"
+                                autocomplete="off"
+                                style="width:100%; padding:7px 12px; border:1px solid #d1d5db;
+                                       border-radius:6px; font-size:0.9rem; box-sizing:border-box;"/>
+                            <div class="cidade-dropdown hidden"
+                                style="position:absolute; top:100%; left:0; right:0; max-height:220px;
                                        overflow-y:auto; background:#fff; border:1px solid #d1d5db;
                                        border-top:none; border-radius:0 0 6px 6px; z-index:100;
                                        box-shadow:0 4px 6px rgba(0,0,0,0.1);">
@@ -170,7 +174,7 @@
                 <button type="button" class="btn btn-primary btn-buscar-lg" id="btn-buscar" onclick="iniciarBusca()">
                     🚀 Buscar Licitações
                 </button>
-                <button type="button" class="btn btn-outline btn-buscar-lg" onclick="limparEstado()"
+                <button type="button" class="btn btn-outline btn-buscar-lg" onclick="limparEstado()" 
                     title="Limpa termo, cidades e restaura padrões"
                     style="background:#fff; color:#6b7280; border-color:#d1d5db;">
                     🗑️ Limpar
@@ -188,12 +192,9 @@
     </div>
     <div id="loading-barra-container" class="hidden" style="width:100%; max-width:400px; margin-top:10px;">
         <div style="background:#e5e7eb; border-radius:4px; height:8px;">
-            <div id="loading-barra"
-                style="background:#4f46e5; height:8px; border-radius:4px; width:0%; transition:width 0.3s;"></div>
+            <div id="loading-barra" style="background:#4f46e5; height:8px; border-radius:4px; width:0%; transition:width 0.3s;"></div>
         </div>
-        <div id="loading-log"
-            style="font-size:0.8rem; color:#6b7280; margin-top:6px; text-align:left; max-height:80px; overflow-y:auto;">
-        </div>
+        <div id="loading-log" style="font-size:0.8rem; color:#6b7280; margin-top:6px; text-align:left; max-height:80px; overflow-y:auto;"></div>
     </div>
 </div>
 
@@ -208,172 +209,169 @@
 </div>
 
 <script>
-    // ── Dados de municípios (carregados do JSON) ────────
-    const ESTADOS_LIST = JSON.parse('{{ estados | tojson | safe }}');
-    let MUNICIPIOS = {};
+// ── Dados de municípios (carregados do JSON) ────────
+const ESTADOS_LIST = JSON.parse('{{ estados | tojson | safe }}');
+let MUNICIPIOS = {};
 
-    fetch('/static/data/municipios.json')
-        .then(r => r.json())
-        .then(data => { MUNICIPIOS = data; })
-        .catch(() => console.warn('municipios.json não carregado'));
+// municipios.json carregado no DOMContentLoaded
 
-    // ── Autocomplete de cidades ─────────────────────────
+// ── Autocomplete de cidades ─────────────────────────
 
-    function getUF(input) {
-        return input.closest('.estado-bloco').querySelector('.select-uf').value;
+function getUF(input) {
+    return input.closest('.estado-bloco').querySelector('.select-uf').value;
+}
+
+function filtrarCidades(input) {
+    const uf      = getUF(input);
+    const termo   = input.value.trim().toLowerCase();
+    const dropdown = input.nextElementSibling;
+    const lista   = MUNICIPIOS[uf] || [];
+
+    if (!termo) {
+        dropdown.classList.add('hidden');
+        dropdown.innerHTML = '';
+        return;
     }
 
-    function filtrarCidades(input) {
-        const uf = getUF(input);
-        const termo = input.value.trim().toLowerCase();
-        const dropdown = input.nextElementSibling;
-        const lista = MUNICIPIOS[uf] || [];
+    const filtradas = lista.filter(m => 
+        removerAcentos(m.toLowerCase()).includes(removerAcentos(termo))
+    ).slice(0, 50);
 
-        if (!termo) {
-            dropdown.classList.add('hidden');
-            dropdown.innerHTML = '';
-            return;
-        }
+    if (filtradas.length === 0) {
+        dropdown.classList.add('hidden');
+        return;
+    }
 
-        const filtradas = lista.filter(m =>
-            removerAcentos(m.toLowerCase()).includes(removerAcentos(termo))
-        ).slice(0, 50);
-
-        if (filtradas.length === 0) {
-            dropdown.classList.add('hidden');
-            return;
-        }
-
-        dropdown.innerHTML = filtradas.map(m => `
+    dropdown.innerHTML = filtradas.map(m => `
         <div onclick="selecionarCidade(this, '${m.replace(/'/g, "\\'")}', '${uf}')"
             style="padding:8px 12px; cursor:pointer; font-size:0.88rem; border-bottom:1px solid #f3f4f6;"
             onmouseover="this.style.background='#f0f4ff'"
             onmouseout="this.style.background=''">${m}</div>
     `).join('');
 
-        dropdown.classList.remove('hidden');
-    }
+    dropdown.classList.remove('hidden');
+}
 
-    function mostrarDropdown(input) {
-        const termo = input.value.trim();
-        if (termo.length > 0) filtrarCidades(input);
-    }
+function mostrarDropdown(input) {
+    const termo = input.value.trim();
+    if (termo.length > 0) filtrarCidades(input);
+}
 
-    function esconderDropdown(input) {
-        const dropdown = input.nextElementSibling;
+function esconderDropdown(input) {
+    const dropdown = input.nextElementSibling;
+    dropdown.classList.add('hidden');
+    input.value = '';
+}
+
+function selecionarCidade(el, cidade, uf) {
+    const bloco    = el.closest('.estado-bloco');
+    const tags     = bloco.querySelector('.cidades-tags');
+    const dropdown = el.closest('.cidade-dropdown');
+    const input    = dropdown.previousElementSibling;
+
+    // Verifica se já foi selecionada
+    const jaExiste = [...tags.querySelectorAll('input[type=hidden]')]
+        .some(i => i.value === cidade);
+    if (jaExiste) {
         dropdown.classList.add('hidden');
         input.value = '';
+        return;
     }
 
-    function selecionarCidade(el, cidade, uf) {
-        const bloco = el.closest('.estado-bloco');
-        const tags = bloco.querySelector('.cidades-tags');
-        const dropdown = el.closest('.cidade-dropdown');
-        const input = dropdown.previousElementSibling;
-
-        // Verifica se já foi selecionada
-        const jaExiste = [...tags.querySelectorAll('input[type=hidden]')]
-            .some(i => i.value === cidade);
-        if (jaExiste) {
-            dropdown.classList.add('hidden');
-            input.value = '';
-            return;
-        }
-
-        // Cria tag
-        const tag = document.createElement('div');
-        tag.style.cssText = `display:flex; align-items:center; gap:5px; background:#dbeafe;
+    // Cria tag
+    const tag = document.createElement('div');
+    tag.style.cssText = `display:flex; align-items:center; gap:5px; background:#dbeafe;
         color:#1e40af; padding:4px 10px; border-radius:20px; font-size:0.85rem;`;
-        tag.innerHTML = `
+    tag.innerHTML = `
         <input type="hidden" name="cidades_filtro" value="${uf}:${cidade}"/>
         📍 ${cidade}
         <span onclick="this.parentElement.remove()"
             style="cursor:pointer; font-weight:bold; color:#6b7280; margin-left:2px;">✕</span>`;
-        tags.appendChild(tag);
+    tags.appendChild(tag);
 
-        dropdown.classList.add('hidden');
-        input.value = '';
-        input.focus();
-    }
+    dropdown.classList.add('hidden');
+    input.value = '';
+    input.focus();
+}
 
-    function removerAcentos(str) {
-        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    }
+function removerAcentos(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
 
-    // ── Variações via IA ────────────────────────────────
+// ── Variações via IA ────────────────────────────────
 
-    async function buscarVariacoes() {
-        const termo = document.getElementById('termo').value.trim();
-        if (!termo) { alert('Digite um termo de busca primeiro!'); return; }
+async function buscarVariacoes() {
+    const termo = document.getElementById('termo').value.trim();
+    if (!termo) { alert('Digite um termo de busca primeiro!'); return; }
 
-        const painel = document.getElementById('painel-variacoes');
-        const loading = document.getElementById('variacoes-loading');
-        const conteudo = document.getElementById('variacoes-conteudo');
+    const painel   = document.getElementById('painel-variacoes');
+    const loading  = document.getElementById('variacoes-loading');
+    const conteudo = document.getElementById('variacoes-conteudo');
 
-        painel.classList.remove('hidden');
-        loading.classList.remove('hidden');
-        conteudo.classList.add('hidden');
+    painel.classList.remove('hidden');
+    loading.classList.remove('hidden');
+    conteudo.classList.add('hidden');
 
-        try {
-            const res = await fetch(`/api/expandir?termo=${encodeURIComponent(termo)}`);
-            const data = await res.json();
+    try {
+        const res  = await fetch(`/api/expandir?termo=${encodeURIComponent(termo)}`);
+        const data = await res.json();
 
-            const listaIncluir = document.getElementById('lista-incluir');
-            const listaExcluir = document.getElementById('lista-excluir');
-            listaIncluir.innerHTML = '';
-            listaExcluir.innerHTML = '';
+        const listaIncluir = document.getElementById('lista-incluir');
+        const listaExcluir = document.getElementById('lista-excluir');
+        listaIncluir.innerHTML = '';
+        listaExcluir.innerHTML = '';
 
-            if (data.termos_incluir.length === 0 && data.termos_excluir.length === 0) {
-                listaIncluir.innerHTML = '<span style="color:#6b7280; font-size:0.85rem;">Nenhuma variação encontrada.</span>';
-            }
+        if (data.termos_incluir.length === 0 && data.termos_excluir.length === 0) {
+            listaIncluir.innerHTML = '<span style="color:#6b7280; font-size:0.85rem;">Nenhuma variação encontrada.</span>';
+        }
 
-            data.termos_incluir.forEach(t => {
-                listaIncluir.innerHTML += `
+        data.termos_incluir.forEach(t => {
+            listaIncluir.innerHTML += `
                 <label style="display:flex; align-items:center; gap:5px; background:#dcfce7;
                     padding:4px 10px; border-radius:20px; cursor:pointer; font-size:0.88rem;">
                     <input type="checkbox" name="termos_incluir" value="${t}" checked/> ${t}
                 </label>`;
-            });
+        });
 
-            data.termos_excluir.forEach(t => {
-                listaExcluir.innerHTML += `
+        data.termos_excluir.forEach(t => {
+            listaExcluir.innerHTML += `
                 <label style="display:flex; align-items:center; gap:5px; background:#fee2e2;
                     padding:4px 10px; border-radius:20px; cursor:pointer; font-size:0.88rem;">
                     <input type="checkbox" name="termos_excluir" value="${t}" checked/> ${t}
                 </label>`;
-            });
+        });
 
-            loading.classList.add('hidden');
-            conteudo.classList.remove('hidden');
+        loading.classList.add('hidden');
+        conteudo.classList.remove('hidden');
 
-        } catch (e) {
-            loading.classList.add('hidden');
-            alert('Erro ao buscar variações. Tente novamente.');
-        }
+    } catch(e) {
+        loading.classList.add('hidden');
+        alert('Erro ao buscar variações. Tente novamente.');
     }
+}
 
-    function limparVariacoes() {
-        document.getElementById('painel-variacoes').classList.add('hidden');
-        document.getElementById('lista-incluir').innerHTML = '';
-        document.getElementById('lista-excluir').innerHTML = '';
-    }
+function limparVariacoes() {
+    document.getElementById('painel-variacoes').classList.add('hidden');
+    document.getElementById('lista-incluir').innerHTML = '';
+    document.getElementById('lista-excluir').innerHTML = '';
+}
 
-    function adicionarManual(tipo) {
-        const inputId = tipo === 'incluir' ? 'input-manual-incluir' : 'input-manual-excluir';
-        const listaId = tipo === 'incluir' ? 'lista-incluir' : 'lista-excluir';
-        const input = document.getElementById(inputId);
-        const termo = input.value.trim();
-        if (!termo) return;
+function adicionarManual(tipo) {
+    const inputId = tipo === 'incluir' ? 'input-manual-incluir' : 'input-manual-excluir';
+    const listaId = tipo === 'incluir' ? 'lista-incluir' : 'lista-excluir';
+    const input   = document.getElementById(inputId);
+    const termo   = input.value.trim();
+    if (!termo) return;
 
-        const lista = document.getElementById(listaId);
-        const name = tipo === 'incluir' ? 'termos_incluir' : 'termos_excluir';
-        const bg = tipo === 'incluir' ? '#dcfce7' : '#fee2e2';
-        const icone = tipo === 'incluir' ? '✅' : '❌';
+    const lista  = document.getElementById(listaId);
+    const name   = tipo === 'incluir' ? 'termos_incluir' : 'termos_excluir';
+    const bg     = tipo === 'incluir' ? '#dcfce7' : '#fee2e2';
+    const icone  = tipo === 'incluir' ? '✅' : '❌';
 
-        const existentes = [...lista.querySelectorAll('input')].map(i => i.value.toLowerCase());
-        if (existentes.includes(termo.toLowerCase())) { input.value = ''; return; }
+    const existentes = [...lista.querySelectorAll('input')].map(i => i.value.toLowerCase());
+    if (existentes.includes(termo.toLowerCase())) { input.value = ''; return; }
 
-        lista.innerHTML += `
+    lista.innerHTML += `
         <label style="display:flex; align-items:center; gap:5px; background:${bg};
             padding:4px 10px; border-radius:20px; cursor:pointer; font-size:0.88rem;">
             <input type="checkbox" name="${name}" value="${termo}" checked/>
@@ -381,90 +379,225 @@
             <span onclick="this.closest('label').remove()"
                 style="margin-left:4px; cursor:pointer; color:#6b7280; font-weight:bold;">✕</span>
         </label>`;
-        input.value = '';
-        input.focus();
-    }
+    input.value = '';
+    input.focus();
+}
 
-    // ── Busca com SSE ───────────────────────────────────
+// ── Busca com SSE ───────────────────────────────────
 
-    async function iniciarBusca() {
-        const termo = document.getElementById('termo').value.trim();
-        if (!termo) return;
+const STORAGE_KEY = 'buscador_estado';
 
-        const btn = document.getElementById('btn-buscar');
-        const loading = document.getElementById('loading');
-        const texto = document.getElementById('loading-texto');
-        const barra = document.getElementById('loading-barra');
-        const barraC = document.getElementById('loading-barra-container');
-        const log = document.getElementById('loading-log');
+// ── Busca com SSE ───────────────────────────────────
 
-        btn.disabled = true;
-        btn.textContent = '⏳ Buscando...';
-        loading.classList.remove('hidden');
-        barraC.classList.remove('hidden');
-        log.innerHTML = '';
-        texto.textContent = 'Iniciando busca...';
-        barra.style.width = '0%';
+function salvarEstado() {
+    const estado = {
+        termo:               document.getElementById('termo').value,
+        data_inicial:        document.getElementById('data_inicial').value,
+        data_final:          document.getElementById('data_final').value,
+        limite_registros:    document.getElementById('limite_registros').value,
+        incluir_sem_periodo: document.querySelector('input[name="incluir_sem_periodo"]').checked,
+        modalidades:         [...document.querySelectorAll('input[name="modalidades"]')]
+                                .filter(c => c.checked).map(c => c.value),
+        estados: [...document.querySelectorAll('.estado-bloco')].map(bloco => ({
+            uf:      bloco.querySelector('.select-uf').value,
+            cidades: [...bloco.querySelectorAll('input[name="cidades_filtro"]')]
+                        .map(i => ({ value: i.value, cidade: i.closest('div').querySelector('span') ? 
+                            i.closest('div').textContent.replace('✕','').trim() : i.value.split(':')[1] }))
+        }))
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+}
 
-        const formData = new FormData(document.getElementById('form-busca'));
+function restaurarEstado() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const estado = JSON.parse(raw);
 
-        try {
-            const res = await fetch('/buscar-stream', { method: 'POST', body: formData });
-            const reader = res.body.getReader();
-            const decoder = new TextDecoder();
-            let buffer = '';
+        if (estado.termo)
+            document.getElementById('termo').value = estado.termo;
 
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                buffer += decoder.decode(value, { stream: true });
-                const linhas = buffer.split('\n\n');
-                buffer = linhas.pop();
+        if (estado.data_inicial)
+            document.getElementById('data_inicial').value = estado.data_inicial;
 
-                for (const linha of linhas) {
-                    if (!linha.startsWith('data:')) continue;
-                    try {
-                        const dados = JSON.parse(linha.replace('data:', '').trim());
+        if (estado.data_final)
+            document.getElementById('data_final').value = estado.data_final;
 
-                        if (dados.tipo === 'progresso') {
-                            const pct = Math.round((dados.atual / dados.total) * 100);
-                            barra.style.width = pct + '%';
-                            texto.textContent = `🔍 Buscando "${dados.termo}"... (${dados.atual}/${dados.total})`;
-                        }
-                        if (dados.tipo === 'parcial') {
-                            log.innerHTML += `<div>✅ "${dados.termo}" — ${dados.encontrados} encontrados (${dados.total_ate_agora} únicos)</div>`;
-                            log.scrollTop = log.scrollHeight;
-                        }
-                        if (dados.tipo === 'concluido') {
-                            barra.style.width = '100%';
-                            texto.textContent = `✅ ${dados.total} editais encontrados! Redirecionando...`;
-                            setTimeout(() => { window.location.href = dados.redirect; }, 800);
-                        }
-                    } catch (e) { }
-                }
-            }
-        } catch (e) {
-            loading.classList.add('hidden');
-            btn.disabled = false;
-            btn.textContent = '🚀 Buscar Licitações';
-            alert('Erro na busca. Tente novamente.');
+        if (estado.limite_registros)
+            document.getElementById('limite_registros').value = estado.limite_registros;
+
+        if (estado.incluir_sem_periodo !== undefined)
+            document.querySelector('input[name="incluir_sem_periodo"]').checked = estado.incluir_sem_periodo;
+
+        // Modalidades
+        if (estado.modalidades && estado.modalidades.length > 0) {
+            document.querySelectorAll('input[name="modalidades"]').forEach(c => {
+                c.checked = estado.modalidades.includes(c.value);
+            });
         }
+
+        // Estados e cidades
+        if (estado.estados && estado.estados.length > 0) {
+            const listaEstados = document.getElementById('lista-estados');
+
+            // Atualiza o primeiro bloco
+            const primeiroBloco = listaEstados.querySelector('.estado-bloco');
+            if (primeiroBloco && estado.estados[0]) {
+                primeiroBloco.querySelector('.select-uf').value = estado.estados[0].uf;
+                primeiroBloco.dataset.uf = estado.estados[0].uf;
+                restaurarCidades(primeiroBloco, estado.estados[0].cidades, estado.estados[0].uf);
+            }
+
+            // Adiciona blocos extras
+            for (let i = 1; i < estado.estados.length; i++) {
+                const bloco = criarBlocoEstado(estado.estados[i].uf);
+                listaEstados.appendChild(bloco);
+                restaurarCidades(bloco, estado.estados[i].cidades, estado.estados[i].uf);
+            }
+        }
+
+    } catch(e) {
+        console.warn('Erro ao restaurar estado:', e);
     }
+}
 
-    // ── Estados ─────────────────────────────────────────
+function restaurarCidades(bloco, cidades, uf) {
+    if (!cidades || cidades.length === 0) return;
+    const tags = bloco.querySelector('.cidades-tags');
+    cidades.forEach(c => {
+        const nomeCidade = c.cidade || c.value.split(':')[1] || c.value;
+        const tag = document.createElement('div');
+        tag.style.cssText = `display:flex; align-items:center; gap:5px; background:#dbeafe;
+            color:#1e40af; padding:4px 10px; border-radius:20px; font-size:0.85rem;`;
+        tag.innerHTML = `
+            <input type="hidden" name="cidades_filtro" value="${uf}:${nomeCidade}"/>
+            📍 ${nomeCidade}
+            <span onclick="this.parentElement.remove(); salvarEstado()"
+                style="cursor:pointer; font-weight:bold; color:#6b7280; margin-left:2px;">✕</span>`;
+        tags.appendChild(tag);
+    });
+}
 
-    function toggleModalidades() {
-        const checks = document.querySelectorAll("input[name='modalidades']");
-        const todas = [...checks].every(c => c.checked);
-        checks.forEach(c => c.checked = !todas);
+function limparEstado() {
+    localStorage.removeItem(STORAGE_KEY);
+    document.getElementById('termo').value = '';
+    document.querySelectorAll('.cidades-tags').forEach(t => t.innerHTML = '');
+    document.querySelectorAll('input[name="modalidades"]').forEach(c => c.checked = true);
+    document.querySelector('input[name="incluir_sem_periodo"]').checked = false;
+}
+
+// Salva estado automaticamente ao mudar qualquer campo relevante
+document.addEventListener('DOMContentLoaded', () => {
+    // Carrega municípios e depois restaura estado
+    fetch('/static/data/municipios.json')
+        .then(r => r.json())
+        .then(data => {
+            MUNICIPIOS = data;
+            restaurarEstado();
+        })
+        .catch(() => {
+            console.warn('municipios.json não carregado');
+            restaurarEstado();
+        });
+
+    // Observa mudanças
+    document.getElementById('termo').addEventListener('input', salvarEstado);
+    document.getElementById('data_inicial').addEventListener('change', salvarEstado);
+    document.getElementById('data_final').addEventListener('change', salvarEstado);
+    document.getElementById('limite_registros').addEventListener('change', salvarEstado);
+    document.querySelector('input[name="incluir_sem_periodo"]').addEventListener('change', salvarEstado);
+    document.querySelectorAll('input[name="modalidades"]').forEach(c =>
+        c.addEventListener('change', salvarEstado));
+
+    // Salva antes de buscar
+    document.getElementById('btn-buscar').addEventListener('click', salvarEstado);
+
+    // Observa adição/remoção de tags de cidade via MutationObserver
+    const listaEstados = document.getElementById('lista-estados');
+    new MutationObserver(salvarEstado).observe(listaEstados, { childList: true, subtree: true });
+});
+
+
+async function iniciarBusca() {
+    const termo = document.getElementById('termo').value.trim();
+    if (!termo) return;
+
+    salvarEstado();  // Salva tudo antes de sair da página
+
+    const btn    = document.getElementById('btn-buscar');
+    const loading = document.getElementById('loading');
+    const texto  = document.getElementById('loading-texto');
+    const barra  = document.getElementById('loading-barra');
+    const barraC = document.getElementById('loading-barra-container');
+    const log    = document.getElementById('loading-log');
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Buscando...';
+    loading.classList.remove('hidden');
+    barraC.classList.remove('hidden');
+    log.innerHTML = '';
+    texto.textContent = 'Iniciando busca...';
+    barra.style.width = '0%';
+
+    const formData = new FormData(document.getElementById('form-busca'));
+
+    try {
+        const res = await fetch('/buscar-stream', { method: 'POST', body: formData });
+        const reader  = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            const linhas = buffer.split('\n\n');
+            buffer = linhas.pop();
+
+            for (const linha of linhas) {
+                if (!linha.startsWith('data:')) continue;
+                try {
+                    const dados = JSON.parse(linha.replace('data:', '').trim());
+
+                    if (dados.tipo === 'progresso') {
+                        const pct = Math.round((dados.atual / dados.total) * 100);
+                        barra.style.width = pct + '%';
+                        texto.textContent = `🔍 Buscando "${dados.termo}"... (${dados.atual}/${dados.total})`;
+                    }
+                    if (dados.tipo === 'parcial') {
+                        log.innerHTML += `<div>✅ "${dados.termo}" — ${dados.encontrados} encontrados (${dados.total_ate_agora} únicos)</div>`;
+                        log.scrollTop = log.scrollHeight;
+                    }
+                    if (dados.tipo === 'concluido') {
+                        barra.style.width = '100%';
+                        texto.textContent = `✅ ${dados.total} editais encontrados! Redirecionando...`;
+                        setTimeout(() => { window.location.href = dados.redirect; }, 800);
+                    }
+                } catch(e) {}
+            }
+        }
+    } catch(e) {
+        loading.classList.add('hidden');
+        btn.disabled = false;
+        btn.textContent = '🚀 Buscar Licitações';
+        alert('Erro na busca. Tente novamente.');
     }
+}
 
-    function criarBlocoEstado(uf) {
-        const opts = ESTADOS_LIST.map(e => `<option value="${e}" ${e === uf ? 'selected' : ''}>${e}</option>`).join('');
-        const div = document.createElement('div');
-        div.className = 'estado-bloco';
-        div.dataset.uf = uf;
-        div.innerHTML = `
+// ── Estados ─────────────────────────────────────────
+
+function toggleModalidades() {
+    const checks = document.querySelectorAll("input[name='modalidades']");
+    const todas  = [...checks].every(c => c.checked);
+    checks.forEach(c => c.checked = !todas);
+}
+
+function criarBlocoEstado(uf) {
+    const opts = ESTADOS_LIST.map(e => `<option value="${e}" ${e === uf ? 'selected' : ''}>${e}</option>`).join('');
+    const div  = document.createElement('div');
+    div.className  = 'estado-bloco';
+    div.dataset.uf = uf;
+    div.innerHTML  = `
         <div class="estado-bloco-header">
             <select class="select-uf" name="ufs" onchange="trocouUF(this)">${opts}</select>
             <button type="button" class="btn-remover-estado" onclick="removerEstado(this)">✕</button>
@@ -489,150 +622,53 @@
             <div class="cidades-tags" style="display:flex; flex-wrap:wrap; gap:6px; min-height:10px;"></div>
             <p style="font-size:0.78rem; color:#9ca3af; margin:5px 0 0;">Sem seleção = busca em todo o estado</p>
         </div>`;
-        return div;
-    }
+    return div;
+}
 
-    function adicionarEstado() {
-        document.getElementById('lista-estados').appendChild(criarBlocoEstado('SP'));
-    }
+function adicionarEstado() {
+    document.getElementById('lista-estados').appendChild(criarBlocoEstado('SP'));
+}
 
-    function removerEstado(btn) {
-        const lista = document.getElementById('lista-estados');
-        if (lista.querySelectorAll('.estado-bloco').length > 1)
-            btn.closest('.estado-bloco').remove();
-    }
+function removerEstado(btn) {
+    const lista = document.getElementById('lista-estados');
+    if (lista.querySelectorAll('.estado-bloco').length > 1)
+        btn.closest('.estado-bloco').remove();
+}
 
-    function trocouUF(select) {
-        const bloco = select.closest('.estado-bloco');
-        bloco.dataset.uf = select.value;
-        bloco.querySelector('.cidades-tags').innerHTML = '';
-        bloco.querySelector('.input-cidade-busca').value = '';
-        bloco.querySelector('.cidade-dropdown').classList.add('hidden');
-    }
+function trocouUF(select) {
+    const bloco = select.closest('.estado-bloco');
+    bloco.dataset.uf = select.value;
+    bloco.querySelector('.cidades-tags').innerHTML = '';
+    bloco.querySelector('.input-cidade-busca').value = '';
+    bloco.querySelector('.cidade-dropdown').classList.add('hidden');
+}
+
+// ── Persistência de estado ──────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    // Carrega municípios e depois restaura estado
+    fetch('/static/data/municipios.json')
+        .then(r => r.json())
+        .then(data => {
+            MUNICIPIOS = data;
+            restaurarEstado();
+        })
+        .catch(() => {
+            console.warn('municipios.json não carregado');
+            restaurarEstado();
+        });
+
+    document.getElementById('termo').addEventListener('input', salvarEstado);
+    document.getElementById('data_inicial').addEventListener('change', salvarEstado);
+    document.getElementById('data_final').addEventListener('change', salvarEstado);
+    document.getElementById('limite_registros').addEventListener('change', salvarEstado);
+    document.querySelector('input[name="incluir_sem_periodo"]').addEventListener('change', salvarEstado);
+    document.querySelectorAll('input[name="modalidades"]').forEach(c =>
+        c.addEventListener('change', salvarEstado));
+
+    document.getElementById('btn-buscar').addEventListener('click', salvarEstado);
+
+    const listaEstados = document.getElementById('lista-estados');
+    new MutationObserver(salvarEstado).observe(listaEstados, { childList: true, subtree: true });
+});
 </script>
 {% endblock %}
-
-<script>
-    // ── Persistência de estado ──────────────────────────
-    const STORAGE_KEY = 'buscador_estado';
-
-    function salvarEstado() {
-        const estado = {
-            termo: document.getElementById('termo').value,
-            data_inicial: document.getElementById('data_inicial').value,
-            data_final: document.getElementById('data_final').value,
-            limite_registros: document.getElementById('limite_registros').value,
-            incluir_sem_periodo: document.querySelector('input[name="incluir_sem_periodo"]').checked,
-            modalidades: [...document.querySelectorAll('input[name="modalidades"]')]
-                .filter(c => c.checked).map(c => c.value),
-            estados: [...document.querySelectorAll('.estado-bloco')].map(bloco => ({
-                uf: bloco.querySelector('.select-uf').value,
-                cidades: [...bloco.querySelectorAll('input[name="cidades_filtro"]')]
-                    .map(i => ({
-                        value: i.value, cidade: i.closest('div').querySelector('span') ?
-                            i.closest('div').textContent.replace('✕', '').trim() : i.value.split(':')[1]
-                    }))
-            }))
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
-    }
-
-    function restaurarEstado() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (!raw) return;
-            const estado = JSON.parse(raw);
-
-            if (estado.termo)
-                document.getElementById('termo').value = estado.termo;
-
-            if (estado.data_inicial)
-                document.getElementById('data_inicial').value = estado.data_inicial;
-
-            if (estado.data_final)
-                document.getElementById('data_final').value = estado.data_final;
-
-            if (estado.limite_registros)
-                document.getElementById('limite_registros').value = estado.limite_registros;
-
-            if (estado.incluir_sem_periodo !== undefined)
-                document.querySelector('input[name="incluir_sem_periodo"]').checked = estado.incluir_sem_periodo;
-
-            // Modalidades
-            if (estado.modalidades && estado.modalidades.length > 0) {
-                document.querySelectorAll('input[name="modalidades"]').forEach(c => {
-                    c.checked = estado.modalidades.includes(c.value);
-                });
-            }
-
-            // Estados e cidades
-            if (estado.estados && estado.estados.length > 0) {
-                const listaEstados = document.getElementById('lista-estados');
-
-                // Atualiza o primeiro bloco
-                const primeiroBloco = listaEstados.querySelector('.estado-bloco');
-                if (primeiroBloco && estado.estados[0]) {
-                    primeiroBloco.querySelector('.select-uf').value = estado.estados[0].uf;
-                    primeiroBloco.dataset.uf = estado.estados[0].uf;
-                    restaurarCidades(primeiroBloco, estado.estados[0].cidades, estado.estados[0].uf);
-                }
-
-                // Adiciona blocos extras
-                for (let i = 1; i < estado.estados.length; i++) {
-                    const bloco = criarBlocoEstado(estado.estados[i].uf);
-                    listaEstados.appendChild(bloco);
-                    restaurarCidades(bloco, estado.estados[i].cidades, estado.estados[i].uf);
-                }
-            }
-
-        } catch (e) {
-            console.warn('Erro ao restaurar estado:', e);
-        }
-    }
-
-    function restaurarCidades(bloco, cidades, uf) {
-        if (!cidades || cidades.length === 0) return;
-        const tags = bloco.querySelector('.cidades-tags');
-        cidades.forEach(c => {
-            const nomeCidade = c.cidade || c.value.split(':')[1] || c.value;
-            const tag = document.createElement('div');
-            tag.style.cssText = `display:flex; align-items:center; gap:5px; background:#dbeafe;
-            color:#1e40af; padding:4px 10px; border-radius:20px; font-size:0.85rem;`;
-            tag.innerHTML = `
-            <input type="hidden" name="cidades_filtro" value="${uf}:${nomeCidade}"/>
-            📍 ${nomeCidade}
-            <span onclick="this.parentElement.remove(); salvarEstado()"
-                style="cursor:pointer; font-weight:bold; color:#6b7280; margin-left:2px;">✕</span>`;
-            tags.appendChild(tag);
-        });
-    }
-
-    function limparEstado() {
-        localStorage.removeItem(STORAGE_KEY);
-        document.getElementById('termo').value = '';
-        document.querySelectorAll('.cidades-tags').forEach(t => t.innerHTML = '');
-        document.querySelectorAll('input[name="modalidades"]').forEach(c => c.checked = true);
-        document.querySelector('input[name="incluir_sem_periodo"]').checked = false;
-    }
-
-    // Salva estado automaticamente ao mudar qualquer campo relevante
-    document.addEventListener('DOMContentLoaded', () => {
-        restaurarEstado();
-
-        // Observa mudanças
-        document.getElementById('termo').addEventListener('input', salvarEstado);
-        document.getElementById('data_inicial').addEventListener('change', salvarEstado);
-        document.getElementById('data_final').addEventListener('change', salvarEstado);
-        document.getElementById('limite_registros').addEventListener('change', salvarEstado);
-        document.querySelector('input[name="incluir_sem_periodo"]').addEventListener('change', salvarEstado);
-        document.querySelectorAll('input[name="modalidades"]').forEach(c =>
-            c.addEventListener('change', salvarEstado));
-
-        // Salva antes de buscar
-        document.getElementById('btn-buscar').addEventListener('click', salvarEstado);
-
-        // Observa adição/remoção de tags de cidade via MutationObserver
-        const listaEstados = document.getElementById('lista-estados');
-        new MutationObserver(salvarEstado).observe(listaEstados, { childList: true, subtree: true });
-    });
-</script>
