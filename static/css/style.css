@@ -1,0 +1,543 @@
+/* =====================================================
+   RESET & BASE
+===================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* =====================================================
+   HEADER
+===================================================== */
+.header {
+    background: #1e3a8a;
+    color: #fff;
+    padding: 0 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header-logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.header-sub {
+    font-size: .85rem;
+    color: #93c5fd;
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    flex: 1;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+.hero {
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    color: #1e3a8a;
+    margin-bottom: .5rem;
+}
+
+.hero p {
+    color: #6b7280;
+    font-size: 1.05rem;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* =====================================================
+   FORMULÁRIO DE BUSCA
+===================================================== */
+.search-card { margin-bottom: 1rem; }
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.flex-3 { flex: 3; min-width: 200px; }
+.flex-1 { flex: 1; min-width: 100px; }
+
+.btn-group { justify-content: flex-end; }
+
+label {
+    font-size: .82rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+input[type="text"], select {
+    border: 1.5px solid #d1d5db;
+    border-radius: 6px;
+    padding: .5rem .75rem;
+    font-size: .95rem;
+    outline: none;
+    transition: border-color .2s;
+    background: #fff;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+.btn {
+    display: inline-block;
+    padding: .55rem 1.25rem;
+    border-radius: 6px;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background .2s, transform .1s;
+}
+
+.btn:active { transform: scale(.97); }
+
+.btn-primary {
+    background: #1e3a8a;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-primary:hover { background: #1d4ed8; }
+
+.btn-export {
+    background: #16a34a;
+    color: #fff;
+    padding: .45rem 1rem;
+    font-size: .85rem;
+    border-radius: 6px;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.btn-export:hover { background: #15803d; }
+
+.btn-link {
+    color: #1d4ed8;
+    font-weight: 600;
+    font-size: .85rem;
+    white-space: nowrap;
+}
+
+.btn-link:hover { text-decoration: underline; }
+
+/* =====================================================
+   LOADING
+===================================================== */
+.loading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    color: #1d4ed8;
+    font-weight: 500;
+}
+
+.spinner {
+    width: 22px; height: 22px;
+    border: 3px solid #bfdbfe;
+    border-top-color: #1d4ed8;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hidden { display: none !important; }
+
+/* =====================================================
+   RESUMO
+===================================================== */
+.resumo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    background: #fff;
+    border-radius: 8px;
+    padding: .85rem 1.25rem;
+    margin-bottom: .75rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.resumo-titulo { font-size: .95rem; color: #374151; }
+
+.resumo-badges { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+/* =====================================================
+   BADGES
+===================================================== */
+.badge {
+    display: inline-block;
+    padding: .25rem .65rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.badge-green  { background: #dcfce7; color: #166534; }
+.badge-red    { background: #fee2e2; color: #991b1b; }
+.badge-gray   { background: #f3f4f6; color: #374151; }
+
+/* =====================================================
+   FILTRO MUNICÍPIO
+===================================================== */
+.filtro-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: .75rem 1.25rem;
+}
+
+.filtro-card label { font-size: .88rem; white-space: nowrap; }
+
+.filtro-card select { min-width: 200px; }
+
+/* =====================================================
+   ABAS
+===================================================== */
+.tabs {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: .5rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    padding: .6rem 1.1rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: color .2s, border-color .2s;
+    border-radius: 6px 6px 0 0;
+}
+
+.tab-btn:hover { color: #1e3a8a; }
+
+.tab-btn.active {
+    color: #1e3a8a;
+    border-bottom-color: #1e3a8a;
+    background: #eff6ff;
+}
+
+.aba-content { animation: fadeIn .2s ease; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* =====================================================
+   TABELA
+===================================================== */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    background: #fff;
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .875rem;
+}
+
+.tabela thead {
+    background: #1e3a8a;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tabela th {
+    padding: .7rem .9rem;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tabela tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background .15s;
+}
+
+.tabela tbody tr:hover { background: #f0f9ff; }
+.tabela tbody tr.filtrado-out { display: none; }
+
+.tabela td {
+    padding: .6rem .9rem;
+    vertical-align: top;
+}
+
+.td-uf       { font-weight: 700; color: #1e3a8a; text-align: center; }
+.td-prazo    { font-weight: 700; white-space: nowrap; }
+.td-aberto   { color: #16a34a; }
+.td-finalizado { color: #dc2626; }
+.td-data     { white-space: nowrap; color: #4b5563; font-size: .82rem; }
+.td-objeto   { max-width: 360px; line-height: 1.4; color: #1f2937; }
+.td-processo { white-space: nowrap; color: #374151; font-size: .82rem; }
+.td-orgao    { max-width: 200px; color: #4b5563; font-size: .82rem; }
+
+/* =====================================================
+   VAZIO
+===================================================== */
+.vazio {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+
+/* =====================================================
+   DICAS
+===================================================== */
+.dicas { margin-top: 1.5rem; }
+.dicas h3 { margin-bottom: .75rem; color: #1e3a8a; }
+.dicas ul  { padding-left: 1.25rem; }
+.dicas li  { margin-bottom: .4rem; color: #374151; line-height: 1.5; }
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+    background: #1e3a8a;
+    color: #93c5fd;
+    text-align: center;
+    padding: .75rem 1rem;
+    font-size: .82rem;
+}
+
+.footer a { color: #bfdbfe; text-decoration: underline; }
+
+/* Colunas novas */
+.td-valor { white-space: nowrap; color: #166534; font-weight: 600; font-size: .82rem; }
+.td-modal { white-space: nowrap; color: #6b7280; font-size: .80rem; }
+
+/* ── Inputs de data ── */
+input[type="date"] {
+    border: 1.5px solid #d1d5db;
+    border-radius: 6px;
+    padding: .5rem .75rem;
+    font-size: .95rem;
+    outline: none;
+    background: #fff;
+    transition: border-color .2s;
+}
+input[type="date"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+/* ── Checkbox ── */
+.check-group {
+    justify-content: center;
+    padding-bottom: .1rem;
+}
+.check-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .88rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.check-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #1e3a8a;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ── Badge azul ── */
+.badge-blue { background: #dbeafe; color: #1e40af; }
+
+/* ── Filtro grupos ── */
+.filtro-grupo {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+/* ── Colunas novas ── */
+.td-valor { white-space: nowrap; color: #166534; font-weight: 600; font-size: .82rem; }
+.td-modal { white-space: nowrap; color: #6b7280; font-size: .80rem; }
+
+/* =====================================================
+   BLOCO DE ESTADOS + CIDADES
+===================================================== */
+.estados-wrapper {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: .75rem;
+    background: #f9fafb;
+}
+
+.estados-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .75rem;
+}
+
+.estados-titulo {
+    font-weight: 700;
+    font-size: .9rem;
+    color: #1e3a8a;
+}
+
+.estado-bloco {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: .75rem 1rem;
+    margin-bottom: .6rem;
+}
+
+.estado-bloco-header {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: .5rem;
+}
+
+.select-uf {
+    font-weight: 700;
+    color: #1e3a8a;
+    width: 110px;
+}
+
+.btn-remover-estado {
+    background: none;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    border-radius: 5px;
+    padding: .2rem .5rem;
+    cursor: pointer;
+    font-size: .8rem;
+    margin-left: auto;
+}
+
+.btn-remover-estado:hover { background: #fee2e2; }
+
+.cidades-container { margin-top: .25rem; }
+
+.cidades-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem .75rem;
+    margin-bottom: .25rem;
+}
+
+.cidade-check {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .85rem;
+    color: #374151;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cidade-check input[type="checkbox"] {
+    accent-color: #1e3a8a;
+    width: 14px;
+    height: 14px;
+}
+
+.cidades-hint {
+    font-size: .78rem;
+    color: #9ca3af;
+    font-style: italic;
+    margin-top: .25rem;
+}
+
+.cidades-loading { font-size: .82rem; color: #6b7280; }
+
+/* Botões extras */
+.btn-sm { padding: .35rem .8rem; font-size: .82rem; }
+.btn-outline {
+    background: #fff;
+    border: 1.5px solid #1e3a8a;
+    color: #1e3a8a;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+}
+.btn-outline:hover { background: #eff6ff; }
+
+.btn-buscar-lg { max-width: 280px; }
+
+.flex-4 { flex: 4; min-width: 200px; }
