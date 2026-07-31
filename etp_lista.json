@@ -1,0 +1,156 @@
+{
+  "etps": {
+    "etp_969dea6a": {
+      "id": "etp_969dea6a",
+      "titulo": "Compra de notebooks",
+      "criado": "2026-07-30 21:56",
+      "alterado": "2026-07-30 21:56",
+      "status": "em_andamento",
+      "cabecalho": {
+        "orgao": "",
+        "municipio": "",
+        "estado": "",
+        "processo": "",
+        "responsavel": "",
+        "cargo": "",
+        "data": "2026-07-30",
+        "modo_cabecalho": "dinamico",
+        "brasao_path": "",
+        "cabecalho_path": ""
+      },
+      "campos_fixos": {
+        "descricao_necessidade": "",
+        "previsao_pca": "",
+        "requisitos_contratacao": "",
+        "descricao_solucao": "",
+        "estimativa_valor": "",
+        "justificativa_parcelamento": "Não haverá parcelamento da solução.",
+        "resultados_pretendidos": "",
+        "providencias_previas": "",
+        "contratacoes_correlatas": "Não há contratações que impactam significativamente a presente contratação.",
+        "impactos_ambientais": "Não há impactos ambientais significativos na presente contratação.",
+        "posicionamento_conclusivo": "Diante do exposto, declaramos a viabilidade da contratação."
+      },
+      "itens": [],
+      "levantamento": [
+        {
+          "termo": "notebook",
+          "referencias": [
+            {
+              "orgao": "INSTITUTO DE DESENVOLVIMENTO RURAL DO PARANA - IAPAR-EMATER",
+              "municipio": "Abatiá",
+              "uf": "PR",
+              "data_publicacao": "23/07/2026 15:10",
+              "objeto": "7003.64801-Notebook, MEMÓRIA RAM: Mínimo 4GB, CARACTERÍSTICAS ADICIONAIS: Demais informações de acordo com Termo de Referência e/ou Descritivo Técnico do Processo, UNID. DE MEDIDA: Unitário",
+              "modalidade": "Dispensa",
+              "link": "https://pncp.gov.br/app/editais/75234757000149/2026/1195",
+              "numero_controle": "75234757000149-1-001195/2026",
+              "item_id": "1",
+              "descricao_item": "7003.64801-Notebook, MEMÓRIA RAM: Mínimo 4GB, CARACTERÍSTICAS ADICIONAIS: Demais informações de acordo com Termo de Referência e/ou Descritivo Técnico do Processo, UNID. DE MEDIDA: Unitário",
+              "quantidade": 1.0,
+              "unidade": "Unitário",
+              "valor_unitario": "R$ 18.999,00",
+              "valor": "R$ 18.999,00"
+            }
+          ],
+          "buscado_em": "2026-07-30 21:56"
+        }
+      ],
+      "campos_livres": []
+    },
+    "etp_66985ac8": {
+      "id": "etp_66985ac8",
+      "titulo": "Compra de notebooks",
+      "criado": "2026-07-30 21:56",
+      "alterado": "2026-07-30 21:56",
+      "status": "em_andamento",
+      "cabecalho": {
+        "orgao": "",
+        "municipio": "",
+        "estado": "",
+        "processo": "",
+        "responsavel": "",
+        "cargo": "",
+        "data": "2026-07-30",
+        "modo_cabecalho": "dinamico",
+        "brasao_path": "",
+        "cabecalho_path": ""
+      },
+      "campos_fixos": {
+        "descricao_necessidade": "",
+        "previsao_pca": "",
+        "requisitos_contratacao": "",
+        "descricao_solucao": "",
+        "estimativa_valor": "",
+        "justificativa_parcelamento": "Não haverá parcelamento da solução.",
+        "resultados_pretendidos": "",
+        "providencias_previas": "",
+        "contratacoes_correlatas": "Não há contratações que impactam significativamente a presente contratação.",
+        "impactos_ambientais": "Não há impactos ambientais significativos na presente contratação.",
+        "posicionamento_conclusivo": "Diante do exposto, declaramos a viabilidade da contratação."
+      },
+      "itens": [],
+      "levantamento": [
+        {
+          "termo": "notebook",
+          "referencias": [
+            {
+              "orgao": "MUNICIPIO DE CASCAVEL",
+              "municipio": "Cascavel",
+              "uf": "PR",
+              "data_publicacao": "02/07/2026 10:03",
+              "objeto": "NOTEBOOK CONFORME TERMO DE REFERÊNCIA",
+              "modalidade": "Inexigibilidade",
+              "link": "https://pncp.gov.br/app/editais/76208867000107/2026/305",
+              "numero_controle": "76208867000107-1-000305/2026",
+              "item_id": "1",
+              "descricao_item": "NOTEBOOK CONFORME TERMO DE REFERÊNCIA",
+              "quantidade": 5.0,
+              "unidade": "UNIDADE (UND)",
+              "valor_unitario": "R$ 2.569,00",
+              "valor": "R$ 12.845,00"
+            }
+          ],
+          "buscado_em": "2026-07-30 21:56"
+        }
+      ],
+      "campos_livres": []
+    },
+    "etp_94b3a8a9": {
+      "id": "etp_94b3a8a9",
+      "titulo": "Novo ETP",
+      "criado": "2026-07-30 22:09",
+      "alterado": "2026-07-30 22:09",
+      "status": "em_andamento",
+      "cabecalho": {
+        "orgao": "",
+        "municipio": "",
+        "estado": "",
+        "processo": "",
+        "responsavel": "",
+        "cargo": "",
+        "data": "2026-07-30",
+        "modo_cabecalho": "dinamico",
+        "brasao_path": "",
+        "cabecalho_path": ""
+      },
+      "campos_fixos": {
+        "descricao_necessidade": "",
+        "previsao_pca": "",
+        "requisitos_contratacao": "",
+        "descricao_solucao": "",
+        "estimativa_valor": "",
+        "justificativa_parcelamento": "Não haverá parcelamento da solução.",
+        "resultados_pretendidos": "",
+        "providencias_previas": "",
+        "contratacoes_correlatas": "Não há contratações que impactam significativamente a presente contratação.",
+        "impactos_ambientais": "Não há impactos ambientais significativos na presente contratação.",
+        "posicionamento_conclusivo": "Diante do exposto, declaramos a viabilidade da contratação."
+      },
+      "itens": [],
+      "levantamento": [],
+      "campos_livres": [],
+      "etapas_puladas": []
+    }
+  }
+}

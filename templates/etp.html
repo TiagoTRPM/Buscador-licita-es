@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}ETPs — Estudos Técnicos Preliminares{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>📋 Estudos Técnicos Preliminares</h1>
+    <p>Crie e gerencie ETPs com levantamento de preços integrado ao PNCP.</p>
+</section>
+
+<!-- Novo ETP -->
+<div class="card" style="margin-bottom:16px;">
+    <form method="post" action="/etp/novo" style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
+        <div class="form-group" style="flex:1; min-width:200px;">
+            <label>Nome do ETP</label>
+            <input type="text" name="titulo" placeholder="Ex: Aquisição de Materiais de Informática 2026"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:0.95rem;"/>
+        </div>
+        <button type="submit" class="btn btn-primary">+ Novo ETP</button>
+    </form>
+</div>
+
+<!-- Lista de ETPs -->
+{% if etps %}
+<div class="card">
+    <h3 style="margin-bottom:12px;">ETPs Salvos</h3>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+        {% for etp in etps %}
+        <div style="display:flex; align-items:center; justify-content:space-between;
+            border:1px solid #e5e7eb; border-radius:8px; padding:12px 16px;
+            background:{% if etp.status == 'concluido' %}#f0fdf4{% else %}#fff{% endif %};">
+            <div>
+                <div style="font-weight:600; font-size:1rem;">{{ etp.titulo }}</div>
+                <div style="font-size:0.8rem; color:#6b7280; margin-top:3px;">
+                    Criado: {{ etp.criado }} | Alterado: {{ etp.alterado }}
+                    {% if etp.cabecalho.orgao %} | {{ etp.cabecalho.orgao }}{% endif %}
+                </div>
+                <div style="margin-top:5px; display:flex; gap:8px; flex-wrap:wrap;">
+                    <span style="font-size:0.78rem; background:#dbeafe; color:#1e40af; padding:2px 8px; border-radius:10px;">
+                        📦 {{ etp.itens|length }} itens
+                    </span>
+                    <span style="font-size:0.78rem; background:#dcfce7; color:#16a34a; padding:2px 8px; border-radius:10px;">
+                        🔍 {{ etp.levantamento|length }} termos pesquisados
+                    </span>
+                    <span style="font-size:0.78rem; background:{% if etp.status == 'concluido' %}#dcfce7; color:#16a34a{% else %}#fef3c7; color:#92400e{% endif %}; padding:2px 8px; border-radius:10px;">
+                        {% if etp.status == 'concluido' %}✅ Concluído{% else %}⏳ Em andamento{% endif %}
+                    </span>
+                </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+                <a href="/etp/{{ etp.id }}" class="btn btn-outline" style="font-size:0.88rem;">✏️ Editar</a>
+                <a href="/etp/{{ etp.id }}/exportar" class="btn btn-outline"
+                    style="font-size:0.88rem; background:#f0fdf4; border-color:#86efac; color:#16a34a;">
+                    📄 Word
+                </a>
+                <button onclick="deletarEtp('{{ etp.id }}', '{{ etp.titulo }}')"
+                    class="btn btn-outline"
+                    style="font-size:0.88rem; background:#fff1f2; border-color:#fca5a5; color:#dc2626;">
+                    🗑️
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="card" style="text-align:center; color:#6b7280; padding:40px;">
+    <div style="font-size:3rem; margin-bottom:10px;">📋</div>
+    <p>Nenhum ETP criado ainda.</p>
+    <p style="font-size:0.9rem;">Crie seu primeiro ETP usando o formulário acima.</p>
+</div>
+{% endif %}
+
+<script>
+async function deletarEtp(id, titulo) {
+    if (!confirm(`Excluir o ETP "${titulo}"? Esta ação não pode ser desfeita.`)) return;
+    const res = await fetch(`/etp/${id}`, { method: 'DELETE' });
+    if (res.ok) window.location.reload();
+    else alert('Erro ao excluir.');
+}
+</script>
+{% endblock %}

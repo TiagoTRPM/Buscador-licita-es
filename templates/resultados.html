@@ -120,7 +120,7 @@ window.addEventListener('load', async () => {
     <table class="tabela">
         <thead><tr>
             {% for col in colunas %}<th>{{ col }}</th>{% endfor %}
-            <th>Edital</th>
+            <th>Edital</th><th>ETP</th>
         </tr></thead>
         <tbody>
         {% for l in lista %}
@@ -135,11 +135,11 @@ window.addEventListener('load', async () => {
             <td class="td-objeto" title="{{ l.objeto }}">{{ l.objeto[:120] }}{% if l.objeto|length > 120 %}…{% endif %}</td>
             <td class="td-valor">
                 {% if l._numeroControlePNCP %}
-                <button onclick="buscarValor(this, '{{ l._numeroControlePNCP }}')"
+                <button onclick="abrirItens('{{ l._numeroControlePNCP }}')"
                     style="background:#f0f4ff; border:1px solid #c7d2fe; color:#4f46e5;
                            padding:3px 8px; border-radius:4px; cursor:pointer; font-size:0.8rem;
                            white-space:nowrap;">
-                    💰 Ver valor
+                    💰 Itens e valores
                 </button>
                 {% else %}
                 <span style="color:#9ca3af; font-size:0.8rem;">—</span>
@@ -148,6 +148,13 @@ window.addEventListener('load', async () => {
             <td class="td-modal">{{ l.modalidade }}</td>
             <td class="td-orgao" title="{{ l.orgao }}">{{ l.orgao[:45] }}{% if l.orgao|length > 45 %}…{% endif %}</td>
             <td><a href="{{ l.link }}" target="_blank" class="btn-link">🔗 Ver</a></td>
+            <td>
+                {% if l._numeroControlePNCP %}
+                <button type="button" class="btn-adicionar-etp"
+                    data-numero="{{ l._numeroControlePNCP }}" data-objeto="{{ l.objeto }}"
+                    onclick="abrirAdicionarETP(this)">+ ETP</button>
+                {% else %}<span style="color:#9ca3af;">—</span>{% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
@@ -157,6 +164,134 @@ window.addEventListener('load', async () => {
 <div class="vazio">Nenhum resultado encontrado para este filtro.</div>
 {% endif %}
 {% endmacro %}
+
+<style>
+.btn-adicionar-etp { background:#ecfdf5; border:1px solid #86efac; color:#166534; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:.8rem; white-space:nowrap; }
+.btn-adicionar-etp:hover { background:#dcfce7; }
+.etp-modal-fundo { position:fixed; inset:0; background:rgba(17,24,39,.45); display:flex; align-items:center; justify-content:center; z-index:1000; padding:16px; }
+.etp-modal { width:min(440px, 100%); background:#fff; border-radius:10px; padding:20px; box-shadow:0 20px 40px rgba(0,0,0,.25); }
+</style>
+
+<div id="modal-adicionar-etp" class="etp-modal-fundo hidden" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-etp">
+  <div class="etp-modal">
+    <div style="display:flex; justify-content:space-between; gap:12px; align-items:start;"><h3 id="titulo-modal-etp" style="margin:0;">Adicionar referência ao ETP</h3><button type="button" onclick="fecharAdicionarETP()" aria-label="Fechar" style="border:0; background:none; cursor:pointer; font-size:1.3rem;">×</button></div>
+    <p id="modal-etp-objeto" style="font-size:.88rem; color:#4b5563; margin:10px 0 16px;"></p>
+    {% if true %}
+    <label for="modal-etp-select" style="font-size:.88rem; font-weight:600;">ETP de destino</label>
+    <select id="modal-etp-select" onchange="alternarNovoETP()" style="width:100%; margin:4px 0 12px; padding:8px; border:1px solid #d1d5db; border-radius:6px;"><option value="__novo__">+ Criar novo ETP</option>{% for etp in etps %}<option value="{{ etp.id }}">{{ etp.titulo }}</option>{% endfor %}</select>
+    <div id="campo-novo-etp" style="margin:-4px 0 12px;"><label for="modal-etp-novo-titulo" style="font-size:.88rem; font-weight:600;">Título do novo ETP</label><input id="modal-etp-novo-titulo" placeholder="Ex: Aquisição de notebooks" style="width:100%; box-sizing:border-box; margin-top:4px; padding:8px; border:1px solid #d1d5db; border-radius:6px;" /></div>
+    <label for="modal-etp-termo" style="font-size:.88rem; font-weight:600;">Grupo do levantamento</label>
+    <input id="modal-etp-termo" value="{{ termo }}" style="width:100%; box-sizing:border-box; margin:4px 0 16px; padding:8px; border:1px solid #d1d5db; border-radius:6px;" />
+    <div style="display:flex; justify-content:flex-end; gap:8px;"><button type="button" class="btn btn-outline" onclick="fecharAdicionarETP()">Cancelar</button><button id="btn-confirmar-etp" type="button" class="btn btn-primary" onclick="confirmarAdicionarETP()">Adicionar</button></div>
+    {% else %}<p style="color:#6b7280;">Crie um ETP antes de adicionar referências.</p><a class="btn btn-primary" href="/etp">Ir para ETPs</a>{% endif %}
+  </div>
+</div>
+
+<div id="modal-itens" class="etp-modal-fundo hidden" role="dialog" aria-modal="true">
+  <div class="etp-modal" style="width:min(850px, 100%); max-height:80vh; overflow:auto;">
+    <div style="display:flex; justify-content:space-between; gap:12px; align-items:start;"><h3 style="margin:0;">Itens e valores do edital</h3><button type="button" onclick="fecharItens()" aria-label="Fechar" style="border:0; background:none; cursor:pointer; font-size:1.3rem;">×</button></div>
+    <p id="itens-status" style="color:#6b7280;"></p>
+    <div id="itens-conteudo"></div>
+  </div>
+</div>
+
+<script>
+let referenciaSelecionadaETP = null;
+let itemSelecionadoETP = null;
+
+function abrirAdicionarETP(botao) {
+    referenciaSelecionadaETP = botao.dataset.numero;
+    itemSelecionadoETP = null;
+    document.getElementById('modal-etp-objeto').textContent = botao.dataset.objeto;
+    document.getElementById('modal-adicionar-etp').classList.remove('hidden');
+}
+
+function fecharItens() { document.getElementById('modal-itens').classList.add('hidden'); }
+
+async function abrirItens(numeroControle) {
+    const modal = document.getElementById('modal-itens');
+    const status = document.getElementById('itens-status');
+    const conteudo = document.getElementById('itens-conteudo');
+    modal.classList.remove('hidden');
+    status.textContent = 'Consultando os itens no PNCP...';
+    conteudo.innerHTML = '';
+    try {
+        const res = await fetch(`/api/itens/${encodeURIComponent(numeroControle)}`);
+        const data = await res.json();
+        if (data.erro) throw new Error(data.erro);
+        status.textContent = data.itens.length ? 'Selecione o item que deseja usar como referência no ETP.' : 'O PNCP não retornou itens para este edital.';
+        const tabela = document.createElement('table');
+        tabela.className = 'tabela';
+        tabela.innerHTML = '<thead><tr><th>Descrição</th><th>Qtd.</th><th>Valor unit.</th><th>Valor total</th><th></th></tr></thead>';
+        const corpo = document.createElement('tbody');
+        data.itens.forEach(item => {
+            const linha = document.createElement('tr');
+            linha.innerHTML = `<td>${escaparHtml(item.descricao)}</td><td>${escaparHtml(item.quantidade)} ${escaparHtml(item.unidade)}</td><td>${escaparHtml(item.valor_unitario || '—')}</td><td>${escaparHtml(item.valor_total || '—')}</td><td><button class="btn-adicionar-etp" type="button">+ ETP</button></td>`;
+            linha.querySelector('button').onclick = () => abrirAdicionarItemETP(numeroControle, item);
+            corpo.appendChild(linha);
+        });
+        tabela.appendChild(corpo);
+        conteudo.appendChild(tabela);
+    } catch (erro) { status.textContent = erro.message || 'Erro ao buscar os itens.'; }
+}
+
+function escaparHtml(valor) {
+    const el = document.createElement('span'); el.textContent = valor ?? ''; return el.innerHTML;
+}
+
+function abrirAdicionarItemETP(numeroControle, item) {
+    referenciaSelecionadaETP = numeroControle;
+    itemSelecionadoETP = item.id;
+    document.getElementById('modal-etp-objeto').textContent = item.descricao;
+    fecharItens();
+    document.getElementById('modal-adicionar-etp').classList.remove('hidden');
+}
+
+function fecharAdicionarETP() {
+    document.getElementById('modal-adicionar-etp').classList.add('hidden');
+    referenciaSelecionadaETP = null;
+}
+
+function alternarNovoETP() {
+    const criarNovo = document.getElementById('modal-etp-select').value === '__novo__';
+    document.getElementById('campo-novo-etp').classList.toggle('hidden', !criarNovo);
+}
+
+async function confirmarAdicionarETP() {
+    if (!referenciaSelecionadaETP) return;
+    let etpId = document.getElementById('modal-etp-select').value;
+    const termo = document.getElementById('modal-etp-termo').value.trim();
+    const botao = document.getElementById('btn-confirmar-etp');
+    botao.disabled = true;
+    botao.textContent = 'Adicionando...';
+    try {
+        if (etpId === '__novo__') {
+            const titulo = document.getElementById('modal-etp-novo-titulo').value.trim();
+            if (!titulo) throw new Error('Informe o título do novo ETP.');
+            const novoRes = await fetch('/api/etp/novo', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo }),
+            });
+            const novo = await novoRes.json();
+            if (!novo.ok) throw new Error(novo.erro || 'Não foi possível criar o ETP.');
+            etpId = novo.id;
+        }
+        const res = await fetch(`/api/etp/${encodeURIComponent(etpId)}/referencias/adicionar`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ numero_controle: referenciaSelecionadaETP, item_id: itemSelecionadoETP, termo }),
+        });
+        const data = await res.json();
+        if (!data.ok) throw new Error(data.erro || 'Não foi possível adicionar a referência.');
+        fecharAdicionarETP();
+        alert(data.adicionada ? 'Referência adicionada ao ETP.' : 'Esta referência já existe nesse grupo do ETP.');
+    } catch (erro) {
+        alert(erro.message || 'Erro ao adicionar referência ao ETP.');
+    } finally {
+        botao.disabled = false;
+        botao.textContent = 'Adicionar';
+    }
+}
+</script>
 
 <div class="card search-card">
     <form id="form-busca">

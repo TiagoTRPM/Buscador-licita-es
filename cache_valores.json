@@ -1,0 +1,134 @@
+{
+  "76247337000160-1-000046/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "Abracadeira para Cabos em Velcro Dupla Face Abracadeira para cabos, nova, de primeiro uso, destinada a fixacao, organizacao e acomodacao de fios e cabos de computadores",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 25,52",
+        "valor_total": "R$ 510,40"
+      },
+      {
+        "id": "2",
+        "descricao": "Access Point Dual Band Profissional",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 511,47",
+        "valor_total": "R$ 10.229,40"
+      },
+      {
+        "id": "3",
+        "descricao": "Adaptador Bluetooth USB para PC",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 46,80",
+        "valor_total": "R$ 936,00"
+      },
+      {
+        "id": "4",
+        "descricao": "Adaptador PCI Express",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 151,86",
+        "valor_total": "R$ 3.037,20"
+      },
+      {
+        "id": "5",
+        "descricao": "Adaptador USB Wireless 300?Mbps",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 100,67",
+        "valor_total": "R$ 2.013,40"
+      },
+      {
+        "id": "6",
+        "descricao": "Bateria Selada 12V / 7Ah para Nobreak",
+        "quantidade": 10.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 121,80",
+        "valor_total": "R$ 1.218,00"
+      },
+      {
+        "id": "7",
+        "descricao": "Cabo de Dados SATA",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 16,00",
+        "valor_total": "R$ 320,00"
+      },
+      {
+        "id": "8",
+        "descricao": "Cabo de Forca 3 Pinos Padrao ABNT para CPU",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 19,29",
+        "valor_total": "R$ 385,80"
+      },
+      {
+        "id": "9",
+        "descricao": "Cabo de Rede Cat5e",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 1.207,90",
+        "valor_total": "R$ 24.158,00"
+      },
+      {
+        "id": "10",
+        "descricao": "Cabo HDMI 2.0",
+        "quantidade": 20.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 19,05",
+        "valor_total": "R$ 381,00"
+      }
+    ],
+    "data_cache": "2026-07-30 21:48"
+  },
+  "28299858000118-1-000013/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "Notebook Dell Inspiron I15-i1300-u30p 15.6\" Full Hd 13ª Gen Intel Core I5 8gb 512gb SSD Linux Preto Carbono",
+        "quantidade": 4.0,
+        "unidade": "Unidade",
+        "valor_unitario": "R$ 3.812,91",
+        "valor_total": "R$ 15.251,64"
+      },
+      {
+        "id": "2",
+        "descricao": "Item sem descrição",
+        "quantidade": 4.0,
+        "unidade": "Unidade",
+        "valor_unitario": "R$ 532,56",
+        "valor_total": "R$ 2.130,24"
+      }
+    ],
+    "data_cache": "2026-07-30 21:49"
+  },
+  "75234757000149-1-001195/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "7003.64801-Notebook, MEMÓRIA RAM: Mínimo 4GB, CARACTERÍSTICAS ADICIONAIS: Demais informações de acordo com Termo de Referência e/ou Descritivo Técnico do Processo, UNID. DE MEDIDA: Unitário",
+        "quantidade": 1.0,
+        "unidade": "Unitário",
+        "valor_unitario": "R$ 18.999,00",
+        "valor_total": "R$ 18.999,00"
+      }
+    ],
+    "data_cache": "2026-07-30 21:54"
+  },
+  "76208867000107-1-000305/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "NOTEBOOK CONFORME TERMO DE REFERÊNCIA",
+        "quantidade": 5.0,
+        "unidade": "UNIDADE (UND)",
+        "valor_unitario": "R$ 2.569,00",
+        "valor_total": "R$ 12.845,00"
+      }
+    ],
+    "data_cache": "2026-07-30 21:56"
+  }
+}

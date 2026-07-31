@@ -16,6 +16,8 @@ from pncp_extrator import extrair_licitacoes
 from expansor import expandir_termo
 import cache as cache_module
 import atualizador
+import etp_manager
+from etp_gerador import gerar_word
 
 # =====================================================
 # INICIALIZAÇÃO
@@ -128,6 +130,321 @@ async def api_valor_cache(numero_controle: str):
         return {"valor": None, "erro": f"API retornou {resp.status_code}"}
     except Exception as e:
         return {"valor": None, "erro": str(e)}
+
+
+def _formatar_brl(valor):
+    if valor in (None, "", 0):
+        return None
+    try:
+        return f"R$ {float(valor):,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    except (TypeError, ValueError):
+        return None
+
+
+@app.get("/api/itens/{numero_controle:path}")
+async def api_itens_contratacao(numero_controle: str):
+    """Consulta e guarda os itens, incluindo valores unitários, da contratação no PNCP."""
+    cached = cache_module.get(numero_controle) or {}
+    if cached.get("itens"):
+        return {"itens": cached["itens"], "fonte": "cache"}
+    try:
+        partes = numero_controle.split("/")
+        ano = partes[1].strip()
+        segmentos = partes[0].split("-")
+        cnpj, seq = segmentos[0].strip(), str(int(segmentos[2].strip()))
+    except Exception:
+        return {"itens": [], "erro": "Número de controle inválido"}
+
+    import requests as req
+    url = f"https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{seq}/itens"
+    try:
+        resposta = req.get(url, headers={"Accept": "application/json", "User-Agent": "Mozilla/5.0", "Referer": "https://pncp.gov.br/app/editais"}, timeout=15)
+        if resposta.status_code != 200:
+            return {"itens": [], "erro": f"API retornou {resposta.status_code}"}
+        bruto = resposta.json()
+        if isinstance(bruto, list):
+            lista = bruto
+        elif isinstance(bruto, dict):
+            lista = bruto.get("data") or bruto.get("items") or []
+        else:
+            lista = []
+        itens = []
+        for indice, item in enumerate(lista, 1):
+            unitario = item.get("valorUnitarioEstimado") or item.get("valorUnitarioHomologado") or item.get("valorUnitario")
+            total = item.get("valorTotal") or item.get("valorTotalEstimado") or item.get("valorTotalHomologado")
+            itens.append({
+                "id": str(item.get("numeroItem") or item.get("sequencialItem") or indice),
+                "descricao": item.get("descricao") or item.get("descricaoItem") or "Item sem descrição",
+                "quantidade": item.get("quantidade") or item.get("quantidadeItem") or "",
+                "unidade": item.get("unidadeMedida") or item.get("unidade") or "",
+                "valor_unitario": _formatar_brl(unitario),
+                "valor_total": _formatar_brl(total),
+            })
+        cache_module.set(numero_controle, {"itens": itens})
+        return {"itens": itens, "fonte": "api"}
+    except Exception as e:
+        return {"itens": [], "erro": str(e)}
+
+
+
+# =====================================================
+# ROTAS: ETP
+# =====================================================
+
+@app.get("/etp", response_class=HTMLResponse)
+async def etp_lista(request: Request):
+    etps = etp_manager.listar_etps()
+    return templates.TemplateResponse(
+        request=request,
+        name="etp.html",
+        context={"etps": etps},
+    )
+
+
+@app.post("/etp/novo")
+async def etp_novo(request: Request):
+    form = await request.form()
+    titulo = form.get("titulo", "Novo ETP").strip() or "Novo ETP"
+    etp = etp_manager.novo_etp(titulo)
+    return RedirectResponse(f"/etp/{etp['id']}", status_code=303)
+
+
+@app.post("/api/etp/novo")
+async def api_etp_novo(request: Request):
+    dados = await request.json()
+    titulo = (dados.get("titulo") or "Novo ETP").strip() or "Novo ETP"
+    etp = etp_manager.novo_etp(titulo)
+    return {"ok": True, "id": etp["id"], "titulo": etp["titulo"]}
+
+
+@app.get("/etp/{etp_id}", response_class=HTMLResponse)
+async def etp_form(request: Request, etp_id: str):
+    etp = etp_manager.get_etp(etp_id)
+    if not etp:
+        return RedirectResponse("/etp", status_code=303)
+    return templates.TemplateResponse(
+        request=request,
+        name="etp_form.html",
+        context={"etp": etp},
+    )
+
+
+@app.post("/etp/{etp_id}/salvar")
+async def etp_salvar(request: Request, etp_id: str):
+    form = await request.form()
+
+    cabecalho = {
+        "orgao":       form.get("orgao", ""),
+        "municipio":   form.get("municipio", ""),
+        "estado":      form.get("estado", ""),
+        "processo":    form.get("processo", ""),
+        "responsavel": form.get("responsavel", ""),
+        "cargo":       form.get("cargo", ""),
+        "data":        form.get("data", ""),
+        "modo_cabecalho": form.get("modo_cabecalho", "dinamico"),
+        "brasao_path": form.get("brasao_path", ""),
+    }
+
+    campos_fixos = {
+        "descricao_necessidade":      form.get("descricao_necessidade", ""),
+        "previsao_pca":               form.get("previsao_pca", ""),
+        "requisitos_contratacao":     form.get("requisitos_contratacao", ""),
+        "descricao_solucao":          form.get("descricao_solucao", ""),
+        "estimativa_valor":           form.get("estimativa_valor", ""),
+        "justificativa_parcelamento": form.get("justificativa_parcelamento", ""),
+        "resultados_pretendidos":     form.get("resultados_pretendidos", ""),
+        "providencias_previas":       form.get("providencias_previas", ""),
+        "contratacoes_correlatas":    form.get("contratacoes_correlatas", ""),
+        "impactos_ambientais":        form.get("impactos_ambientais", ""),
+        "posicionamento_conclusivo":  form.get("posicionamento_conclusivo", ""),
+    }
+
+    etapas_puladas = [e for e in form.get("etapas_puladas", "").split(",") if e]
+
+    titulo = form.get("titulo", "")
+
+    etp_manager.salvar_etp(etp_id, {
+        "titulo":       titulo,
+        "cabecalho":    cabecalho,
+        "campos_fixos": campos_fixos,
+        "etapas_puladas": etapas_puladas,
+    })
+
+    return RedirectResponse(f"/etp/{etp_id}", status_code=303)
+
+
+@app.post("/etp/{etp_id}/item/add")
+async def etp_item_add(request: Request, etp_id: str):
+    form = await request.form()
+    item = {
+        "nome":        form.get("nome", ""),
+        "descricao":   form.get("descricao", ""),
+        "quantidade":  form.get("quantidade", ""),
+        "unidade":     form.get("unidade", "un"),
+    }
+    etp_manager.adicionar_item(etp_id, item)
+    return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
+
+
+@app.post("/etp/{etp_id}/item/{item_id}/remover")
+async def etp_item_remover(etp_id: str, item_id: str):
+    etp_manager.remover_item(etp_id, item_id)
+    return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
+
+
+@app.post("/etp/{etp_id}/campo-livre/add")
+async def etp_campo_livre_add(request: Request, etp_id: str):
+    form = await request.form()
+    etp_manager.adicionar_campo_livre(
+        etp_id,
+        nome=form.get("nome", ""),
+        conteudo=form.get("conteudo", ""),
+    )
+    return RedirectResponse(f"/etp/{etp_id}#campos-livres", status_code=303)
+
+
+@app.get("/etp/{etp_id}/exportar")
+async def etp_exportar(request: Request, etp_id: str):
+    etp = etp_manager.get_etp(etp_id)
+    if not etp:
+        return RedirectResponse("/etp", status_code=303)
+
+    obrigatorios = {
+        "descricao_necessidade": "Descrição da necessidade",
+        "estimativa_valor": "Estimativa do valor",
+        "descricao_solucao": "Descrição da solução",
+        "justificativa_parcelamento": "Justificativa do parcelamento",
+        "resultados_pretendidos": "Resultados pretendidos",
+        "providencias_previas": "Providências prévias",
+        "contratacoes_correlatas": "Contratações correlatas",
+        "impactos_ambientais": "Impactos ambientais",
+        "posicionamento_conclusivo": "Posicionamento conclusivo sobre a viabilidade",
+    }
+    faltantes = [nome for campo, nome in obrigatorios.items() if not etp.get("campos_fixos", {}).get(campo, "").strip()]
+    if not etp.get("itens"):
+        faltantes.append("Estimativa de quantidades (inclua ao menos um item)")
+    if not etp.get("levantamento"):
+        faltantes.append("Levantamento de mercado (inclua ao menos uma pesquisa ou referência)")
+    if faltantes:
+        return templates.TemplateResponse(
+            request=request, name="etp_form.html",
+            context={"etp": etp, "erros_exportacao": faltantes}, status_code=422,
+        )
+
+    try:
+        docx_bytes = await run_in_threadpool(gerar_word, etp)
+        titulo = etp.get("titulo", "etp").replace(" ", "_")
+        return StreamingResponse(
+            io.BytesIO(docx_bytes),
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={"Content-Disposition": f"attachment; filename=ETP_{titulo}.docx"},
+        )
+    except ImportError as e:
+        return HTMLResponse(f"Erro: {e}", status_code=500)
+
+
+@app.delete("/etp/{etp_id}")
+async def etp_deletar(etp_id: str):
+    etp_manager.deletar_etp(etp_id)
+    return {"ok": True}
+
+
+@app.post("/etp/{etp_id}/levantamento")
+async def etp_salvar_levantamento(request: Request, etp_id: str):
+    dados = await request.json()
+    termo = dados.get("termo", "")
+    referencias = dados.get("referencias", [])
+    etp_manager.salvar_levantamento(etp_id, termo, referencias)
+    return {"ok": True}
+
+
+@app.post("/api/etp/{etp_id}/referencias/adicionar")
+async def etp_adicionar_referencia(etp_id: str, request: Request):
+    """Adiciona ao ETP uma licitação presente na consulta atual."""
+    if not etp_manager.get_etp(etp_id):
+        return {"ok": False, "erro": "ETP não encontrado"}
+
+    dados = await request.json()
+    numero_controle = dados.get("numero_controle", "")
+    termo = dados.get("termo", "")
+    item_id = str(dados.get("item_id", ""))
+    if not _ultima_busca or not numero_controle:
+        return {"ok": False, "erro": "Resultado da consulta não encontrado"}
+
+    licitacao = next(
+        (l for l in _ultima_busca.get("licitacoes", [])
+         if l.get("_numeroControlePNCP") == numero_controle),
+        None,
+    )
+    if not licitacao:
+        return {"ok": False, "erro": "Esta licitação não está mais na consulta atual"}
+
+    cached = cache_module.get(numero_controle)
+    item = next((i for i in (cached or {}).get("itens", []) if str(i.get("id")) == item_id), None)
+    referencia = {
+        "orgao": licitacao.get("orgao", ""),
+        "municipio": licitacao.get("municipio", ""),
+        "uf": licitacao.get("uf", ""),
+        "data_publicacao": licitacao.get("publicacao", ""),
+        "objeto": item.get("descricao") if item else licitacao.get("objeto", ""),
+        "modalidade": licitacao.get("modalidade", ""),
+        "link": licitacao.get("link", ""),
+        "numero_controle": numero_controle,
+        "item_id": item_id or None,
+        "descricao_item": item.get("descricao", "") if item else "",
+        "quantidade": item.get("quantidade", "") if item else "",
+        "unidade": item.get("unidade", "") if item else "",
+        "valor_unitario": item.get("valor_unitario") if item else None,
+        "valor": item.get("valor_total") if item else (cached.get("valor") if cached else licitacao.get("valor", "")),
+    }
+    _, adicionada = etp_manager.adicionar_referencia(etp_id, termo, referencia)
+    return {"ok": True, "adicionada": adicionada}
+
+
+
+# =====================================================
+# ROTA: API — referências de preço para ETP
+# =====================================================
+
+@app.get("/api/etp/referencias")
+async def api_etp_referencias(termo: str = ""):
+    """
+    Retorna os resultados da última busca formatados para o levantamento de mercado do ETP.
+    Extrai valor unitário dos itens quando disponível no cache.
+    """
+    if not _ultima_busca:
+        return {"referencias": []}
+
+    licitacoes = _ultima_busca.get("licitacoes", [])
+    termo_lower = termo.lower()
+
+    referencias = []
+    for l in licitacoes:
+        # Filtra pelo termo no objeto
+        if termo_lower and termo_lower not in l.get("objeto", "").lower():
+            continue
+
+        nc = l.get("_numeroControlePNCP", "")
+
+        # Tenta pegar do cache
+        cached = cache_module.get(nc) if nc else None
+
+        ref = {
+            "orgao":           l.get("orgao", ""),
+            "municipio":       l.get("municipio", ""),
+            "uf":              l.get("uf", ""),
+            "data_publicacao": l.get("publicacao", "")[:10] if l.get("publicacao") else "",
+            "objeto":          l.get("objeto", "")[:150],
+            "modalidade":      l.get("modalidade", ""),
+            "link":            l.get("link", ""),
+            "numero_controle": nc,
+            "valor_unitario":  cached.get("valor") if cached else None,
+            "valor":           cached.get("valor") if cached else l.get("valor", ""),
+        }
+        referencias.append(ref)
+
+    # Limita a 20 referências mais recentes
+    return {"referencias": referencias[:20], "total": len(referencias)}
 
 
 # =====================================================
@@ -387,6 +704,7 @@ async def resultados(request: Request):
         name="resultados.html",
         context={
             "estados": ESTADOS,
+            "etps": etp_manager.listar_etps(),
             **_ultima_busca,
         },
     )

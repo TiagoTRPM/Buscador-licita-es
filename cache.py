@@ -30,6 +30,7 @@ def get(numero_controle: str) -> dict | None:
 def set(numero_controle: str, registro: dict):
     dados = _carregar()
     dados[numero_controle] = {
+        **dados.get(numero_controle, {}),
         **registro,
         "data_cache": datetime.now().strftime("%Y-%m-%d %H:%M"),
     }

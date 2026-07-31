@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+{% block title %}{{ etp.titulo }} — ETP{% endblock %}
+
+{% block content %}
+
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+    <div>
+        <a href="/etp" style="color:#6b7280; font-size:0.9rem;">← ETPs</a>
+        <h2 style="margin:4px 0 0;">{{ etp.titulo }}</h2>
+        <span style="font-size:0.8rem; color:#9ca3af;">Alterado: {{ etp.alterado }}</span>
+    </div>
+    <div style="display:flex; gap:8px;">
+        <a href="/etp/{{ etp.id }}/exportar"
+            class="btn btn-primary"
+            style="background:#16a34a; border-color:#16a34a;">
+            📄 Exportar Word
+        </a>
+    </div>
+</div>
+
+{% if erros_exportacao %}
+<div class="card" style="border-left:4px solid #dc2626; margin-bottom:16px; background:#fef2f2;">
+    <strong style="color:#991b1b;">Complete estes itens antes de exportar o Word:</strong>
+    <ul style="margin:8px 0 0; color:#7f1d1d;">{% for erro in erros_exportacao %}<li>{{ erro }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<!-- Abas de navegação -->
+<div class="tabs" style="margin-bottom:0;">
+    <button class="tab-btn active" onclick="mostrarAba('cabecalho', this)">🏛️ Identificação</button>
+    <button class="tab-btn" onclick="mostrarAba('campos', this)">📝 Conteúdo</button>
+    <button class="tab-btn" onclick="mostrarAba('itens', this)">📦 Itens ({{ etp.itens|length }})</button>
+    <button class="tab-btn" onclick="mostrarAba('levantamento', this)">🔍 Levantamento ({{ etp.levantamento|length }})</button>
+    <button class="tab-btn" onclick="mostrarAba('extras', this)">➕ Campos Extras</button>
+</div>
+
+<form method="post" action="/etp/{{ etp.id }}/salvar" id="form-etp">
+<input type="hidden" name="etapas_puladas" id="etapas-puladas" value="{{ etp.etapas_puladas|default([])|join(',') }}" />
+
+<!-- ── ABA 1: Identificação ──────────────────────── -->
+<div id="aba-cabecalho" class="aba-content card" style="border-radius:0 8px 8px 8px;">
+    <h3>🏛️ Identificação do ETP</h3>
+
+    <div class="form-row">
+        <div class="form-group flex-4">
+            <label>Título do ETP</label>
+            <input type="text" name="titulo" value="{{ etp.titulo }}"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group flex-3">
+            <label>Órgão / Prefeitura</label>
+            <input type="text" name="orgao" value="{{ etp.cabecalho.orgao }}"
+                placeholder="Ex: Prefeitura Municipal de Corbélia"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+        <div class="form-group flex-2">
+            <label>Município</label>
+            <input type="text" name="municipio" value="{{ etp.cabecalho.municipio }}"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+        <div class="form-group flex-1">
+            <label>UF</label>
+            <input type="text" name="estado" value="{{ etp.cabecalho.estado }}" maxlength="2"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group flex-2">
+            <label>Número do Processo</label>
+            <input type="text" name="processo" value="{{ etp.cabecalho.processo }}"
+                placeholder="Ex: 001/2026"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+        <div class="form-group flex-1">
+            <label>Data</label>
+            <input type="date" name="data" value="{{ etp.cabecalho.data }}"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group flex-3">
+            <label>Responsável</label>
+            <input type="text" name="responsavel" value="{{ etp.cabecalho.responsavel }}"
+                placeholder="Nome completo"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+        <div class="form-group flex-2">
+            <label>Cargo</label>
+            <input type="text" name="cargo" value="{{ etp.cabecalho.cargo }}"
+                placeholder="Ex: Diretor de TI"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group flex-2">
+            <label>Cabeçalho</label>
+            <select name="modo_cabecalho"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
+                <option value="dinamico" {% if etp.cabecalho.modo_cabecalho == 'dinamico' %}selected{% endif %}>
+                    Dinâmico (nome + brasão)
+                </option>
+                <option value="arquivo" {% if etp.cabecalho.modo_cabecalho == 'arquivo' %}selected{% endif %}>
+                    Imagem de arquivo
+                </option>
+            </select>
+        </div>
+        <div class="form-group flex-3">
+            <label>Caminho do brasão / imagem de cabeçalho</label>
+            <input type="text" name="brasao_path" value="{{ etp.cabecalho.brasao_path }}"
+                placeholder="Ex: static/img/brasao.png"
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;"/>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-top:10px;">💾 Salvar Identificação</button>
+</div>
+
+<!-- ── ABA 2: Conteúdo ───────────────────────────── -->
+<div id="aba-campos" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;">
+    <h3>📝 Conteúdo do ETP</h3>
+    <p style="color:#6b7280; margin:0 0 8px;">Preencha uma etapa ou pule para completar depois. Você pode revisar qualquer etapa já liberada.</p>
+    <div style="height:10px; background:#e5e7eb; border-radius:99px; overflow:hidden; margin:10px 0 6px;"><div id="progresso-etp" style="height:100%; width:0; background:#2563eb; transition:width .2s;"></div></div>
+    <p id="progresso-etp-texto" style="font-size:.85rem; color:#4b5563; margin:0 0 16px;"></p>
+
+    {% set campos = [
+        ("descricao_necessidade", "1 — Descrição da Necessidade", "Descreva a necessidade que motivou a contratação..."),
+        ("previsao_pca", "2 — Previsão no Plano de Contratações Anual", "Informe se a contratação está prevista no PCA..."),
+        ("requisitos_contratacao", "3 — Requisitos da Contratação", "Descreva os requisitos técnicos e legais..."),
+        ("estimativa_valor", "6 — Estimativa do Valor", "Descreva como foi feita a estimativa de preços..."),
+        ("descricao_solucao", "7 — Descrição da Solução", "Descreva a solução escolhida e suas vantagens..."),
+        ("justificativa_parcelamento", "8 — Justificativa para Parcelamento", "Justifique o parcelamento ou não parcelamento..."),
+        ("resultados_pretendidos", "9 — Resultados Pretendidos", "Descreva os resultados esperados com a contratação..."),
+        ("providencias_previas", "10 — Providências Prévias", "Liste as providências necessárias antes do contrato..."),
+        ("contratacoes_correlatas", "11 — Contratações Correlatas", "Liste contratações relacionadas ou interdependentes..."),
+        ("impactos_ambientais", "12 — Impactos Ambientais", "Descreva os impactos ambientais ou justifique a ausência..."),
+        ("posicionamento_conclusivo", "13 — Posicionamento Conclusivo", "Declare a viabilidade ou inviabilidade da contratação..."),
+    ] %}
+
+    {% for campo_id, label, placeholder in campos %}
+    <div class="form-group etapa-campo" data-etapa="{{ campo_id }}" style="margin-bottom:16px;">
+        <label style="font-weight:600; font-size:0.95rem;">{{ label }}</label>
+        <textarea name="{{ campo_id }}" rows="4" placeholder="{{ placeholder }}"
+            style="width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px;
+                   font-size:0.9rem; resize:vertical; box-sizing:border-box; margin-top:4px;">{{ etp.campos_fixos[campo_id] }}</textarea>
+    </div>
+    {% endfor %}
+
+    <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+        <button type="submit" class="btn btn-primary">💾 Salvar e avançar</button>
+        <button type="button" class="btn btn-outline" onclick="pularEtapaAtual()">Pular e avançar</button>
+    </div>
+</div>
+
+</form>
+
+<!-- ── ABA 3: Itens ──────────────────────────────── -->
+<div id="aba-itens" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;" id="itens">
+    <h3>📦 Estimativa de Quantidades</h3>
+
+    {% if etp.itens %}
+    <div class="table-wrapper" style="margin-bottom:16px;">
+        <table class="tabela">
+            <thead><tr>
+                <th>Nº</th><th>Item</th><th>Descrição</th><th>Qtde</th><th>Unid.</th><th></th>
+            </tr></thead>
+            <tbody>
+            {% for item in etp.itens %}
+            <tr>
+                <td style="text-align:center;">{{ loop.index }}</td>
+                <td><strong>{{ item.nome }}</strong></td>
+                <td style="font-size:0.85rem; color:#4b5563;">{{ item.descricao[:80] }}{% if item.descricao|length > 80 %}…{% endif %}</td>
+                <td style="text-align:center;">{{ item.quantidade }}</td>
+                <td style="text-align:center;">{{ item.unidade }}</td>
+                <td>
+                    <form method="post" action="/etp/{{ etp.id }}/item/{{ item.id }}/remover"
+                        onsubmit="return confirm('Remover este item?')">
+                        <button type="submit" style="background:none; border:none; color:#dc2626; cursor:pointer;">🗑️</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- Adicionar item -->
+    <form method="post" action="/etp/{{ etp.id }}/item/add"
+        style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:14px;">
+        <h4 style="margin:0 0 10px;">+ Adicionar Item</h4>
+        <div class="form-row">
+            <div class="form-group flex-2">
+                <label>Nome do Item</label>
+                <input type="text" name="nome" placeholder="Ex: Notebook i5" required
+                    style="width:100%; padding:7px 10px; border:1px solid #d1d5db; border-radius:6px;"/>
+            </div>
+            <div class="form-group flex-1">
+                <label>Quantidade</label>
+                <input type="number" name="quantidade" min="1" required
+                    style="width:100%; padding:7px 10px; border:1px solid #d1d5db; border-radius:6px;"/>
+            </div>
+            <div class="form-group flex-1">
+                <label>Unidade</label>
+                <input type="text" name="unidade" value="un"
+                    style="width:100%; padding:7px 10px; border:1px solid #d1d5db; border-radius:6px;"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Descrição / Especificação Técnica</label>
+            <textarea name="descricao" rows="3" placeholder="Especificações técnicas mínimas..."
+                style="width:100%; padding:7px 10px; border:1px solid #d1d5db; border-radius:6px; resize:vertical; box-sizing:border-box;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">+ Adicionar</button>
+    </form>
+</div>
+
+<!-- ── ABA 4: Levantamento ──────────────────────── -->
+<div id="aba-levantamento" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;">
+    <h3>🔍 Levantamento de Mercado</h3>
+    <p style="color:#6b7280; font-size:0.9rem; margin-bottom:16px;">
+        Pesquise preços de cada item no PNCP. Os resultados serão salvos neste ETP e incluídos no Word gerado.
+    </p>
+
+    <!-- Pesquisa -->
+    <div style="background:#f0f4ff; border:1px solid #c7d2fe; border-radius:8px; padding:14px; margin-bottom:16px;">
+        <div style="display:flex; gap:8px; align-items:flex-end; flex-wrap:wrap;">
+            <div style="flex:1; min-width:200px;">
+                <label style="font-size:0.88rem; font-weight:600;">Termo de busca</label>
+                <input type="text" id="termo-lev" placeholder="Ex: notebook i5, teclado usb..."
+                    style="width:100%; padding:8px 12px; border:1px solid #a5b4fc; border-radius:6px;
+                           font-size:0.9rem; box-sizing:border-box; margin-top:4px;"/>
+            </div>
+            <div>
+                <label style="font-size:0.88rem; font-weight:600;">Estado</label>
+                <select id="uf-lev"
+                    style="padding:8px 12px; border:1px solid #a5b4fc; border-radius:6px; margin-top:4px;">
+                    <option value="">Todos</option>
+                    <option value="PR" selected>PR</option>
+                    <option value="SP">SP</option>
+                    <option value="SC">SC</option>
+                    <option value="RS">RS</option>
+                    <option value="MG">MG</option>
+                    <option value="RJ">RJ</option>
+                    <option value="GO">GO</option>
+                    <option value="BA">BA</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="pesquisarLevantamento()">
+                🔍 Pesquisar no PNCP
+            </button>
+        </div>
+
+        <!-- Atalhos dos itens cadastrados -->
+        {% if etp.itens %}
+        <div style="margin-top:10px; border-top:1px solid #c7d2fe; padding-top:10px;">
+            <span style="font-size:0.8rem; color:#4f46e5; font-weight:600;">Itens cadastrados:</span>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
+                {% for item in etp.itens %}
+                <button type="button"
+                    onclick="document.getElementById('termo-lev').value='{{ item.nome }}'"
+                    style="background:#e0e7ff; color:#3730a3; border:1px solid #a5b4fc;
+                           padding:3px 10px; border-radius:12px; cursor:pointer; font-size:0.82rem;">
+                    {{ item.nome }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div id="lev-loading" class="hidden" style="margin-top:10px; color:#6366f1;">
+            ⏳ Buscando no PNCP...
+        </div>
+    </div>
+
+    <!-- Resultados do levantamento salvo -->
+    {% if etp.levantamento %}
+    {% for lev in etp.levantamento %}
+    <div style="margin-bottom:20px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <h4 style="margin:0; color:#1e40af;">🔹 {{ lev.termo }}</h4>
+            <span style="font-size:0.78rem; color:#9ca3af;">Pesquisado em {{ lev.buscado_em }}</span>
+        </div>
+
+        {% if lev.referencias %}
+        <div class="table-wrapper">
+            <table class="tabela" style="font-size:0.85rem;">
+                <thead><tr>
+                    <th>Órgão</th><th>Município/UF</th><th>Data</th>
+                    <th>Objeto</th><th>Valor Unit.</th>
+                </tr></thead>
+                <tbody>
+                {% for ref in lev.referencias %}
+                <tr>
+                    <td>{{ ref.orgao[:40] }}</td>
+                    <td>{{ ref.municipio }}/{{ ref.uf }}</td>
+                    <td>{{ ref.data_publicacao[:7] if ref.data_publicacao else '—' }}</td>
+                    <td title="{{ ref.objeto }}">{{ (ref.objeto or ref.get('descricao_item', ''))[:60] }}…</td>
+                    <td><strong>{{ ref.valor_unitario or ref.valor or '—' }}</strong></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p style="color:#9ca3af; font-size:0.88rem;">Nenhuma referência encontrada.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <div style="text-align:center; color:#9ca3af; padding:30px;">
+        <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+        <p>Nenhum levantamento realizado ainda.</p>
+        <p style="font-size:0.85rem;">Use o campo acima para pesquisar preços no PNCP.</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- ── ABA 5: Campos Extras ──────────────────────── -->
+<div id="aba-extras" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;" id="campos-livres">
+    <h3>➕ Campos Personalizados</h3>
+    <p style="color:#6b7280; font-size:0.9rem; margin-bottom:16px;">
+        Adicione seções extras que serão incluídas no final do ETP.
+    </p>
+
+    {% if etp.campos_livres %}
+    {% for campo in etp.campos_livres %}
+    <div style="border:1px solid #e5e7eb; border-radius:8px; padding:12px; margin-bottom:10px;">
+        <strong style="color:#374151;">{{ campo.nome }}</strong>
+        <p style="color:#6b7280; font-size:0.88rem; margin:6px 0 0;">{{ campo.conteudo[:200] }}{% if campo.conteudo|length > 200 %}…{% endif %}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <form method="post" action="/etp/{{ etp.id }}/campo-livre/add"
+        style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:14px; margin-top:10px;">
+        <h4 style="margin:0 0 10px;">+ Adicionar Campo</h4>
+        <div class="form-group" style="margin-bottom:10px;">
+            <label>Nome da Seção</label>
+            <input type="text" name="nome" placeholder="Ex: Análise de Riscos" required
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px; box-sizing:border-box;"/>
+        </div>
+        <div class="form-group">
+            <label>Conteúdo</label>
+            <textarea name="conteudo" rows="4" placeholder="Digite o conteúdo desta seção..."
+                style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px; resize:vertical; box-sizing:border-box;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">+ Adicionar Seção</button>
+    </form>
+</div>
+
+<script>
+function mostrarAba(nome, botao) {
+    document.querySelectorAll('.aba-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('aba-' + nome).classList.remove('hidden');
+    if (botao) botao.classList.add('active');
+}
+
+const etapasConteudo = {{ [
+    'descricao_necessidade', 'previsao_pca', 'requisitos_contratacao',
+    'estimativa_valor', 'descricao_solucao', 'justificativa_parcelamento',
+    'resultados_pretendidos', 'providencias_previas', 'contratacoes_correlatas',
+    'impactos_ambientais', 'posicionamento_conclusivo'
+] | tojson }};
+const etapasPraticasConcluidas = {{ (1 if etp.itens else 0) + (1 if etp.levantamento else 0) }};
+const totalEtapasETP = etapasConteudo.length + 2;
+
+function etapasPuladas() {
+    return new Set((document.getElementById('etapas-puladas').value || '').split(',').filter(Boolean));
+}
+
+function atualizarFluxoGuiado() {
+    const puladas = etapasPuladas();
+    let proxima = etapasConteudo.findIndex(id => {
+        const campo = document.querySelector(`[name="${id}"]`);
+        return !campo.value.trim() && !puladas.has(id);
+    });
+    if (proxima === -1) proxima = etapasConteudo.length - 1;
+
+    etapasConteudo.forEach((id, indice) => {
+        document.querySelector(`[data-etapa="${id}"]`).classList.toggle('hidden', indice > proxima);
+    });
+    const concluidas = etapasConteudo.filter(id => {
+        const campo = document.querySelector(`[name="${id}"]`);
+        return campo.value.trim() || puladas.has(id);
+    }).length;
+    const totalConcluido = concluidas + etapasPraticasConcluidas;
+    document.getElementById('progresso-etp').style.width = `${Math.round(totalConcluido / totalEtapasETP * 100)}%`;
+    document.getElementById('progresso-etp-texto').textContent = `${totalConcluido} de ${totalEtapasETP} etapas concluídas ou puladas (inclui itens e levantamento de mercado)`;
+}
+
+function pularEtapaAtual() {
+    const puladas = etapasPuladas();
+    const atual = etapasConteudo.find(id => {
+        const campo = document.querySelector(`[name="${id}"]`);
+        return !campo.value.trim() && !puladas.has(id);
+    });
+    if (atual) puladas.add(atual);
+    document.getElementById('etapas-puladas').value = [...puladas].join(',');
+    document.getElementById('form-etp').requestSubmit();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    etapasConteudo.forEach(id => document.querySelector(`[name="${id}"]`).addEventListener('input', atualizarFluxoGuiado));
+    atualizarFluxoGuiado();
+});
+
+// ── Levantamento de mercado ──────────────────────
+
+async function pesquisarLevantamento() {
+    const termo = document.getElementById('termo-lev').value.trim();
+    const uf    = document.getElementById('uf-lev').value;
+
+    if (!termo) { alert('Digite um termo de busca!'); return; }
+
+    const loading = document.getElementById('lev-loading');
+    loading.classList.remove('hidden');
+
+    try {
+        // Usa o buscar-stream existente para pesquisar
+        const formData = new FormData();
+        formData.append('termo', termo);
+        formData.append('limite_registros', '50');
+        if (uf) formData.append('ufs', uf);
+
+        const res     = await fetch('/buscar-stream', { method: 'POST', body: formData });
+        const reader  = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer    = '';
+        let total     = 0;
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            const linhas = buffer.split('\n\n');
+            buffer = linhas.pop();
+
+            for (const linha of linhas) {
+                if (!linha.startsWith('data:')) continue;
+                try {
+                    const dados = JSON.parse(linha.replace('data:', '').trim());
+                    if (dados.tipo === 'concluido') {
+                        total = dados.total;
+                        // Busca os resultados do _ultima_busca via endpoint
+                        await salvarLevantamento(termo, uf);
+                    }
+                } catch(e) {}
+            }
+        }
+    } catch(e) {
+        alert('Erro na pesquisa: ' + e.message);
+    } finally {
+        loading.classList.add('hidden');
+    }
+}
+
+async function salvarLevantamento(termo, uf) {
+    // Busca os resultados da última busca e salva no ETP
+    try {
+        const res  = await fetch('/api/etp/referencias?termo=' + encodeURIComponent(termo));
+        const data = await res.json();
+
+        const saveRes = await fetch('/etp/{{ etp.id }}/levantamento', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ termo, referencias: data.referencias }),
+        });
+
+        if (saveRes.ok) {
+            window.location.reload();
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+</script>
+{% endblock %}
