@@ -277,12 +277,17 @@ async def etp_salvar(request: Request, etp_id: str):
 async def etp_item_add(request: Request, etp_id: str):
     form = await request.form()
     item = {
-        "nome":        form.get("nome", ""),
-        "descricao":   form.get("descricao", ""),
-        "quantidade":  form.get("quantidade", ""),
-        "unidade":     form.get("unidade", "un"),
+        "nome":        form.get("nome", "").strip(),
+        "descricao":   form.get("descricao", "").strip(),
+        "quantidade":  form.get("quantidade", "").strip(),
+        "unidade":     form.get("unidade", "un").strip() or "un",
     }
-    etp_manager.adicionar_item(etp_id, item)
+    if not item["nome"] or not item["quantidade"]:
+        return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
+
+    etp = etp_manager.adicionar_item(etp_id, item)
+    if not etp:
+        return RedirectResponse("/etp", status_code=303)
     return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
 
 

@@ -4,13 +4,13 @@
       "id": "etp_969dea6a",
       "titulo": "Compra de notebooks",
       "criado": "2026-07-30 21:56",
-      "alterado": "2026-07-30 21:56",
+      "alterado": "2026-07-31 20:51",
       "status": "em_andamento",
       "cabecalho": {
-        "orgao": "",
+        "orgao": "Municipio teste",
         "municipio": "",
         "estado": "",
-        "processo": "",
+        "processo": "01/2026",
         "responsavel": "",
         "cargo": "",
         "data": "2026-07-30",
@@ -19,19 +19,27 @@
         "cabecalho_path": ""
       },
       "campos_fixos": {
-        "descricao_necessidade": "",
-        "previsao_pca": "",
-        "requisitos_contratacao": "",
-        "descricao_solucao": "",
-        "estimativa_valor": "",
+        "descricao_necessidade": "Necessidade para teste",
+        "previsao_pca": "Sem previsao",
+        "requisitos_contratacao": "Requisitos de teste",
+        "descricao_solucao": "Solução de teste",
+        "estimativa_valor": "Valor de R$ 000000",
         "justificativa_parcelamento": "Não haverá parcelamento da solução.",
-        "resultados_pretendidos": "",
-        "providencias_previas": "",
+        "resultados_pretendidos": "Resultados de teste",
+        "providencias_previas": "Providencias de teste",
         "contratacoes_correlatas": "Não há contratações que impactam significativamente a presente contratação.",
         "impactos_ambientais": "Não há impactos ambientais significativos na presente contratação.",
         "posicionamento_conclusivo": "Diante do exposto, declaramos a viabilidade da contratação."
       },
-      "itens": [],
+      "itens": [
+        {
+          "nome": "Notebook",
+          "descricao": "",
+          "quantidade": "1",
+          "unidade": "un",
+          "id": "eb77b711"
+        }
+      ],
       "levantamento": [
         {
           "termo": "notebook",
@@ -51,18 +59,67 @@
               "unidade": "Unitário",
               "valor_unitario": "R$ 18.999,00",
               "valor": "R$ 18.999,00"
+            },
+            {
+              "orgao": "MUNICIPIO DE PRIMEIRO DE MAIO",
+              "municipio": "Primeiro De Maio",
+              "uf": "PR",
+              "data_publicacao": "02/06/2026 07:16",
+              "objeto": "Notebook",
+              "modalidade": "Pregão - Eletrônico",
+              "link": "https://pncp.gov.br/app/editais/76245059000101/2026/84",
+              "numero_controle": "76245059000101-1-000084/2026",
+              "item_id": "5",
+              "descricao_item": "Notebook",
+              "quantidade": 2.0,
+              "unidade": "Unidade  ",
+              "valor_unitario": "R$ 6.900,00",
+              "valor": "R$ 13.800,00"
+            },
+            {
+              "orgao": "CAMARA MUNICIPAL DE MANDIRITUBA",
+              "municipio": "Mandirituba",
+              "uf": "PR",
+              "data_publicacao": "30/07/2026 15:29",
+              "objeto": "Notebook tela: superior a 14, interatividade da tela: sem interatividade, memória ram: superior a 8, núcleos por processador: superior a 8, armazenamento hdd: sem disco hdd, armazenamento ssd: 310 a 500, bateria: minimo de 6 celulas, alimentação: bivolt automática, sistema operacional: proprietário, garantia on site: superior a 36",
+              "modalidade": "Dispensa",
+              "link": "https://pncp.gov.br/app/editais/00942395000141/2026/13",
+              "numero_controle": "00942395000141-1-000013/2026",
+              "item_id": "1",
+              "descricao_item": "Notebook tela: superior a 14, interatividade da tela: sem interatividade, memória ram: superior a 8, núcleos por processador: superior a 8, armazenamento hdd: sem disco hdd, armazenamento ssd: 310 a 500, bateria: minimo de 6 celulas, alimentação: bivolt automática, sistema operacional: proprietário, garantia on site: superior a 36",
+              "quantidade": 2.0,
+              "unidade": "Unidade",
+              "valor_unitario": "R$ 4.689,72",
+              "valor": "R$ 9.379,44"
+            },
+            {
+              "orgao": "CONSELHO REGIONAL DE BIOMEDICINA - 6 REGIAO",
+              "municipio": "Curitiba",
+              "uf": "PR",
+              "data_publicacao": "24/07/2026 14:37",
+              "objeto": "Notebook Dell Inspiron I15-i1300-u30p 15.6\" Full Hd 13ª Gen Intel Core I5 8gb 512gb SSD Linux Preto Carbono",
+              "modalidade": "Dispensa",
+              "link": "https://pncp.gov.br/app/editais/28299858000118/2026/13",
+              "numero_controle": "28299858000118-1-000013/2026",
+              "item_id": "1",
+              "descricao_item": "Notebook Dell Inspiron I15-i1300-u30p 15.6\" Full Hd 13ª Gen Intel Core I5 8gb 512gb SSD Linux Preto Carbono",
+              "quantidade": 4.0,
+              "unidade": "Unidade",
+              "valor_unitario": "R$ 3.812,91",
+              "valor": "R$ 15.251,64"
             }
           ],
-          "buscado_em": "2026-07-30 21:56"
+          "buscado_em": "2026-07-31 20:40"
         }
       ],
-      "campos_livres": []
+      "campos_livres": [],
+      "etapas_puladas": []
     },
-    "etp_66985ac8": {
-      "id": "etp_66985ac8",
-      "titulo": "Compra de notebooks",
-      "criado": "2026-07-30 21:56",
-      "alterado": "2026-07-30 21:56",
+    "etp_40cbcc31": {
+      "id": "etp_40cbcc31",
+      "titulo": "Compra de alimentos",
+      "criado": "2026-07-31 20:54",
+      "alterado": "2026-07-31 20:55",
       "status": "em_andamento",
       "cabecalho": {
         "orgao": "",
@@ -71,7 +128,74 @@
         "processo": "",
         "responsavel": "",
         "cargo": "",
-        "data": "2026-07-30",
+        "data": "2026-07-31",
+        "modo_cabecalho": "dinamico",
+        "brasao_path": "",
+        "cabecalho_path": ""
+      },
+      "campos_fixos": {
+        "descricao_necessidade": "srfwserww",
+        "previsao_pca": "werw",
+        "requisitos_contratacao": "wer",
+        "descricao_solucao": "wer",
+        "estimativa_valor": "wr",
+        "justificativa_parcelamento": "Não haverá parcelamento da solução.",
+        "resultados_pretendidos": "wer",
+        "providencias_previas": "wre",
+        "contratacoes_correlatas": "Não há contratações que impactam significativamente a presente contratação.",
+        "impactos_ambientais": "Não há impactos ambientais significativos na presente contratação.",
+        "posicionamento_conclusivo": "Diante do exposto, declaramos a viabilidade da contratação."
+      },
+      "itens": [
+        {
+          "nome": "arroz 5kg",
+          "descricao": "",
+          "quantidade": "1",
+          "unidade": "un",
+          "id": "862919fa"
+        }
+      ],
+      "levantamento": [
+        {
+          "termo": "Alimentos",
+          "referencias": [
+            {
+              "orgao": "MUNICIPIO DE SANTO ANTONIO DA PLATINA",
+              "municipio": "Santo Antônio Da Platina",
+              "uf": "PR",
+              "data_publicacao": "23/06/2026 15:21",
+              "objeto": "ARROZ  PCT. DE 5 KG\r\n<p>POLIDO TIPO 1 - Classe longo fino, subgrupo polido agulhinha, embalagem plástica de 5 kg &#8211; 9% de valor energético, 13% de carboidratos, 6% de proteínas, 5% de fibra alimentar e 1% se sódio</p>",
+              "modalidade": "Pregão - Eletrônico",
+              "link": "https://pncp.gov.br/app/editais/76968627000100/2026/179",
+              "numero_controle": "76968627000100-1-000179/2026",
+              "item_id": "1",
+              "descricao_item": "ARROZ  PCT. DE 5 KG\r\n<p>POLIDO TIPO 1 - Classe longo fino, subgrupo polido agulhinha, embalagem plástica de 5 kg &#8211; 9% de valor energético, 13% de carboidratos, 6% de proteínas, 5% de fibra alimentar e 1% se sódio</p>",
+              "quantidade": 3000.0,
+              "unidade": "UNIDADE (UN)",
+              "valor_unitario": "R$ 22,75",
+              "valor": "R$ 68.250,00"
+            }
+          ],
+          "buscado_em": "2026-07-31 20:54"
+        }
+      ],
+      "campos_livres": [],
+      "etapas_puladas": []
+    },
+    "etp_dbac8195": {
+      "id": "etp_dbac8195",
+      "titulo": "Compra de alimentos",
+      "criado": "2026-07-31 20:54",
+      "alterado": "2026-07-31 20:54",
+      "status": "em_andamento",
+      "cabecalho": {
+        "orgao": "",
+        "municipio": "",
+        "estado": "",
+        "processo": "",
+        "responsavel": "",
+        "cargo": "",
+        "data": "2026-07-31",
         "modo_cabecalho": "dinamico",
         "brasao_path": "",
         "cabecalho_path": ""
@@ -92,63 +216,28 @@
       "itens": [],
       "levantamento": [
         {
-          "termo": "notebook",
+          "termo": "Alimentos",
           "referencias": [
             {
-              "orgao": "MUNICIPIO DE CASCAVEL",
-              "municipio": "Cascavel",
+              "orgao": "MUNICIPIO DE CURITIBA",
+              "municipio": "Curitiba",
               "uf": "PR",
-              "data_publicacao": "02/07/2026 10:03",
-              "objeto": "NOTEBOOK CONFORME TERMO DE REFERÊNCIA",
-              "modalidade": "Inexigibilidade",
-              "link": "https://pncp.gov.br/app/editais/76208867000107/2026/305",
-              "numero_controle": "76208867000107-1-000305/2026",
+              "data_publicacao": "17/07/2026 13:35",
+              "objeto": "ARROZ,  integral, parboilizado, longo fino, tipo 1, 1kg,",
+              "modalidade": "Pregão - Eletrônico",
+              "link": "https://pncp.gov.br/app/editais/76417005001743/2026/112",
+              "numero_controle": "76417005001743-1-000112/2026",
               "item_id": "1",
-              "descricao_item": "NOTEBOOK CONFORME TERMO DE REFERÊNCIA",
-              "quantidade": 5.0,
-              "unidade": "UNIDADE (UND)",
-              "valor_unitario": "R$ 2.569,00",
-              "valor": "R$ 12.845,00"
+              "descricao_item": "ARROZ,  integral, parboilizado, longo fino, tipo 1, 1kg,",
+              "quantidade": 12000.0,
+              "unidade": "PACOTE",
+              "valor_unitario": "R$ 3,83",
+              "valor": "R$ 45.960,00"
             }
           ],
-          "buscado_em": "2026-07-30 21:56"
+          "buscado_em": "2026-07-31 20:54"
         }
       ],
-      "campos_livres": []
-    },
-    "etp_94b3a8a9": {
-      "id": "etp_94b3a8a9",
-      "titulo": "Novo ETP",
-      "criado": "2026-07-30 22:09",
-      "alterado": "2026-07-30 22:09",
-      "status": "em_andamento",
-      "cabecalho": {
-        "orgao": "",
-        "municipio": "",
-        "estado": "",
-        "processo": "",
-        "responsavel": "",
-        "cargo": "",
-        "data": "2026-07-30",
-        "modo_cabecalho": "dinamico",
-        "brasao_path": "",
-        "cabecalho_path": ""
-      },
-      "campos_fixos": {
-        "descricao_necessidade": "",
-        "previsao_pca": "",
-        "requisitos_contratacao": "",
-        "descricao_solucao": "",
-        "estimativa_valor": "",
-        "justificativa_parcelamento": "Não haverá parcelamento da solução.",
-        "resultados_pretendidos": "",
-        "providencias_previas": "",
-        "contratacoes_correlatas": "Não há contratações que impactam significativamente a presente contratação.",
-        "impactos_ambientais": "Não há impactos ambientais significativos na presente contratação.",
-        "posicionamento_conclusivo": "Diante do exposto, declaramos a viabilidade da contratação."
-      },
-      "itens": [],
-      "levantamento": [],
       "campos_livres": [],
       "etapas_puladas": []
     }

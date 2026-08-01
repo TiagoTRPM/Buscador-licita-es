@@ -27,11 +27,11 @@
 
 <!-- Abas de navegação -->
 <div class="tabs" style="margin-bottom:0;">
-    <button class="tab-btn active" onclick="mostrarAba('cabecalho', this)">🏛️ Identificação</button>
-    <button class="tab-btn" onclick="mostrarAba('campos', this)">📝 Conteúdo</button>
-    <button class="tab-btn" onclick="mostrarAba('itens', this)">📦 Itens ({{ etp.itens|length }})</button>
-    <button class="tab-btn" onclick="mostrarAba('levantamento', this)">🔍 Levantamento ({{ etp.levantamento|length }})</button>
-    <button class="tab-btn" onclick="mostrarAba('extras', this)">➕ Campos Extras</button>
+    <button type="button" class="tab-btn active" onclick="mostrarAba('cabecalho', this)">🏛️ Identificação</button>
+    <button type="button" class="tab-btn" onclick="mostrarAba('campos', this)">📝 Conteúdo</button>
+    <button type="button" class="tab-btn" onclick="mostrarAba('itens', this)">📦 Itens ({{ etp.itens|length }})</button>
+    <button type="button" class="tab-btn" onclick="mostrarAba('levantamento', this)">🔍 Levantamento ({{ etp.levantamento|length }})</button>
+    <button type="button" class="tab-btn" onclick="mostrarAba('extras', this)">➕ Campos Extras</button>
 </div>
 
 <form method="post" action="/etp/{{ etp.id }}/salvar" id="form-etp">
@@ -160,7 +160,7 @@
 </form>
 
 <!-- ── ABA 3: Itens ──────────────────────────────── -->
-<div id="aba-itens" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;" id="itens">
+<div id="aba-itens" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;">
     <h3>📦 Estimativa de Quantidades</h3>
 
     {% if etp.itens %}
@@ -322,7 +322,7 @@
 </div>
 
 <!-- ── ABA 5: Campos Extras ──────────────────────── -->
-<div id="aba-extras" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;" id="campos-livres">
+<div id="aba-extras" class="aba-content hidden card" style="border-radius:0 8px 8px 8px;">
     <h3>➕ Campos Personalizados</h3>
     <p style="color:#6b7280; font-size:0.9rem; margin-bottom:16px;">
         Adicione seções extras que serão incluídas no final do ETP.
@@ -360,6 +360,21 @@ function mostrarAba(nome, botao) {
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById('aba-' + nome).classList.remove('hidden');
     if (botao) botao.classList.add('active');
+}
+
+// Mantém a aba correta após adicionar/remover um item ou recarregar a página.
+const abaPelaHash = {
+    '#itens': 'itens',
+    '#levantamento': 'levantamento',
+    '#extras': 'extras',
+    '#campos': 'campos',
+    '#cabecalho': 'cabecalho',
+};
+const abaInicial = abaPelaHash[window.location.hash];
+if (abaInicial) {
+    const botaoInicial = [...document.querySelectorAll('.tab-btn')]
+        .find(botao => botao.getAttribute('onclick')?.includes(`'${abaInicial}'`));
+    mostrarAba(abaInicial, botaoInicial);
 }
 
 const etapasConteudo = {{ [
