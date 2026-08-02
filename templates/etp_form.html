@@ -18,11 +18,17 @@
     </div>
 </div>
 
-<form method="post" action="/etp/{{ etp.id }}/importar" enctype="multipart/form-data" class="card"
-    style="margin-bottom:16px; border-left:4px solid #4f46e5;"
-    onsubmit="return confirm('Os blocos identificados no arquivo serão usados para preencher os campos atuais. Deseja continuar?')">
-    <strong>Importar dados de outro ETP</strong>
-    <p style="margin:6px 0 10px; color:#4b5563; font-size:.9rem;">Envie um arquivo Word (.docx). A importação identifica cada bloco pela numeração; se o título for diferente, usa a posição da seção para preencher o campo correspondente.</p>
+<div class="card" style="margin-bottom:16px; border-left:4px solid #4f46e5;">
+    <strong>Preencher a partir de outros ETPs</strong>
+    <div class="tabs" style="margin:12px 0 0;">
+        <button type="button" class="tab-btn active" onclick="mostrarModoImportacao('arquivo', this)">📄 Importar arquivo</button>
+        <button type="button" class="tab-btn" onclick="mostrarModoImportacao('sintetizar', this)">✨ Sintetizar e preencher</button>
+    </div>
+
+    <div id="modo-importar-arquivo" style="padding-top:14px;">
+    <form method="post" action="/etp/{{ etp.id }}/importar" enctype="multipart/form-data"
+        onsubmit="return confirm('Os blocos identificados no arquivo serão usados para preencher os campos atuais. Deseja continuar?')">
+    <p style="margin:0 0 10px; color:#4b5563; font-size:.9rem;">Envie um arquivo Word (.docx). A importação identifica cada bloco pela numeração; se o título for diferente, usa a posição da seção para preencher o campo correspondente.</p>
     <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
         <input type="file" name="arquivo" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
         <button type="submit" class="btn btn-outline">📤 Importar e preencher</button>
@@ -33,6 +39,35 @@
     <p style="margin:10px 0 0; color:#b91c1c;">Não foi possível importar o arquivo. Envie um ETP Word (.docx) com seções de conteúdo.</p>
     {% endif %}
 </form>
+</div>
+
+<div id="modo-sintetizar-etp" class="hidden" style="padding-top:14px;">
+    <form method="post" action="/etp/{{ etp.id }}/sintetizar" enctype="multipart/form-data" id="form-sintetizar-etp"
+        >
+        <p id="titulo-sintetizar-etp" style="margin:0 0 18px; color:#4b5563; font-size:.9rem;">Escolha de 3 a 5 ETPs Word e defina qual deles é o modelo-base.</p>
+        <div class="form-group" style="margin:22px 0 16px;">
+            <label for="objeto-sintese">Objeto da nova contratação</label>
+            <textarea id="objeto-sintese" name="objeto" rows="3" required placeholder="Ex.: Aquisição de notebooks para uso administrativo..."
+                style="width:100%; box-sizing:border-box; margin:7px 0 12px; padding:8px 10px; border:1px solid #a5b4fc; border-radius:6px; resize:vertical;"></textarea>
+            <label for="arquivos-sintese">ETPs para análise</label>
+            <input id="arquivos-sintese" name="arquivos" type="file" multiple required accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="listarArquivosSintese(this)" style="display:block; margin-top:7px;" />
+            <small style="display:block; margin-top:6px; color:#6b7280;">Envie entre 3 e 5 arquivos .docx.</small>
+        </div>
+        <div id="base-sintese-container" class="hidden" style="margin:16px 0 22px; padding:14px; background:#f5f7ff; border:1px solid #c7d2fe; border-radius:8px;">
+            <label for="base-sintese" style="font-weight:600;">ETP modelo-base</label>
+            <select id="base-sintese" name="base_index" required style="width:100%; margin-top:6px; padding:8px 10px; border:1px solid #a5b4fc; border-radius:6px;"></select>
+            <small style="display:block; margin-top:6px; color:#4f46e5;">A estrutura e o conteúdo desse ETP terão prioridade; os demais apenas complementam informações existentes.</small>
+        </div>
+        <p style="margin:0 0 20px; font-size:.86rem; color:#6b7280;">A IA não criará texto livre: ela consolidará somente informações presentes nos ETPs escolhidos.</p>
+        <div style="display:flex; justify-content:flex-end;"><button type="submit" class="btn btn-primary">✨ Sintetizar e preencher</button></div>
+    </form>
+</div>
+{% if request.query_params.get('sintetizados') %}
+<p style="margin:10px 0 0; color:#166534;">✓ {{ request.query_params.get('sintetizados') }} blocos foram sintetizados a partir dos ETPs enviados.</p>
+{% elif request.query_params.get('erro_sintese') %}
+<p style="margin:10px 0 0; color:#b91c1c;">Não foi possível sintetizar os ETPs. Envie de 3 a 5 arquivos Word válidos e verifique se a IA está configurada.</p>
+{% endif %}
+</div>
 
 {% if erros_exportacao %}
 <div class="card" style="border-left:4px solid #dc2626; margin-bottom:16px; background:#fef2f2;">
@@ -573,6 +608,38 @@ function abrirEdicaoItem(itemId, nome) {
 function fecharEdicaoItem() {
     document.getElementById('modal-editar-item').classList.add('hidden');
 }
+
+function mostrarModoImportacao(modo, botao) {
+    document.getElementById('modo-importar-arquivo').classList.toggle('hidden', modo !== 'arquivo');
+    document.getElementById('modo-sintetizar-etp').classList.toggle('hidden', modo !== 'sintetizar');
+    botao.closest('.tabs').querySelectorAll('.tab-btn').forEach(aba => aba.classList.remove('active'));
+    botao.classList.add('active');
+}
+
+function listarArquivosSintese(input) {
+    const arquivos = [...input.files];
+    const container = document.getElementById('base-sintese-container');
+    const select = document.getElementById('base-sintese');
+    select.innerHTML = '';
+    if (arquivos.length < 3 || arquivos.length > 5) {
+        container.classList.add('hidden');
+        alert('Selecione entre 3 e 5 arquivos Word.');
+        return;
+    }
+    arquivos.forEach((arquivo, indice) => {
+        const opcao = new Option(arquivo.name, indice, indice === 0, indice === 0);
+        select.add(opcao);
+    });
+    container.classList.remove('hidden');
+}
+
+document.getElementById('form-sintetizar-etp').addEventListener('submit', event => {
+    const arquivos = document.getElementById('arquivos-sintese').files;
+    if (arquivos.length < 3 || arquivos.length > 5) {
+        event.preventDefault();
+        alert('Selecione entre 3 e 5 arquivos Word.');
+    }
+});
 
 async function salvarLevantamento(termo, uf) {
     // Busca os resultados da última busca e salva no ETP

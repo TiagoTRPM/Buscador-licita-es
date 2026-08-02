@@ -5,7 +5,7 @@ import re
 from datetime import datetime, timedelta
 from fastapi.concurrency import run_in_threadpool
 
-from fastapi import FastAPI, File, Request, UploadFile
+from fastapi import FastAPI, File, Form, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -14,6 +14,7 @@ from config import ESTADOS, BASE_DIR, MODALIDADES_DISPONIVEIS
 from pncp_buscador import buscar_licitacoes_eficiente
 from pncp_extrator import extrair_licitacoes
 from expansor import expandir_termo
+from etp_ia import sintetizar_campos_etp
 import cache as cache_module
 import atualizador
 import etp_manager
@@ -296,6 +297,47 @@ async def etp_importar(etp_id: str, arquivo: UploadFile = File(...)):
 
     etp_manager.importar_campos_fixos(etp_id, campos)
     return RedirectResponse(f"/etp/{etp_id}?importados={len(campos)}#campos", status_code=303)
+
+
+@app.post("/etp/{etp_id}/sintetizar")
+async def etp_sintetizar(
+    etp_id: str,
+    arquivos: list[UploadFile] = File(...),
+    base_index: int = Form(...),
+    objeto: str = Form(...),
+):
+    if not etp_manager.get_etp(etp_id):
+        return RedirectResponse("/etp", status_code=303)
+    if not objeto.strip() or not 3 <= len(arquivos) <= 5 or not 0 <= base_index < len(arquivos):
+        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=quantidade", status_code=303)
+    if any(not (arquivo.filename or "").lower().endswith(".docx") for arquivo in arquivos):
+        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=formato", status_code=303)
+
+    try:
+        documentos = []
+        for arquivo in arquivos:
+            conteudo = await arquivo.read()
+            if not conteudo or len(conteudo) > 10 * 1024 * 1024:
+                raise ValueError("Arquivo inválido")
+            documentos.append(extrair_campos_etp(conteudo))
+        if any(not documento for documento in documentos):
+            raise ValueError("Nenhum bloco identificado")
+
+        campos = await run_in_threadpool(
+            sintetizar_campos_etp,
+            documentos[base_index],
+            [documento for indice, documento in enumerate(documentos) if indice != base_index],
+            objeto.strip(),
+            etp_manager.get_etp(etp_id).get("itens", []),
+        )
+    except Exception as erro:
+        print(f"[etp] Erro ao sintetizar ETPs: {erro}")
+        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=processamento", status_code=303)
+
+    if not campos:
+        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=resultado", status_code=303)
+    etp_manager.importar_campos_fixos(etp_id, campos)
+    return RedirectResponse(f"/etp/{etp_id}?sintetizados={len(campos)}#campos", status_code=303)
 
 
 @app.post("/etp/{etp_id}/item/add")
