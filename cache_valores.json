@@ -339,5 +339,31 @@
       }
     ],
     "data_cache": "2026-07-31 20:54"
+  },
+  "81648859000103-1-000558/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "Notebook completo, destinado a produtividade corporativa, rotinas acadêmicas e execução de multitarefas, deve ser equipado com processador móvel de 8 núcleos físicos e 16 threads, frequência turbo máxima de até 4.5GHz e 16MB de memória cache de alta velocidade. Memória RAM no padrão DDR4 com capacidade de 16GB e frequência operacional de 3200MHz. Placa de vídeo integrada diretamente ao processador, suficiente para softwares de escritório, edição leve de imagens e consumo de mídia. Armazenamento interno em SSD padrão M.2 NVMe PCI Express, com capacidade de 240GB ou superior, proporcionando rápida inicialização do sistema e elevadas taxas de transferência de leitura e gravação. Tela integrada de 15,6 polegadas com resolução nativa Full HD (1920 x 1080 pixels), painel com tratamento antirreflexo, taxa de atualização de 60Hz e estrutura de dobradiça reforçada permitindo abertura plana em até 180 graus. Sistema de conectividade abrangendo suporte a redes sem fio Wi-Fi de banda dupla e conectividade Bluetooth para periféricos. Apresenta conjunto de interfaces físicas contemplando uma porta USB Tipo-C de alta velocidade, duas portas USB Tipo-A na versão 3.2, uma porta USB Tipo-A versão 2.0, uma saída de vídeo digital HDMI e conector combinado de áudio analógico P3. Conta ainda com câmera frontal de resolução mínima HD (720p), conjunto de microfone integrado, alto-falantes estéreo e teclado completo com layout numérico dedicado. Produto novo, montado, lacrado e com garantia mínima de 12 meses.",
+        "quantidade": 1.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 4.950,00",
+        "valor_total": "R$ 4.950,00"
+      }
+    ],
+    "data_cache": "2026-08-02 10:01"
+  },
+  "79151312000156-1-000408/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "7003.64524-Notebook, MEMÓRIA RAM: 8GB, ARMAZENAMENTO: 512GB, CARACTERÍSTICAS ADICIONAIS: Demais informações de acordo com Termo de Referência e/ou Descritivo Técnico do Processo, UNID. DE MEDIDA: Unitário",
+        "quantidade": 2.0,
+        "unidade": "Unitário",
+        "valor_unitario": "R$ 4.959,98",
+        "valor_total": "R$ 9.919,96"
+      }
+    ],
+    "data_cache": "2026-08-02 10:07"
   }
 }

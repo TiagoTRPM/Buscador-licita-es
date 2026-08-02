@@ -5,7 +5,7 @@ import re
 from datetime import datetime, timedelta
 from fastapi.concurrency import run_in_threadpool
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, File, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -18,6 +18,7 @@ import cache as cache_module
 import atualizador
 import etp_manager
 from etp_gerador import gerar_word
+from etp_importador import extrair_campos_etp
 
 # =====================================================
 # INICIALIZAÇÃO
@@ -273,11 +274,35 @@ async def etp_salvar(request: Request, etp_id: str):
     return RedirectResponse(f"/etp/{etp_id}", status_code=303)
 
 
+@app.post("/etp/{etp_id}/importar")
+async def etp_importar(etp_id: str, arquivo: UploadFile = File(...)):
+    if not etp_manager.get_etp(etp_id):
+        return RedirectResponse("/etp", status_code=303)
+
+    if not (arquivo.filename or "").lower().endswith(".docx"):
+        return RedirectResponse(f"/etp/{etp_id}?erro_importacao=formato", status_code=303)
+
+    conteudo = await arquivo.read()
+    if not conteudo or len(conteudo) > 10 * 1024 * 1024:
+        return RedirectResponse(f"/etp/{etp_id}?erro_importacao=arquivo", status_code=303)
+
+    try:
+        campos = extrair_campos_etp(conteudo)
+    except Exception:
+        return RedirectResponse(f"/etp/{etp_id}?erro_importacao=leitura", status_code=303)
+
+    if not campos:
+        return RedirectResponse(f"/etp/{etp_id}?erro_importacao=blocos", status_code=303)
+
+    etp_manager.importar_campos_fixos(etp_id, campos)
+    return RedirectResponse(f"/etp/{etp_id}?importados={len(campos)}#campos", status_code=303)
+
+
 @app.post("/etp/{etp_id}/item/add")
 async def etp_item_add(request: Request, etp_id: str):
     form = await request.form()
     item = {
-        "nome":        form.get("nome", "").strip(),
+        "nome":        " ".join(form.get("nome", "").split())[:100],
         "descricao":   form.get("descricao", "").strip(),
         "quantidade":  form.get("quantidade", "").strip(),
         "unidade":     form.get("unidade", "un").strip() or "un",
@@ -291,9 +316,24 @@ async def etp_item_add(request: Request, etp_id: str):
     return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
 
 
+@app.post("/etp/{etp_id}/itens/incluir-levantamento")
+async def etp_itens_incluir_levantamento(etp_id: str):
+    etp_manager.adicionar_todos_itens_do_levantamento(etp_id)
+    return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
+
+
 @app.post("/etp/{etp_id}/item/{item_id}/remover")
 async def etp_item_remover(etp_id: str, item_id: str):
     etp_manager.remover_item(etp_id, item_id)
+    return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
+
+
+@app.post("/etp/{etp_id}/item/{item_id}/editar")
+async def etp_item_editar(request: Request, etp_id: str, item_id: str):
+    form = await request.form()
+    nome = form.get("nome", "").strip()
+    if nome:
+        etp_manager.editar_nome_item(etp_id, item_id, nome)
     return RedirectResponse(f"/etp/{etp_id}#itens", status_code=303)
 
 

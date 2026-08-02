@@ -103,6 +103,19 @@ def salvar_etp(etp_id: str, atualizacoes: dict) -> dict | None:
     return etp
 
 
+def importar_campos_fixos(etp_id: str, campos: dict[str, str]) -> dict | None:
+    """Atualiza os blocos de conteúdo extraídos de um ETP importado."""
+    dados = _carregar()
+    etp = dados["etps"].get(etp_id)
+    if not etp:
+        return None
+
+    etp["campos_fixos"].update({campo: valor for campo, valor in campos.items() if valor.strip()})
+    etp["alterado"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+    _salvar(dados)
+    return etp
+
+
 def deletar_etp(etp_id: str) -> bool:
     dados = _carregar()
     if etp_id not in dados["etps"]:
@@ -124,6 +137,39 @@ def adicionar_item(etp_id: str, item: dict) -> dict | None:
     return dados["etps"][etp_id]
 
 
+def adicionar_todos_itens_do_levantamento(etp_id: str) -> int | None:
+    """Converte as referências salvas no levantamento em itens do ETP."""
+    dados = _carregar()
+    etp = dados["etps"].get(etp_id)
+    if not etp:
+        return None
+
+    incluidos = 0
+    for levantamento in etp.get("levantamento", []):
+        for referencia in levantamento.get("referencias", []):
+            descricao = (
+                referencia.get("descricao_item")
+                or referencia.get("objeto")
+                or levantamento.get("termo", "")
+            ).strip()
+            if not descricao:
+                continue
+
+            etp["itens"].append({
+                "id": uuid.uuid4().hex[:8],
+                "nome": descricao[:100],
+                "descricao": descricao,
+                "quantidade": referencia.get("quantidade") or 1,
+                "unidade": referencia.get("unidade") or "un",
+            })
+            incluidos += 1
+
+    if incluidos:
+        etp["alterado"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        _salvar(dados)
+    return incluidos
+
+
 def remover_item(etp_id: str, item_id: str) -> bool:
     dados = _carregar()
     if etp_id not in dados["etps"]:
@@ -131,6 +177,22 @@ def remover_item(etp_id: str, item_id: str) -> bool:
 
     etp = dados["etps"][etp_id]
     etp["itens"] = [i for i in etp["itens"] if i.get("id") != item_id]
+    etp["alterado"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+    _salvar(dados)
+    return True
+
+
+def editar_nome_item(etp_id: str, item_id: str, nome: str) -> bool:
+    dados = _carregar()
+    etp = dados["etps"].get(etp_id)
+    if not etp:
+        return False
+
+    item = next((item for item in etp["itens"] if item.get("id") == item_id), None)
+    if not item:
+        return False
+
+    item["nome"] = " ".join(nome.split())[:100]
     etp["alterado"] = datetime.now().strftime("%Y-%m-%d %H:%M")
     _salvar(dados)
     return True

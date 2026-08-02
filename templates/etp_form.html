@@ -18,6 +18,22 @@
     </div>
 </div>
 
+<form method="post" action="/etp/{{ etp.id }}/importar" enctype="multipart/form-data" class="card"
+    style="margin-bottom:16px; border-left:4px solid #4f46e5;"
+    onsubmit="return confirm('Os blocos identificados no arquivo serão usados para preencher os campos atuais. Deseja continuar?')">
+    <strong>Importar dados de outro ETP</strong>
+    <p style="margin:6px 0 10px; color:#4b5563; font-size:.9rem;">Envie um arquivo Word (.docx). A importação identifica cada bloco pela numeração; se o título for diferente, usa a posição da seção para preencher o campo correspondente.</p>
+    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <input type="file" name="arquivo" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
+        <button type="submit" class="btn btn-outline">📤 Importar e preencher</button>
+    </div>
+    {% if request.query_params.get('importados') %}
+    <p style="margin:10px 0 0; color:#166534;">✓ {{ request.query_params.get('importados') }} blocos foram preenchidos a partir do arquivo.</p>
+    {% elif request.query_params.get('erro_importacao') %}
+    <p style="margin:10px 0 0; color:#b91c1c;">Não foi possível importar o arquivo. Envie um ETP Word (.docx) com seções de conteúdo.</p>
+    {% endif %}
+</form>
+
 {% if erros_exportacao %}
 <div class="card" style="border-left:4px solid #dc2626; margin-bottom:16px; background:#fef2f2;">
     <strong style="color:#991b1b;">Complete estes itens antes de exportar o Word:</strong>
@@ -178,8 +194,11 @@
                 <td style="text-align:center;">{{ item.quantidade }}</td>
                 <td style="text-align:center;">{{ item.unidade }}</td>
                 <td>
+                    <button type="button" title="Editar nome do item"
+                        onclick='abrirEdicaoItem("{{ item.id }}", {{ item.nome | tojson }})'
+                        style="background:none; border:none; color:#2563eb; cursor:pointer;">✏️</button>
                     <form method="post" action="/etp/{{ etp.id }}/item/{{ item.id }}/remover"
-                        onsubmit="return confirm('Remover este item?')">
+                        onsubmit="return confirm('Remover este item?')" style="display:inline;">
                         <button type="submit" style="background:none; border:none; color:#dc2626; cursor:pointer;">🗑️</button>
                     </form>
                 </td>
@@ -194,10 +213,34 @@
     <form method="post" action="/etp/{{ etp.id }}/item/add"
         style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:14px;">
         <h4 style="margin:0 0 10px;">+ Adicionar Item</h4>
+        {% if etp.levantamento %}
+        <div class="form-group">
+            <label>Item separado no levantamento</label>
+            <select id="item-do-levantamento" onchange="preencherItemDoLevantamento(this)"
+                style="width:100%; padding:7px 10px; border:1px solid #a5b4fc; border-radius:6px; background:#f5f7ff;">
+                <option value="">Selecione um item pesquisado para preencher os campos abaixo</option>
+                {% for lev in etp.levantamento %}
+                    {% for ref in lev.referencias %}
+                    {% set descricao_referencia = ref.descricao_item or ref.objeto or lev.termo %}
+                    <option value="{{ loop.index }}"
+                        data-nome="{{ descricao_referencia[:100] }}"
+                        data-descricao="{{ descricao_referencia }}"
+                        data-quantidade="{{ ref.quantidade or 1 }}"
+                        data-unidade="{{ ref.unidade or 'un' }}">
+                        {{ lev.termo }} — {{ descricao_referencia[:100] }}{% if descricao_referencia|length > 100 %}…{% endif %}
+                    </option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <small style="display:block; margin-top:5px; color:#4f46e5;">Ao selecionar, os dados do item serão preenchidos e poderão ser ajustados antes de adicionar.</small>
+        </div>
+        {% else %}
+        <p style="margin:0 0 12px; color:#6b7280; font-size:0.88rem;">Faça primeiro um levantamento de mercado para selecionar os itens encontrados.</p>
+        {% endif %}
         <div class="form-row">
             <div class="form-group flex-2">
                 <label>Nome do Item</label>
-                <input type="text" name="nome" placeholder="Ex: Notebook i5" required
+                <input type="text" name="nome" placeholder="Ex: Notebook i5" required maxlength="100"
                     style="width:100%; padding:7px 10px; border:1px solid #d1d5db; border-radius:6px;"/>
             </div>
             <div class="form-group flex-1">
@@ -217,6 +260,37 @@
                 style="width:100%; padding:7px 10px; border:1px solid #d1d5db; border-radius:6px; resize:vertical; box-sizing:border-box;"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">+ Adicionar</button>
+    </form>
+    {% if etp.levantamento %}
+    <form method="post" action="/etp/{{ etp.id }}/itens/incluir-levantamento" style="margin-top:10px;"
+        onsubmit="return confirm('Incluir todos os itens encontrados no levantamento?')">
+        <button type="submit" class="btn btn-outline">+ Incluir todos os itens do levantamento</button>
+    </form>
+    {% endif %}
+</div>
+
+<div id="modal-editar-item" class="hidden" role="dialog" aria-modal="true" aria-labelledby="titulo-editar-item"
+    style="position:fixed; inset:0; z-index:1000; display:flex; background:rgba(17,24,39,.45); padding:16px; align-items:center; justify-content:center;">
+    <form id="form-editar-item" method="post"
+        style="width:min(860px, calc(100vw - 32px)); min-height:380px; background:#fff; border-radius:14px; padding:32px; box-shadow:0 24px 60px rgba(0,0,0,.32); border:1px solid #e5e7eb;">
+        <div style="display:flex; justify-content:space-between; align-items:start; gap:12px;">
+            <div>
+                <h3 id="titulo-editar-item" style="margin:0; font-size:1.25rem;">Editar item</h3>
+                <p style="margin:5px 0 0; color:#6b7280; font-size:.9rem;">Altere o nome que será exibido na lista de itens.</p>
+            </div>
+            <button type="button" onclick="fecharEdicaoItem()" aria-label="Fechar"
+                style="background:none; border:0; font-size:1.3rem; cursor:pointer;">×</button>
+        </div>
+        <div class="form-group" style="margin:36px 0;">
+            <label for="nome-editar-item">Nome do item</label>
+            <textarea id="nome-editar-item" name="nome" maxlength="100" rows="7" required
+                style="width:100%; min-height:180px; box-sizing:border-box; padding:14px 16px; border:1px solid #9ca3af; border-radius:8px; font-size:1rem; line-height:1.6; margin-top:8px; resize:vertical;"></textarea>
+            <small style="display:block; margin-top:5px; color:#6b7280;">Máximo de 100 caracteres. Você pode visualizar o texto completo nesta área.</small>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+            <button type="button" class="btn btn-outline" onclick="fecharEdicaoItem()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
     </form>
 </div>
 
@@ -474,6 +548,30 @@ async function pesquisarLevantamento() {
     } finally {
         loading.classList.add('hidden');
     }
+}
+
+function preencherItemDoLevantamento(select) {
+    const opcao = select.options[select.selectedIndex];
+    if (!opcao.value) return;
+
+    const form = select.closest('form');
+    form.querySelector('[name="nome"]').value = opcao.dataset.nome || '';
+    form.querySelector('[name="descricao"]').value = opcao.dataset.descricao || '';
+    form.querySelector('[name="quantidade"]').value = opcao.dataset.quantidade || 1;
+    form.querySelector('[name="unidade"]').value = opcao.dataset.unidade || 'un';
+}
+
+function abrirEdicaoItem(itemId, nome) {
+    const modal = document.getElementById('modal-editar-item');
+    const form = document.getElementById('form-editar-item');
+    form.action = `/etp/{{ etp.id }}/item/${encodeURIComponent(itemId)}/editar`;
+    document.getElementById('nome-editar-item').value = nome;
+    modal.classList.remove('hidden');
+    document.getElementById('nome-editar-item').focus();
+}
+
+function fecharEdicaoItem() {
+    document.getElementById('modal-editar-item').classList.add('hidden');
 }
 
 async function salvarLevantamento(termo, uf) {
