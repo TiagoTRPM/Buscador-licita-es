@@ -206,33 +206,107 @@ function abrirAdicionarETP(botao) {
     document.getElementById('modal-adicionar-etp').classList.remove('hidden');
 }
 
+// ── Itens e valores — com paginação ─────────────────
+
+// Estado de paginação por licitação
+let _itensNumeroAtual = null;
+
 function fecharItens() { document.getElementById('modal-itens').classList.add('hidden'); }
 
 async function abrirItens(numeroControle) {
+    _itensNumeroAtual = numeroControle;
     const modal = document.getElementById('modal-itens');
-    const status = document.getElementById('itens-status');
-    const conteudo = document.getElementById('itens-conteudo');
     modal.classList.remove('hidden');
+    await _carregarPaginaItens(numeroControle, 1);
+}
+
+async function _carregarPaginaItens(numeroControle, pagina) {
+    const status   = document.getElementById('itens-status');
+    const conteudo = document.getElementById('itens-conteudo');
     status.textContent = 'Consultando os itens no PNCP...';
     conteudo.innerHTML = '';
+
     try {
-        const res = await fetch(`/api/itens/${encodeURIComponent(numeroControle)}`);
+        const res  = await fetch(`/api/itens/${encodeURIComponent(numeroControle)}?pagina=${pagina}&tamanho=10`);
         const data = await res.json();
         if (data.erro) throw new Error(data.erro);
-        status.textContent = data.itens.length ? 'Selecione o item que deseja usar como referência no ETP.' : 'O PNCP não retornou itens para este edital.';
+
+        if (!data.itens || data.itens.length === 0) {
+            status.textContent = 'O PNCP não retornou itens para este edital.';
+            return;
+        }
+
+        status.textContent = `Selecione o item para usar como referência no ETP. (${data.total} itens encontrados)`;
+
+        // Tabela de itens
         const tabela = document.createElement('table');
         tabela.className = 'tabela';
-        tabela.innerHTML = '<thead><tr><th>Descrição</th><th>Qtd.</th><th>Valor unit.</th><th>Valor total</th><th></th></tr></thead>';
+        tabela.innerHTML = '<thead><tr><th>#</th><th>Descrição</th><th>Qtd.</th><th>Valor unit.</th><th>Valor total</th><th></th></tr></thead>';
         const corpo = document.createElement('tbody');
         data.itens.forEach(item => {
             const linha = document.createElement('tr');
-            linha.innerHTML = `<td>${escaparHtml(item.descricao)}</td><td>${escaparHtml(item.quantidade)} ${escaparHtml(item.unidade)}</td><td>${escaparHtml(item.valor_unitario || '—')}</td><td>${escaparHtml(item.valor_total || '—')}</td><td><button class="btn-adicionar-etp" type="button">+ ETP</button></td>`;
+            linha.innerHTML = `
+                <td style="text-align:center; color:#6b7280; font-size:.8rem;">${escaparHtml(item.id)}</td>
+                <td>${escaparHtml(item.descricao)}</td>
+                <td style="text-align:center;">${escaparHtml(String(item.quantidade))} ${escaparHtml(item.unidade)}</td>
+                <td style="text-align:right; color:#16a34a; font-weight:600;">${escaparHtml(item.valor_unitario || '—')}</td>
+                <td style="text-align:right; color:#16a34a;">${escaparHtml(item.valor_total || '—')}</td>
+                <td><button class="btn-adicionar-etp" type="button">+ ETP</button></td>`;
             linha.querySelector('button').onclick = () => abrirAdicionarItemETP(numeroControle, item);
             corpo.appendChild(linha);
         });
         tabela.appendChild(corpo);
         conteudo.appendChild(tabela);
-    } catch (erro) { status.textContent = erro.message || 'Erro ao buscar os itens.'; }
+
+        // Paginação — só aparece se houver mais de uma página
+        if (data.total_paginas > 1) {
+            const pag = document.createElement('div');
+            pag.style.cssText = 'display:flex; align-items:center; justify-content:space-between; margin-top:12px; font-size:.85rem; color:#4b5563; flex-wrap:wrap; gap:8px;';
+
+            const info = document.createElement('span');
+            info.textContent = `Página ${data.pagina} de ${data.total_paginas} — ${data.total} itens no total`;
+
+            const botoes = document.createElement('div');
+            botoes.style.cssText = 'display:flex; gap:4px; flex-wrap:wrap;';
+
+            if (data.pagina > 1) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-outline btn-sm';
+                btn.textContent = '← Anterior';
+                btn.onclick = () => _carregarPaginaItens(numeroControle, data.pagina - 1);
+                botoes.appendChild(btn);
+            }
+
+            // Números de página — até 5 ao redor da atual
+            const pInicio = Math.max(1, data.pagina - 2);
+            const pFim    = Math.min(data.total_paginas, data.pagina + 2);
+            for (let p = pInicio; p <= pFim; p++) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-sm ' + (p === data.pagina ? 'btn-primary' : 'btn-outline');
+                btn.style.cssText = 'min-width:34px; width:auto;';
+                btn.textContent = p;
+                if (p !== data.pagina) {
+                    btn.onclick = ((pp) => () => _carregarPaginaItens(numeroControle, pp))(p);
+                }
+                botoes.appendChild(btn);
+            }
+
+            if (data.pagina < data.total_paginas) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-outline btn-sm';
+                btn.textContent = 'Próxima →';
+                btn.onclick = () => _carregarPaginaItens(numeroControle, data.pagina + 1);
+                botoes.appendChild(btn);
+            }
+
+            pag.appendChild(info);
+            pag.appendChild(botoes);
+            conteudo.appendChild(pag);
+        }
+
+    } catch (erro) {
+        document.getElementById('itens-status').textContent = erro.message || 'Erro ao buscar os itens.';
+    }
 }
 
 function escaparHtml(valor) {
@@ -743,122 +817,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[name="modalidades"]').forEach(c =>
         c.addEventListener('change', salvarEstado));
 
-    // Salva antes de buscar
     document.getElementById('btn-buscar')?.addEventListener('click', salvarEstado);
 
-    // Salva quando cidades do servidor forem removidas via ✕
     new MutationObserver(salvarEstado)
         .observe(document.getElementById('lista-estados'), { childList: true, subtree: true });
-});
-</script>
-
-<script>
-async function buscarValor(btn, numeroControle) {
-    btn.textContent = '⏳';
-    btn.disabled = true;
-
-    try {
-        const res  = await fetch(`/api/valor/${encodeURIComponent(numeroControle)}`);
-        const data = await res.json();
-
-        const td = btn.parentElement;
-
-        if (data.valor) {
-            td.innerHTML = `<span style="color:#16a34a; font-weight:600; font-size:0.85rem;">
-                ${data.valor}
-            </span>`;
-        } else {
-            td.innerHTML = `<span style="color:#9ca3af; font-size:0.8rem;" title="${data.info || data.erro || ''}">
-                Não informado
-            </span>`;
-        }
-    } catch(e) {
-        btn.textContent = '💰 Ver valor';
-        btn.disabled = false;
-    }
-}
-</script>
-
-<script>
-// ── Atualizador de cache ────────────────────────────
-let _atualizadorInterval = null;
-
-async function iniciarAtualizacao() {
-    const res  = await fetch('/api/atualizar/iniciar', { method: 'POST' });
-    const data = await res.json();
-
-    if (!data.ok) {
-        document.getElementById('atu-status').textContent = '⚠️ ' + data.erro;
-        return;
-    }
-
-    document.getElementById('btn-atualizar').classList.add('hidden');
-    document.getElementById('btn-cancelar-atu').classList.remove('hidden');
-    document.getElementById('atu-barra-container').classList.remove('hidden');
-    document.getElementById('atu-status').textContent = `Iniciando... ${data.total} editais pendentes`;
-
-    _atualizadorInterval = setInterval(atualizarProgresso, 2000);
-}
-
-async function cancelarAtualizacao() {
-    await fetch('/api/atualizar/cancelar', { method: 'POST' });
-}
-
-async function atualizarProgresso() {
-    try {
-        const res  = await fetch('/api/atualizar/progresso');
-        const data = await res.json();
-
-        const pct = data.total > 0 ? Math.round((data.atual / data.total) * 100) : 0;
-        document.getElementById('atu-barra').style.width = pct + '%';
-
-        const execStr = `(${data.execucoes_hoje}/2 execuções hoje)`;
-
-        if (data.status === 'rodando') {
-            document.getElementById('atu-status').textContent =
-                `⏳ ${data.atual}/${data.total} processados... ${execStr}`;
-        } else if (data.status === 'concluido') {
-            document.getElementById('atu-status').textContent =
-                `✅ Concluído! ${data.total} editais processados ${execStr} — ${data.inicio} → ${data.fim}`;
-            document.getElementById('btn-atualizar').classList.remove('hidden');
-            document.getElementById('btn-cancelar-atu').classList.add('hidden');
-            clearInterval(_atualizadorInterval);
-        } else if (data.status === 'cancelado') {
-            document.getElementById('atu-status').textContent = `⏹ Cancelado em ${data.atual}/${data.total}`;
-            document.getElementById('btn-atualizar').classList.remove('hidden');
-            document.getElementById('btn-cancelar-atu').classList.add('hidden');
-            clearInterval(_atualizadorInterval);
-        }
-
-        // Atualiza log
-        if (data.log && data.log.length > 0) {
-            const log = document.getElementById('atu-log');
-            log.innerHTML = data.log.slice(-20).join('<br>');
-            log.scrollTop = log.scrollHeight;
-        }
-
-    } catch(e) {
-        clearInterval(_atualizadorInterval);
-    }
-}
-
-// Verifica status ao carregar (caso esteja rodando em background)
-window.addEventListener('load', async () => {
-    const res  = await fetch('/api/atualizar/progresso');
-    const data = await res.json();
-    if (data.status === 'rodando') {
-        document.getElementById('btn-atualizar').classList.add('hidden');
-        document.getElementById('btn-cancelar-atu').classList.remove('hidden');
-        document.getElementById('atu-barra-container').classList.remove('hidden');
-        _atualizadorInterval = setInterval(atualizarProgresso, 2000);
-    } else {
-        // Mostra stats do cache
-        const stats = await fetch('/api/cache/stats').then(r => r.json());
-        if (stats.total > 0) {
-            document.getElementById('atu-status').textContent =
-                `Cache: ${stats.com_valor} com valor, ${stats.sem_valor} pendentes`;
-        }
-    }
 });
 </script>
 

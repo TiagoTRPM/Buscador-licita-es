@@ -19,7 +19,7 @@ import cache as cache_module
 import atualizador
 import etp_manager
 from etp_gerador import gerar_word
-from etp_importador import extrair_campos_etp, garantir_docx
+from etp_importador import extrair_campos_etp
 
 # =====================================================
 # INICIALIZAÇÃO
@@ -144,11 +144,25 @@ def _formatar_brl(valor):
 
 
 @app.get("/api/itens/{numero_controle:path}")
-async def api_itens_contratacao(numero_controle: str):
-    """Consulta e guarda os itens, incluindo valores unitários, da contratação no PNCP."""
+async def api_itens_contratacao(numero_controle: str, pagina: int = 1, tamanho: int = 10):
+    """Consulta itens da contratação no PNCP, varrendo todas as páginas e suportando paginação no frontend."""
     cached = cache_module.get(numero_controle) or {}
+
+    # Se já está no cache, devolve direto a fatia pedida
     if cached.get("itens"):
-        return {"itens": cached["itens"], "fonte": "cache"}
+        itens = cached["itens"]
+        total = len(itens)
+        inicio = (pagina - 1) * tamanho
+        fatia = itens[inicio: inicio + tamanho]
+        return {
+            "itens": fatia,
+            "total": total,
+            "pagina": pagina,
+            "tamanho": tamanho,
+            "total_paginas": max(1, -(-total // tamanho)),
+            "fonte": "cache",
+        }
+
     try:
         partes = numero_controle.split("/")
         ano = partes[1].strip()
@@ -158,32 +172,86 @@ async def api_itens_contratacao(numero_controle: str):
         return {"itens": [], "erro": "Número de controle inválido"}
 
     import requests as req
-    url = f"https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{seq}/itens"
+
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+        "Referer": "https://pncp.gov.br/app/editais",
+    }
+
+    # Varre todas as páginas da API do PNCP (ela retorna 10 por página)
+    todos_brutos = []
+    pg = 1
+    TAM_PNCP = 10
+
     try:
-        resposta = req.get(url, headers={"Accept": "application/json", "User-Agent": "Mozilla/5.0", "Referer": "https://pncp.gov.br/app/editais"}, timeout=15)
-        if resposta.status_code != 200:
-            return {"itens": [], "erro": f"API retornou {resposta.status_code}"}
-        bruto = resposta.json()
-        if isinstance(bruto, list):
-            lista = bruto
-        elif isinstance(bruto, dict):
-            lista = bruto.get("data") or bruto.get("items") or []
-        else:
-            lista = []
+        while True:
+            url = (
+                f"https://pncp.gov.br/api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{seq}/itens"
+                f"?pagina={pg}&tamanhoPagina={TAM_PNCP}"
+            )
+            resposta = req.get(url, headers=headers, timeout=15)
+
+            if resposta.status_code != 200:
+                if pg == 1:
+                    return {"itens": [], "erro": f"API retornou {resposta.status_code}"}
+                break  # sem mais páginas
+
+            bruto = resposta.json()
+            if isinstance(bruto, list):
+                lista_pg = bruto
+            elif isinstance(bruto, dict):
+                lista_pg = bruto.get("data") or bruto.get("items") or []
+            else:
+                lista_pg = []
+
+            if not lista_pg:
+                break
+
+            todos_brutos.extend(lista_pg)
+
+            if len(lista_pg) < TAM_PNCP:
+                break  # última página
+
+            pg += 1
+
+        # Normaliza
         itens = []
-        for indice, item in enumerate(lista, 1):
-            unitario = item.get("valorUnitarioEstimado") or item.get("valorUnitarioHomologado") or item.get("valorUnitario")
-            total = item.get("valorTotal") or item.get("valorTotalEstimado") or item.get("valorTotalHomologado")
+        for indice, item in enumerate(todos_brutos, 1):
+            unitario = (
+                item.get("valorUnitarioEstimado")
+                or item.get("valorUnitarioHomologado")
+                or item.get("valorUnitario")
+            )
+            total_item = (
+                item.get("valorTotal")
+                or item.get("valorTotalEstimado")
+                or item.get("valorTotalHomologado")
+            )
             itens.append({
                 "id": str(item.get("numeroItem") or item.get("sequencialItem") or indice),
                 "descricao": item.get("descricao") or item.get("descricaoItem") or "Item sem descrição",
                 "quantidade": item.get("quantidade") or item.get("quantidadeItem") or "",
                 "unidade": item.get("unidadeMedida") or item.get("unidade") or "",
                 "valor_unitario": _formatar_brl(unitario),
-                "valor_total": _formatar_brl(total),
+                "valor_total": _formatar_brl(total_item),
             })
+
+        # Salva tudo no cache de uma vez
         cache_module.set(numero_controle, {"itens": itens})
-        return {"itens": itens, "fonte": "api"}
+
+        total = len(itens)
+        inicio = (pagina - 1) * tamanho
+        fatia = itens[inicio: inicio + tamanho]
+        return {
+            "itens": fatia,
+            "total": total,
+            "pagina": pagina,
+            "tamanho": tamanho,
+            "total_paginas": max(1, -(-total // tamanho)),
+            "fonte": "api",
+        }
+
     except Exception as e:
         return {"itens": [], "erro": str(e)}
 
@@ -280,7 +348,7 @@ async def etp_importar(etp_id: str, arquivo: UploadFile = File(...)):
     if not etp_manager.get_etp(etp_id):
         return RedirectResponse("/etp", status_code=303)
 
-    if not (arquivo.filename or "").lower().endswith((".docx", ".doc", ".pdf", ".odt")):
+    if not (arquivo.filename or "").lower().endswith(".docx"):
         return RedirectResponse(f"/etp/{etp_id}?erro_importacao=formato", status_code=303)
 
     conteudo = await arquivo.read()
@@ -288,10 +356,8 @@ async def etp_importar(etp_id: str, arquivo: UploadFile = File(...)):
         return RedirectResponse(f"/etp/{etp_id}?erro_importacao=arquivo", status_code=303)
 
     try:
-        conteudo_docx = await run_in_threadpool(garantir_docx, arquivo.filename, conteudo)
-        campos = extrair_campos_etp(conteudo_docx)
-    except Exception as e:
-        print(f"[etp] Erro na importacao: {e}")
+        campos = extrair_campos_etp(conteudo)
+    except Exception:
         return RedirectResponse(f"/etp/{etp_id}?erro_importacao=leitura", status_code=303)
 
     if not campos:
@@ -312,7 +378,7 @@ async def etp_sintetizar(
         return RedirectResponse("/etp", status_code=303)
     if not objeto.strip() or not 3 <= len(arquivos) <= 5 or not 0 <= base_index < len(arquivos):
         return RedirectResponse(f"/etp/{etp_id}?erro_sintese=quantidade", status_code=303)
-    if any(not (arquivo.filename or "").lower().endswith((".docx", ".doc", ".pdf", ".odt")) for arquivo in arquivos):
+    if any(not (arquivo.filename or "").lower().endswith(".docx") for arquivo in arquivos):
         return RedirectResponse(f"/etp/{etp_id}?erro_sintese=formato", status_code=303)
 
     try:
@@ -321,10 +387,7 @@ async def etp_sintetizar(
             conteudo = await arquivo.read()
             if not conteudo or len(conteudo) > 10 * 1024 * 1024:
                 raise ValueError("Arquivo inválido")
-            
-            conteudo_docx = await run_in_threadpool(garantir_docx, arquivo.filename, conteudo)
-            documentos.append(extrair_campos_etp(conteudo_docx))
-            
+            documentos.append(extrair_campos_etp(conteudo))
         if any(not documento for documento in documentos):
             raise ValueError("Nenhum bloco identificado")
 
@@ -337,10 +400,7 @@ async def etp_sintetizar(
         )
     except Exception as erro:
         print(f"[etp] Erro ao sintetizar ETPs: {erro}")
-        # Redirecionar incluindo a mensagem de erro para depuração
-        import urllib.parse
-        erro_msg = urllib.parse.quote(str(erro))
-        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=processamento&detalhe={erro_msg}", status_code=303)
+        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=processamento", status_code=303)
 
     if not campos:
         return RedirectResponse(f"/etp/{etp_id}?erro_sintese=resultado", status_code=303)

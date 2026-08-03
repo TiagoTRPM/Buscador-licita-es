@@ -365,5 +365,811 @@
       }
     ],
     "data_cache": "2026-08-02 10:07"
+  },
+  "75743377000130-1-000132/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "CHOCOLATE EM PÓ 50% CACAU Produto de padrão profissional, obtido da mistura homogênea de cacau em pó alcalino e açúcar, com teor mínimo de 50% (cinquenta por cento) de sólidos de cacau. Deve apresentar-se em pó  fino, com alta solubilidade, Livre de gorduras trans e gorduras hidrogenadas. Cor marrom-escura intensa, aroma e sabor característicos e equilibrados, sendo rigorosamente proibida a presença de sujidades, insetos, parasitas,  larvas ou corpos estranhos. Acondicionado em embalagem primária atóxica, resistente e hermeticamente vedada, contendo rotulagem com dados do fabricante, marca, lote, fabricação, validade, tabela nutricional e registros  legais. Embalagem de 1kg a 1,05 kg (faixa de variação aceitável). O produto deve apresentar validade remanescente mínima de 06 (seis) meses no ato da entrega e atender integralmente às normas da ANVISA.",
+        "quantidade": 1500.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 36,75",
+        "valor_total": "R$ 55.125,00"
+      },
+      {
+        "id": "2",
+        "descricao": "ACHOCOLATADO EM PÓ — produto obtido pela mistura de cacau em pó, açúcar e demais ingredientes permitidos pela legislação vigente, contendo no mínimo 50% de cacau, com aspecto homogêneo, cor, aroma e sabor característicos, livre de sujidades, parasitas, larvas e materiais estranhos. Não deverá conter gordura trans em sua composição. Embalagem plástica, atóxica, resistente e devidamente vedada, contendo 400 g do produto, com identificação do fabricante, lote, data de fabricação, prazo de validade e informação nutricional, conforme legislação vigente da ANVISA. Prazo de validade mínimo de 180 (cento e oitenta) dias a partir da data de entrega. As\nembalagens deverão ser acondicionadas em caixas de papelão ou fardos adequados para transporte e armazenamento. Produto destinado à alimentação escolar, em conformidade com as normas aplicáveis ao PNAE/FNDE.",
+        "quantidade": 4500.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 11,75",
+        "valor_total": "R$ 52.875,00"
+      },
+      {
+        "id": "3",
+        "descricao": "AÇÚCAR CRISTAL — açúcar cristal branco, de primeira qualidade, obtido da cana-de-açúcar, com coloração uniforme, sabor característico, isento de matérias terrosas, parasitas, detritos animais ou vegetais, umidade, fermentação e odores estranhos. Embalagem de polietileno atóxico, transparente, resistente e devidamente vedada, contendo 5 kg do produto. Na embalagem deverá constar nome e marca do produto, identificação do fabricante, data de fabricação, prazo de validade, número do lote e tabela de informações nutricionais, conforme legislação vigente. Validade mínima de 24 (vinte e quatro) meses a partir da data de entrega. As embalagens deverão ser acondicionadas em fardos de no máximo 30 kg.",
+        "quantidade": 2000.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 26,21",
+        "valor_total": "R$ 52.420,00"
+      },
+      {
+        "id": "4",
+        "descricao": "ADOÇANTE DIETÉTICO EM PÓ — adoçante dietético em  pó, composto por ingredientes permitidos pela legislação vigente, sem adição de açúcares, sem glúten e com baixo ou nenhum valor calórico, destinado ao uso alimentar. Embalagem contendo 50 sachês individuais de 600 mg cada, devidamente acondicionados em embalagem íntegra, resistente e atóxica. Na embalagem deverá constar nome e marca do produto, identificação do fabricante, lote, data de fabricação, prazo de validade e tabela de informações nutricionais, conforme legislação vigente. Validade mínima de 12 (doze) meses a partir da data de entrega.",
+        "quantidade": 50.0,
+        "unidade": "UNIDADE",
+        "valor_unitario": "R$ 14,36",
+        "valor_total": "R$ 718,00"
+      },
+      {
+        "id": "5",
+        "descricao": "AMENDOIM SEM CASCA — amendoim sem casca, tipo 1, de primeira qualidade, grãos inteiros, limpos e selecionados, isentos de sujidades, parasitas, larvas, umidade excessiva, materiais estranhos e grãos mofados ou deteriorados. Embalagem íntegra, atóxica e resistente, contendo 500 g do produto, devidamente vedada, com identificação do fabricante, lote, data de fabricação, prazo de validade e informações nutricionais, conforme legislação vigente. Validade mínima de 06 (seis) meses a partir da data de entrega.",
+        "quantidade": 1200.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 11,17",
+        "valor_total": "R$ 13.404,00"
+      },
+      {
+        "id": "6",
+        "descricao": "AMIDO DE MILHO — produto em pó obtido a partir do milho, fabricado com matérias-primas sãs e limpas, isento de matéria terrosa, parasitas, sujidades e larvas, com aspecto, cor, odor e sabor característicos. Embalagem plástica de polietileno leitoso, resistente, atóxica e hermeticamente fechada, contendo 1 kg do produto. Na embalagem deverá constar nome e marca do produto, identificação do fabricante, data de fabricação, prazo de validade, número do lote e tabela de informações nutricionais, conforme legislação vigente. Validade mínima de 12 (doze) meses a partir da data de entrega.",
+        "quantidade": 1200.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 9,09",
+        "valor_total": "R$ 10.908,00"
+      },
+      {
+        "id": "7",
+        "descricao": "ARROZ BRANCO TIPO 1 — arroz agulhinha, classe longo fino, subgrupo polido, tipo 1, de primeira qualidade, contendo no mínimo 90% de grãos inteiros e teor de umidade máxima de 15%. Produto isento de sujidades, parasitas, larvas, odores estranhos e materiais impróprios ao consumo. Embalagem íntegra, atóxica, resistente e devidamente vedada contendo 5 kg do produto. Na embalagem deverá constar nome e marca do produto, identificação do\nfabricante, data de fabricação, prazo de validade, número do lote e peso líquido, conforme legislação vigente. Validade mínima de 10 (dez) meses a partir da data de entrega.",
+        "quantidade": 1125.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 29,33",
+        "valor_total": "R$ 32.996,25"
+      },
+      {
+        "id": "8",
+        "descricao": "ARROZ INTEGRAL — arroz integral, classe longo fino, tipo 1, constituído de grãos inteiros, sãos e limpos, isento de sujidades, parasitas, larvas, umidade excessiva e materiais estranhos. Embalagem íntegra, atóxica, resistente e devidamente vedada, contendo 1 kg do produto. Na embalagem deverá constar nome e marca do produto, identificação do fabricante, data de fabricação, prazo de validade, número do lote e tabela de informações nutricionais, conforme legislação vigente. Validade mínima de 06 (seis) meses a partir da data de entrega.",
+        "quantidade": 1000.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 10,41",
+        "valor_total": "R$ 10.410,00"
+      },
+      {
+        "id": "9",
+        "descricao": "FARINHA DE AVEIA — produto obtido da moagem da aveia, de primeira qualidade, com aspecto, cor, odor e sabor característicos, isento de mofo, parasitas, larvas, sujidades e substâncias nocivas à saúde. Embalagem íntegra, atóxica, resistente e hermeticamente vedada, contendo 500 g do produto. Na embalagem deverá constar nome e marca do produto, identificação do fabricante, data de fabricação, prazo de validade, número do lote e tabela\nde informações nutricionais, conforme legislação vigente. Validade mínima de 10 (dez) meses a partir da data de entrega.",
+        "quantidade": 500.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 8,13",
+        "valor_total": "R$ 4.065,00"
+      },
+      {
+        "id": "10",
+        "descricao": "BISCOITO CREAM CRACKER COM GERGELIM — biscoito salgado tipo cream cracker, elaborado com farinha de trigo enriquecida com ferro e ácido fólico, adicionado sódio, sem recheio e sem adição de corantes artificiais. Produto com textura crocante, aspecto, cor, aroma e sabor característicos, isento de sujidades, parasitas, larvas e materiais estranhos. Embalagem dupla, íntegra, atóxica e resistente, contendo aproximadamente 360 g, com identificação do fabricante, lote, data de fabricação, prazo de validade e informação nutricional, conforme legislação vigente. Reembalado em caixas de papelão resistentes. Validade mínima de 10 (dez) meses a partir da data de entrega.",
+        "quantidade": 2000.0,
+        "unidade": "PCTE",
+        "valor_unitario": "R$ 7,81",
+        "valor_total": "R$ 15.620,00"
+      }
+    ],
+    "data_cache": "2026-08-03 19:25"
+  },
+  "76206457000119-1-000184/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "ESCOLA MUNICIPAL TANCREDO NEVES - VILA RICA: PRESTAÇÃO DE SERVIÇOS DE MANUTENÇÃO CORRETIVA DO SISTEMA DE CALHAS, RUFOS E SAÍDAS DE ÁGUA DA COBERTURA DA UNIDADE ESCOLAR, COM FORNECIMENTO INTEGRAL DE MATERIAIS, MÃO DE OBRA ESPECIALIZADA, EQUIPAMENTOS, FERRAMENTAS E DEMAIS INSUMOS NECESSÁRIOS À EXECUÇÃO. COMPREENDE O REPARO DAS CALHAS E SAÍDAS DE ÁGUA EXISTENTES; LIMPEZA E PREPARAÇÃO DAS SUPERFÍCIES; REVISÃO, REFIXAÇÃO E ADEQUADA FIXAÇÃO DE 92 M (NOVENTA E DOIS METROS) DE RUFOS METÁLICOS EXISTENTES; REMOÇÃO DE MATERIAIS DE VEDAÇÃO DETERIORADOS; VEDAÇÃO DE PARAFUSOS, EMENDAS, SOBREPOSIÇÕES, PONTOS DE FIXAÇÃO E DEMAIS PONTOS DE INFILTRAÇÃO RELACIONADOS AOS ELEMENTOS OBJETO DA INTERVENÇÃO, MEDIANTE APLICAÇÃO DE SELANTE À BASE DE POLIURETANO PU40 OU EQUIVALENTE TÉCNICO DE DESEMPENHO IGUAL OU SUPERIOR, ADEQUADO PARA USO EXTERNO E RESISTENTE ÀS INTEMPÉRIES. INCLUI, AINDA, A SUBSTITUIÇÃO DOS ELEMENTOS DE FIXAÇÃO DANIFICADOS, CORROÍDOS OU INADEQUADOS NECESSÁRIOS À CORRETA EXECUÇÃO DOS SERVIÇOS, LIMPEZA FINAL DOS LOCAIS DE INTERVENÇÃO E RETIRADA DOS RESÍDUOS GERADOS. OS SERVIÇOS DEVERÃO SER EXECUTADOS DE FORMA A ASSEGURAR A ADEQUADA FIXAÇÃO E ESTANQUEIDADE DOS ELEMENTOS OBJETO DA MANUTENÇÃO, MEDIANTE VERIFICAÇÃO FINAL ACEITA PELA FISCALIZAÇÃO. TODOS OS CUSTOS NECESSÁRIOS À COMPLETA EXECUÇÃO DO OBJETO DEVERÃO ESTAR INCLUÍDOS NO PREÇO OFERTADO.",
+        "quantidade": 1.0,
+        "unidade": "SERVIÇO (SERV)",
+        "valor_unitario": "R$ 8.100,00",
+        "valor_total": "R$ 8.100,00"
+      },
+      {
+        "id": "2",
+        "descricao": "CMEI INFÂNCIA FELIZ - SÃO LUIZ: PRESTAÇÃO DE SERVIÇOS DE MANUTENÇÃO CORRETIVA E ADEQUAÇÃO DO SISTEMA DE CALHAS E RUFOS DA COBERTURA DA UNIDADE ESCOLAR, COM FORNECIMENTO INTEGRAL DE MATERIAIS, MÃO DE OBRA ESPECIALIZADA, EQUIPAMENTOS, FERRAMENTAS E DEMAIS INSUMOS NECESSÁRIOS À EXECUÇÃO. COMPREENDE A SUBSTITUIÇÃO DE 3 (TRÊS) CALHAS METÁLICAS DE 6 M, 1 (UMA) CALHA METÁLICA DE 15 M E 12 (DOZE) RUFOS METÁLICOS DE 2 M, BEM COMO A VEDAÇÃO DE 3 (TRÊS) CALHAS COM 8,10 M DE COMPRIMENTO E 3 (TRÊS) CALHAS COM 4,10 M DE COMPRIMENTO, ALÉM DA VEDAÇÃO DAS EMENDAS, SOBREPOSIÇÕES E DEMAIS PONTOS DE JUNÇÃO DOS RUFOS EXISTENTES, ABRANGENDO APROXIMADAMENTE 55 M LINEARES DE VEDAÇÃO DE RUFOS METÁLICOS. AS NOVAS CALHAS E RUFOS DEVERÃO SER CONFECCIONADOS EM AÇO REVESTIDO COM LIGA DE ALUMÍNIO-ZINCO (GALVALUME), ESPESSURA MÍNIMA DE 0,50 MM, OU MATERIAL TECNICAMENTE EQUIVALENTE OU SUPERIOR, DESDE QUE COMPROVADA A EQUIVALÊNCIA DE DESEMPENHO, DURABILIDADE E RESISTÊNCIA À CORROSÃO E ACEITA PELA FISCALIZAÇÃO. OS SERVIÇOS DE VEDAÇÃO DEVERÃO SER EXECUTADOS MEDIANTE LIMPEZA E PREPARAÇÃO PRÉVIA DAS SUPERFÍCIES, REMOÇÃO DOS MATERIAIS DETERIORADOS OU SEM ADERÊNCIA E APLICAÇÃO DE SELANTE À BASE DE POLIURETANO PU40 OU EQUIVALENTE TÉCNICO DE DESEMPENHO IGUAL OU SUPERIOR, ADEQUADO PARA USO EXTERNO E RESISTENTE ÀS INTEMPÉRIES. INCLUEM-SE NO SERVIÇO TODOS OS CORTES, DOBRAS, EMENDAS, SOBREPOSIÇÕES, FIXAÇÕES, PARAFUSOS, ELEMENTOS DE UNIÃO E VEDAÇÃO NECESSÁRIOS À CORRETA INSTALAÇÃO E FUNCIONAMENTO DO SISTEMA, BEM COMO A RETIRADA DOS MATERIAIS SUBSTITUÍDOS, LIMPEZA FINAL DOS LOCAIS DE INTERVENÇÃO E DESTINAÇÃO ADEQUADA DOS RESÍDUOS GERADOS. OS SERVIÇOS DEVERÃO SER EXECUTADOS DE FORMA A ASSEGURAR A ADEQUADA FIXAÇÃO, CONTINUIDADE DO ESCOAMENTO DAS ÁGUAS PLUVIAIS E ESTANQUEIDADE DOS ELEMENTOS OBJETO DA INTERVENÇÃO, MEDIANTE VERIFICAÇÃO FINAL ACEITA PELA FISCALIZAÇÃO. TODOS OS CUSTOS NECESSÁRIOS À COMPLETA EXECUÇÃO DO OBJETO DEVERÃO ESTAR INCLUÍDOS NO PREÇO OFERTADO.",
+        "quantidade": 1.0,
+        "unidade": "SERVIÇO (SERV)",
+        "valor_unitario": "R$ 9.750,00",
+        "valor_total": "R$ 9.750,00"
+      },
+      {
+        "id": "3",
+        "descricao": "CMEI SEMEANDO O SABER - SÃO ROQUE: PRESTAÇÃO DE SERVIÇOS DE MANUTENÇÃO CORRETIVA E ADEQUAÇÃO DO SISTEMA DE CALHAS E RUFOS DA COBERTURA DA UNIDADE ESCOLAR, COM FORNECIMENTO INTEGRAL DE MATERIAIS, MÃO DE OBRA ESPECIALIZADA, EQUIPAMENTOS, FERRAMENTAS E DEMAIS INSUMOS NECESSÁRIOS À EXECUÇÃO. COMPREENDE O FORNECIMENTO, CONFECÇÃO SOB MEDIDA E INSTALAÇÃO DE 175 M (CENTO E SETENTA E CINCO METROS) LINEARES DE RUFOS METÁLICOS, BEM COMO A VEDAÇÃO DE 30 M (TRINTA METROS) LINEARES DE CALHAS EXISTENTES E A VEDAÇÃO DOS PARAFUSOS, EMENDAS, SOBREPOSIÇÕES, JUNÇÕES, PONTOS DE FIXAÇÃO E DEMAIS PONTOS SUSCETÍVEIS À INFILTRAÇÃO RELACIONADOS AOS ELEMENTOS OBJETO DA INTERVENÇÃO. OS RUFOS NOVOS DEVERÃO SER CONFECCIONADOS EM AÇO REVESTIDO COM LIGA DE ALUMÍNIO-ZINCO (GALVALUME), ESPESSURA MÍNIMA DE 0,50 MM, OU MATERIAL TECNICAMENTE EQUIVALENTE OU SUPERIOR, DESDE QUE COMPROVADA A EQUIVALÊNCIA DE DESEMPENHO, DURABILIDADE E RESISTÊNCIA À CORROSÃO E ACEITA PELA FISCALIZAÇÃO, DEVENDO SER PREVIAMENTE MEDIDOS NO LOCAL E CONFECCIONADOS NAS DIMENSÕES NECESSÁRIAS À ADEQUADA ADAPTAÇÃO À COBERTURA EXISTENTE. A FIXAÇÃO DOS RUFOS DEVERÁ SER EXECUTADA COM PARAFUSOS AUTOPERFURANTES OU AUTOBROCANTES ADEQUADOS AO SUBSTRATO E À APLICAÇÃO EXTERNA, COM ELEMENTOS DE VEDAÇÃO EM EPDM OU MATERIAL TECNICAMENTE EQUIVALENTE, RESISTENTES ÀS INTEMPÉRIES E COMPATÍVEIS COM OS MATERIAIS EMPREGADOS. OS SERVIÇOS DE VEDAÇÃO DEVERÃO SER EXECUTADOS MEDIANTE LIMPEZA E PREPARAÇÃO DAS SUPERFÍCIES, REMOÇÃO DOS MATERIAIS DETERIORADOS OU SEM ADERÊNCIA E APLICAÇÃO DE SELANTE À BASE DE POLIURETANO PU40 OU EQUIVALENTE TÉCNICO DE DESEMPENHO IGUAL OU SUPERIOR, ADEQUADO PARA USO EXTERNO E RESISTENTE ÀS INTEMPÉRIES. INCLUEM-SE NO SERVIÇO TODOS OS CORTES, DOBRAS, EMENDAS, SOBREPOSIÇÕES, ARREMATES, FIXAÇÕES, ELEMENTOS DE UNIÃO E VEDAÇÃO NECESSÁRIOS À COMPLETA INSTALAÇÃO E FUNCIONAMENTO DOS RUFOS E À EXECUÇÃO DA MANUTENÇÃO DAS CALHAS EXISTENTES, BEM COMO A RETIRADA DOS MATERIAIS SUBSTITUÍDOS, LIMPEZA FINAL DOS LOCAIS DE INTERVENÇÃO E DESTINAÇÃO ADEQUADA DOS RESÍDUOS GERADOS. OS SERVIÇOS...",
+        "quantidade": 1.0,
+        "unidade": "SERVIÇO (SERV)",
+        "valor_unitario": "R$ 7.500,00",
+        "valor_total": "R$ 7.500,00"
+      }
+    ],
+    "data_cache": "2026-08-03 20:00"
+  },
+  "76247337000160-1-000048/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "Contratação de empresa especializada para a prestação contínua de serviços de manutenção preventiva, corretiva e emergencial do sistema de iluminação pública do Município de Icaraíma/PR",
+        "quantidade": 12.0,
+        "unidade": "MÊS",
+        "valor_unitario": "R$ 13.094,00",
+        "valor_total": "R$ 157.128,00"
+      }
+    ],
+    "data_cache": "2026-08-03 20:00"
+  },
+  "01612552000113-1-000050/2026": {
+    "itens": [
+      {
+        "id": "7837296",
+        "descricao": "SERVIÇO DE MANUTENÇÃO PREVENTIVA EM APARELHOS DE AR CONDICIONADO DE TODAS AS MARCAS, COM CAPACIDADE DE 9.000 E 9.500 BTU/h, INCLUINDO O FORNECIMENTO DE MÃO DE OBRA ESPECIALIZADA, INSUMOS, FERRAMENTAS E UTENSÍLIOS NECESSÁRIOS À EXECUÇÃO DOS SERVIÇOS.",
+        "quantidade": 60.0,
+        "unidade": "HORA",
+        "valor_unitario": "R$ 123,78",
+        "valor_total": "R$ 7.426,80"
+      },
+      {
+        "id": "7837297",
+        "descricao": "SERVIÇO DE MANUTENÇÃO PREVENTIVA EM APARELHOS DE AR CONDICIONADO DE TODAS AS MARCAS, COM CAPACIDADE DE 12.000 BTU/h, INCLUINDO O FORNECIMENTO DE MÃO DE OBRA ESPECIALIZADA, INSUMOS, FERRAMENTAS E UTENSÍLIOS NECESSÁRIOS À EXECUÇÃO DOS SERVIÇOS.",
+        "quantidade": 100.0,
+        "unidade": "HORA",
+        "valor_unitario": "R$ 132,11",
+        "valor_total": "R$ 13.211,00"
+      },
+      {
+        "id": "7837298",
+        "descricao": "SERVIÇO DE MANUTENÇÃO PREVENTIVA EM APARELHOS DE AR CONDICIONADO DE TODAS AS MARCAS, COM CAPACIDADE DE 18.000 E 24.000 BTU/h, INCLUINDO O FORNECIMENTO DE MÃO DE OBRA ESPECIALIZADA, INSUMOS, FERRAMENTAS E UTENSÍLIOS NECESSÁRIOS À EXECUÇÃO DOS SERVIÇOS.",
+        "quantidade": 100.0,
+        "unidade": "HORA",
+        "valor_unitario": "R$ 160,61",
+        "valor_total": "R$ 16.061,00"
+      }
+    ],
+    "data_cache": "2026-08-03 20:00"
+  },
+  "76105600000186-1-000228/2026": {
+    "itens": [
+      {
+        "id": "1",
+        "descricao": "CURSO DE CAPACITAÇÃO",
+        "quantidade": 1.0,
+        "unidade": "SERVIÇOS",
+        "valor_unitario": "R$ 5.200,00",
+        "valor_total": "R$ 5.200,00"
+      }
+    ],
+    "data_cache": "2026-08-03 20:00"
+  },
+  "01612552000113-1-000049/2026": {
+    "itens": [
+      {
+        "id": "7833988",
+        "descricao": "ABACAXI IN NATURA FRUTO FRESCO, DE PRIMEIRA QUALIDADE, TAMANHO MÉDIO A GRANDE, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE, CASCA ÍNTEGRA, SEM DANOS FÍSICOS, MECÂNICOS OU SINAIS DE DETERIORAÇÃO, ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 200.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 11,18",
+        "valor_total": "R$ 2.236,00"
+      },
+      {
+        "id": "7833989",
+        "descricao": "ABOBRINHA VERDE COM COR E CHEIRO NATURAL",
+        "quantidade": 300.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 6,64",
+        "valor_total": "R$ 1.992,00"
+      },
+      {
+        "id": "7833990",
+        "descricao": "AÇÚCAR CRISTAL 5 KG CARACTERÍSTICA TÉCNICAS: PRODUTO PROCESSADO DA CANA-DE-AÇÚCAR. NÃO DEVE APRESENTAR SUJIDADE, UMIDADE, BOLOR, RENDIMENTO INSATISFATÓRIO, COLORAÇÃO E MISTURAS E PESO INSATISFATÓRIO EMBALAGEM: DEVE ESTAR INTACTA, EM POLIETILENO LEITOSO OU TRANSPARENTE, ATÓXICA. PRAZO DE VALIDADE: MÍNIMO DE 9 MESES A PARTIR DA DATA DE ENTREGA A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 500.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 19,15",
+        "valor_total": "R$ 9.575,00"
+      },
+      {
+        "id": "7833991",
+        "descricao": "ADOÇANTE DIETÉTICO LÍQUIDO, SACARINA SÓDICA E CICLAMATO DE SÓDIO.ACONDICIONADO EM FRASCO DE PLÁSTICO COM 100ML. VALIDADE: MÍNIMA DE 4 MESES A CONTAR DA DATA DE ENTREGA DO PRODUTO.",
+        "quantidade": 5.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 12,48",
+        "valor_total": "R$ 62,40"
+      },
+      {
+        "id": "7833992",
+        "descricao": "ALFACE - SEREM FRESCAS E SÃS ESTAREM INTEIRAS, LIMPAS E LIVRES DE UMIDADE EXTERNA ANORMAL, TEREM ATINGIDO O GRAU DE EVOLUÇÃO COMPLETA DO TAMANHO, PARA FINS COMERCIAIS, TEREM ATINGIDO GRAU DE MATURAÇÃO QUE LHES PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO, NÃO ESTAREM GOLPEADAS E DANIFICADAS POR QUAISQUER LESÕES DE ORIGEM FÍSICA, MECÂNICA OU BIOLÓGICA, ACIMA DE 5 E QUE AFETEM SUA APARÊNCIA. A POLPA E O PEDÚNCULO (QUANDO HOUVER) DEVERÃO SE APRESENTAR INTACTOS E FIRMES, ESTIVER ISENTAS DE: SUBSTÂNCIAS TERROSAS, SUJIDADES OU CORPOS ESTRANHOS ADERIDOS À SUPERFÍCIE EXTERNA, PARASITOS, LARVAS E OUTROS ANIMAIS, NOS PRODUTOS E NAS EMBALAGENS, UMIDADE EXTERNA ANORMAL, ODOR E SABOR ESTRANHOS, ENFERMIDADES.",
+        "quantidade": 200.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 9,78",
+        "valor_total": "R$ 1.956,00"
+      },
+      {
+        "id": "7833993",
+        "descricao": "ALHO IN NATURA- CARACTERÍSTICAS: SEREM FRESCAS E SÃS ESTAREM INTEIRAS, LIMPAS E LIVRES DE UMIDADE EXTERNA ANORMAL, TEREM ATINGIDO O GRAU DE EVOLUÇÃO COMPLETA DO TAMANHO, PARA FINS COMERCIAIS, TEREM ATINGIDO GRAU DE MATURAÇÃO QUE LHES PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO, NÃO ESTAREM GOLPEADAS E DANIFICADAS POR QUAISQUER LESÕES DE ORIGEM FÍSICA, MECÂNICA OU BIOLÓGICA, ACIMA DE 5 E QUE AFETEM SUA APARÊNCIA. A POLPA E O PEDÚNCULO (QUANDO HOUVER) DEVERÃO SE APRESENTAR INTACTOS E FIRMES, ESTIVER ISENTAS DE: SUBSTÂNCIAS TERROSAS, SUJIDADES OU CORPOS ESTRANHOS ADERIDOS À SUPERFÍCIE EXTERNA, PARASITOS, LARVAS E OUTROS ANIMAIS, NOS PRODUTOS E NAS EMBALAGENS, UMIDADE EXTERNA ANORMAL, ODOR E SABOR ESTRANHOS, ENFERMIDADES.",
+        "quantidade": 100.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 27,49",
+        "valor_total": "R$ 2.749,00"
+      },
+      {
+        "id": "7833994",
+        "descricao": "AMIDO DE MILHO 1KG CARACTERÍSTICA TÉCNICAS: PRODUTO AMILÁCEO EXTRAÍDO DE MILHO. DEVE SER FABRICADAS A PARTIR DE MATÉRIAS PRIMAS SÃS E LIMPAS, ISENTAS DE MATÉRIA TERROSA E DE PARASITOS. NÃO PODERÁ APRESENTAR UMIDADE, FERMENTAÇÃO OU RANÇO. DEVE PRODUZIR LIGEIRA CREPITAÇÃO QUANDO COMPRIMIDO ENTRE OS DEDOS. NÃO DEVERÁ APRESENTAR RESÍDUO OU IMPUREZAS, BOLOR OU CHEIRO NÃO CARACTERÍSTICO. EMBALAGEM: DEVE ESTAR INTACTA, VEDADA, ACONDICIONADA EM SACOS PLÁSTICOS REFORÇADOS OU CAIXAS, COM PESO LIQUID. PRAZO DE VALIDADE: MÍNIMO DE 9 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 175.0,
+        "unidade": "CX",
+        "valor_unitario": "R$ 10,51",
+        "valor_total": "R$ 1.839,25"
+      },
+      {
+        "id": "7833995",
+        "descricao": "ARROZ INTEGRAL TIPO 1-1ª QUALIDADE, GRÃOS INTEIROS; ISENTO DE SUJIDADES E MATERIAIS ESTRANHOS, COR, ODOR E SABOR CARACTERÍSTICOS, O PRODUTO NÃO DEVERÁ APRESENTAR-SE EMPAPADO APÓS O PREPARO; ACONDICIONADO EM SACO PLÁSTICO CONTENDO 01 QUILO. VALIDADE MÍNIMA DE 05 MESES A CONTAR DA DATA DE ENTREGA DO PRODUTO.",
+        "quantidade": 10.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 8,17",
+        "valor_total": "R$ 81,70"
+      },
+      {
+        "id": "7833996",
+        "descricao": "ARROZ PARBOILIZADO TIPO I 5 KG, CARACTERÍSTICAS TÉCNICAS: GRUPO: BENEFICIADO, SUBGRUPO: PARBOILIZADO, CLASSE: LONGO FINO, TIPO I. O PRODUTO NÃO DEVE APRESENTAR GRÃOS DISFORMES, PERCENTUAIS DE IMPUREZAS ACIMA DE 5 (GRÃOS QUEIMADOS, PEDRAS, CASCAS E CARUNCHOS), CHEIRO FORTE, INTENSO E NÃO CARACTERÍSTICO, PREPARAÇÃO DIETÉTICA FINAL INADEQUADA EMPAPAMENTO. EMBALAGEM: DEVE ESTAR INTACTA, EM POLIETILENO TRANSPARENTE, ATÓXICO. PRAZO DE VALIDADE: MÍNIMO DE 9 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 350.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 19,04",
+        "valor_total": "R$ 6.664,00"
+      },
+      {
+        "id": "7833997",
+        "descricao": "AVEIA EM FLOCOS MÉDIOS 250G. DEVE APRESENTAR COLORAÇÃO CLARA E GRÂNULOS SOLTOS, OU SEJA, SEM SINAIS DE UMIDADE. RÓTULOCOM INDICAÇÃO DO FABRICANTE, PRODUTO, PESO, INGREDIENTES, INFORMAÇÃO NUTRICIONAL, DATA DE FABRICAÇÃO, PRAZO DE VALIDADE E DEMAIS ESPECIFICAÇÕES EXIGIDAS NA LEGISLAÇÃO VIGENTE. LIVRE DE INSETOS, FUNGOS E MATÉRIA TERROSA. REGISTRO NO ÓRGÃO COMPETENTE.",
+        "quantidade": 50.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 13,40",
+        "valor_total": "R$ 670,00"
+      },
+      {
+        "id": "7833998",
+        "descricao": "BANANA - TAMANHO DE MÉDIO A GRANDE; FRUTO FRESCO, COM AS PENCAS TENDO ATINGIDO O GRAU MÁXIMO DO TAMANHO ESPECIFICADO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÁ ESTAR AINDA PARA MADURAR E SER ACONDICIONADAS EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 3000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 5,27",
+        "valor_total": "R$ 15.810,00"
+      },
+      {
+        "id": "7833999",
+        "descricao": "BANHA DE PORCO SEM CONSERVANTES. 100 NATURAL. EMBALADA EM RECIPIENTE DE 1KG PLÁSTICO, ATÓXICO. CONTER RÓTULO COM PROCEDÊNCIA, DATA DE FABRICAÇÃO E PRAZO DE VALIDADE.",
+        "quantidade": 100.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 24,27",
+        "valor_total": "R$ 2.427,00"
+      },
+      {
+        "id": "7834000",
+        "descricao": "BATATA DOCE - LIMITES MÁXIMOS DE DEFEITOS: QUALQUER LESÃO, NÃO IMPORTANDO A ORIGEM, QUE EXPONHA OU ATINJA A POLPA DA RAIZ, PODENDO OU NÃO ESTAR CICATRIZADA, DEFICIÊNCIA DE BORO, RACHADURA MECÂNICA, PRAGA, RAIZ COM DESIDRATAÇÃO CARACTERIZADA POR FLACIDEZ, DANO PATOLÓGICO E OU FISIOLÓGICO QUE LEVA À DECOMPOSIÇÃO, DESINTEGRAÇÃO OU FERMENTAÇÃO EM QUALQUER GRAU, RAÍZES MUITO GRANDES COLHIDAS TARDIAMENTE E QUE PODEM APRESENTAR-SE FIBROSAS, A PARTE TUBEROSA PODERÁ SER EM FORMATO: CILÍNDRICO, ELÍPTICO, ESFÉRICO E ELÍPTICO OU TRANSVERSO/ACHATADO, DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 200.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 6,65",
+        "valor_total": "R$ 1.330,00"
+      },
+      {
+        "id": "7834001",
+        "descricao": "BATATA INGLESA LIMITES MÁXIMOS DE DEFEITOS: QUALQUER LESÃO, NÃO IMPORTANDO A ORIGEM, QUE EXPONHA OU ATINJA A POLPA DA RAIZ, PODENDO OU NÃO ESTAR CICATRIZADA, DEFICIÊNCIA DE BORO, RACHADURA MECÂNICA, PRAGA; RAIZ COM DESIDRATAÇÃO CARACTERIZADA POR FLACIDEZ; DANO PATOLÓGICO E OU FISIOLÓGICO QUE LEVA À DECOMPOSIÇÃO, DESINTEGRAÇÃO OU FERMENTAÇÃO EM QUALQUER GRAU; RAÍZES MUITO GRANDES COLHIDAS TARDIAMENTE E QUE PODEM APRESENTAR-SE FIBROSAS; A PARTE TUBEROSA PODERÁ SER EM FORMATO: CILÍNDRICO, ELÍPTICO, ESFÉRICO E ELÍPTICO OU TRANSVERSO/ACHATADO; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 450.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 6,17",
+        "valor_total": "R$ 2.776,50"
+      },
+      {
+        "id": "7834002",
+        "descricao": "BEBIDA LACTEA PCT 1 LT (TIPO IOGURTE) SABORES DIVERSOS",
+        "quantidade": 3500.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 10,02",
+        "valor_total": "R$ 35.070,00"
+      },
+      {
+        "id": "7834003",
+        "descricao": "BEBIDA LACTEA SEM LACTOSE 1 LT (TIPO IOGURTE) SABORES DIVERSOS",
+        "quantidade": 300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 16,72",
+        "valor_total": "R$ 5.016,00"
+      },
+      {
+        "id": "7834004",
+        "descricao": "BETERRABA VERMELHA - TAMANHO: MAIOR OU IGUAL A 50 MM E MENOR QUE 90 MM; A PARTE TUBEROSA DA BETERRABA PODERÁ SER EM FORMATO: CILÍNDRICO, ELÍPTICO, ESFÉRICO E ELÍPTICO OU TRANSVERSO/ACHATADO; LIMITES MÁXIMOS DE DEFEITOS: QUALQUER LESÃO, NÃO IMPORTANDO A ORIGEM, QUE EXPONHA OU ATINJA A POLPA DA RAIZ, PODENDO OU NÃO ESTAR CICATRIZADA, DEFICIÊNCIA DE BORO, RACHADURA MECÂNICA, PRAGA; RAIZ COM DESIDRATAÇÃO CARACTERIZADA POR FLACIDEZ; DANO PATOLÓGICO E OU FISIOLÓGICO QUE LEVA À DECOMPOSIÇÃO, DESINTEGRAÇÃO OU FERMENTAÇÃO EM QUALQUER GRAU; RAÍZES MUITO GRANDES COLHIDAS TARDIAMENTE E QUE PODEM APRESENTAR-SE FIBROSAS; A PARTE TUBEROSA DA BETERRABA PODERÁ SER EM FORMATO: CILÍNDRICO, ELÍPTICO, ESFÉRICO E ELÍPTICO OU TRANSVERSO/ACHATADO; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 400.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 5,27",
+        "valor_total": "R$ 2.108,00"
+      },
+      {
+        "id": "7834005",
+        "descricao": "BISCOITO DOCE SABOR LEITE SEM RECHEIO PCT C/ NO MINIMO 370G",
+        "quantidade": 1300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 6,01",
+        "valor_total": "R$ 7.813,00"
+      },
+      {
+        "id": "7834006",
+        "descricao": "BISCOITO DOCE TIPO MAISENA PCT C/ NO MINIMO 370G",
+        "quantidade": 1300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 5,74",
+        "valor_total": "R$ 7.462,00"
+      },
+      {
+        "id": "7834007",
+        "descricao": "BISCOITO MARIA PCT C/ NO MINIMO 370GR",
+        "quantidade": 1300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 6,32",
+        "valor_total": "R$ 8.216,00"
+      },
+      {
+        "id": "7834008",
+        "descricao": "BISCOITO SALGADO TIPO CREAM CRACKER PCT C/ NO MINIMO 370GR",
+        "quantidade": 1300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 5,75",
+        "valor_total": "R$ 7.475,00"
+      },
+      {
+        "id": "7834009",
+        "descricao": "BISCOITO SALGADO TIPO PCT C/ NO MINIMO 370GR INTEGRAL ",
+        "quantidade": 100.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 7,34",
+        "valor_total": "R$ 734,00"
+      },
+      {
+        "id": "7834010",
+        "descricao": "CACAU EM PÓ 100. APRESENTANDO COR, CHEIRO E SABOR CARACTERÍSTICOS. ZERO AÇÚCAR. ISENTO DE TRAÇOS DE LEITE, LACTOSE E GLÚTEN. ACONDICIONADO EM EMBALAGEM CONTENDO EXTERNAMENTE OS DADOS DE IDENTIFICAÇÃO E PROCEDÊNCIA, INFORMAÇÃO NUTRICIONAL, NÚMERO DO LOTE, DATA DE VALIDADE, QUANTIDADE DO PRODUTO E NÚMERO DO REGISTRO. VALIDADE MÍNIMA DE 06 MESES A CONTAR DA DATA DE ENTREGA. EMBALAGEM DE 400 A 500 G.",
+        "quantidade": 100.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 57,88",
+        "valor_total": "R$ 5.788,00"
+      },
+      {
+        "id": "7834011",
+        "descricao": "CAFÉ 500GR CARACTERÍSTICAS TÉCNICAS: CAFÉ TORRADO, MOÍDO, EMBALADO A VÁCUO, COM 100 DE PUREZA. NÃO DEVE APRESENTAR SUJIDADE, UMIDADE, RENDIMENTO INSATISFATÓRIO, MISTURAS E PESO INSATISFATÓRIO, SABOR NÃO CARACTERÍSTICO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES DE ATÉ 1KG. À VÁCUO. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS E ATENDER AS EXIGÊNCIAS ANVISA. APRESENTAR SELO DE PUREZA ABIC.",
+        "quantidade": 400.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 30,40",
+        "valor_total": "R$ 12.160,00"
+      },
+      {
+        "id": "7834012",
+        "descricao": "CANELA EM PAU PCT 10G",
+        "quantidade": 100.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 4,80",
+        "valor_total": "R$ 480,00"
+      },
+      {
+        "id": "7834013",
+        "descricao": "CANELA EM PÓ PCT 10GR",
+        "quantidade": 100.0,
+        "unidade": "U",
+        "valor_unitario": "R$ 6,84",
+        "valor_total": "R$ 684,00"
+      },
+      {
+        "id": "7834014",
+        "descricao": "CANJICA BRANCA 500G CARACTERÍSTICAS TÉCNICAS: CANJICA DE MILHO BRANCO TIPO 1, CONTENDO 80 DE GRÃOS INTEIROS, PREPARADOS COM MATÉRIAS PRIMAS SÃS, LIMPAS, ISENTAS DE MATÉRIAS TERROSAS, PARASITOS E DE DETRITOS ANIMAIS OU VEGETAIS COM NO MÁXIMO DE 15 DE UMIDADE. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA.",
+        "quantidade": 400.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 6,30",
+        "valor_total": "R$ 2.520,00"
+      },
+      {
+        "id": "7834015",
+        "descricao": "CANJIQUINHA 1 KG CARACTERÍSTICAS TÉCNICAS: GRÃOS DE MILHO AMARELO, COM ASPECTO, COR, CHEIRO E SABOR PRÓPRIOS COM AUSÊNCIA DE UMIDADE, FERMENTAÇÃO, RANÇO, ISENTO DE SUJIDADES, PARASITAS E LARVAS. EMBALAGEM EM SACOS PLÁSTICOS TRANSPARENTES E ATÓXICOS, LIMPOS NÃO VIOLADOS, RESISTENTES QUE GARANTAM A INTEGRIDADE DO PRODUTO ATÉ O MOMENTO DO CONSUMO, ACONDICIONADOS EM FARDOS LACRADOS. A EMBALAGEM DEVERÁ CONTER EXTERNAMENTE OS DADOS DE IDENTIFICAÇÃO E PROCEDÊNCIA, INFORMAÇÃO NUTRICIONAL, NÚMERO DO LOTE, DATA DE VALIDADE, QUANTIDADE DO PRODUTO. O PRODUTO DEVERÁ APRESENTAR VALIDADE MÍNIMA DE 06 MESES A PARTIR DA DATA DE ENTREGA NA UNIDADE REQUISITANTE.",
+        "quantidade": 400.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 5,39",
+        "valor_total": "R$ 2.156,00"
+      },
+      {
+        "id": "7834016",
+        "descricao": "CAQUI RAMA FORTE DE PRIMEIRA QUALIDADE, TAMANHO E COLORAÇÃO UNIFORME, DEVENDO SER BEM DESENVOLVIDO E MADURO, COM POLPA FIRME E INTACTA, SEM DANOS FÍSICOS E MECÂNICOS ORIUNDOS DO MANUSEIO E TRANSPORTE, ACONDICIONADO EM CAIXAS PLASTICAS PADRÃO.",
+        "quantidade": 500.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 15,67",
+        "valor_total": "R$ 7.835,00"
+      },
+      {
+        "id": "7834017",
+        "descricao": "CARNE BOVINA MOÍDA CORTE POSTA VERMELHA MOÍDO MAGRO SEM GORDURA E SEBO (SEPARADA EM PCTS C/ 3KG) TIPO CONGELADA, PRODUTO DE 1ª QUALIDADE, CARNE LIMPA SEM GORDURA E SIMILARES, EMBALAGENS QUE CONTENHAM ESPECIFICADOS O LOCAL DE ORIGEM DO PRODUTO, PESO, DATA DE EMBALAGEM E DATA DE VENCIMENTO.",
+        "quantidade": 1000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 35,58",
+        "valor_total": "R$ 35.580,00"
+      },
+      {
+        "id": "7834018",
+        "descricao": "CARNE BOVINA MUSCULO APARADA, EM CUBOS OU ISCAS TIPO CONGELADA, EMBALAGENS DE SACOS DE POLIETILENO TRANSPARENTE DE NO MÁXIMO 3KG QUE CONTENHAM ESPECIFICADOS O LOCAL DE ORIGEM DO PRODUTO, PESO, DATA DE EMBALAGEM E DATA DE VENCIMENTO.",
+        "quantidade": 1000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 33,91",
+        "valor_total": "R$ 33.910,00"
+      },
+      {
+        "id": "7834019",
+        "descricao": "CARNE SUINA PERNIL TRASEIRO SEM OSSO SEM PELE SEM EXCESSO DE GORDURA, CORTADA EM CUBOS TIPO RESFRIADA. EMBALAGENS DE SACOS DE POLIETILENO TRANSPARENTE, DE NO MÁXIMO 3KG, ESPECIFICADOS O LOCAL DE ORIGEM DO PRODUTO, PESO, DATA DE EMBALAGEM E DATA DE VENCIMENTO.",
+        "quantidade": 1000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 25,15",
+        "valor_total": "R$ 25.150,00"
+      },
+      {
+        "id": "7834020",
+        "descricao": "CEBOLA IN NATURA TAMANHO DE MÉDIO A GRANDE; TENDO ATINGIDO O GRAU MÁXIMO DO TAMANHO ESPECIFICADO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÁ ESTAR AINDA PARA MADURAR E SER ACONDICIONADAS EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 300.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 5,87",
+        "valor_total": "R$ 1.761,00"
+      },
+      {
+        "id": "7834021",
+        "descricao": "CENOURA IN NATURA, TAMANHO DE MÉDIO A GRANDE; TENDO ATINGIDO O GRAU MÁXIMO DO TAMANHO ESPECIFICADO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÁ ESTAR AINDA PARA MADURAR E SER ACONDICIONADAS EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 390.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 6,00",
+        "valor_total": "R$ 2.340,00"
+      },
+      {
+        "id": "7834022",
+        "descricao": "CEREAL MATINAL DE MILHO SEM AÇÚCAR EMB. COM NO MINIMO 2 KG",
+        "quantidade": 400.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 79,11",
+        "valor_total": "R$ 31.644,00"
+      },
+      {
+        "id": "7834023",
+        "descricao": "CHÁ EM SAQUINHOS (CAIXA) VÁRIOS SABORES:(HORTELÃ, CAMOMILA, ERVA-DOCE, CIDREIRA).",
+        "quantidade": 1500.0,
+        "unidade": "CX",
+        "valor_unitario": "R$ 4,41",
+        "valor_total": "R$ 6.615,00"
+      },
+      {
+        "id": "7834024",
+        "descricao": "COLORAU EM PÓ PCT C/ NO MINIMO 500GR",
+        "quantidade": 10.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 10,01",
+        "valor_total": "R$ 100,10"
+      },
+      {
+        "id": "7834025",
+        "descricao": "CORANTE EM PÓ COMESTÍVEL PACOTE DE 12GR",
+        "quantidade": 50.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 11,28",
+        "valor_total": "R$ 564,00"
+      },
+      {
+        "id": "7834026",
+        "descricao": "COXA E SOBRECOXA DE FRANGO PRODUTO DE QUALIDADE CONGELADA EM EMBALAGENS QUE CONTENHAM ESPECIFICADOS O LOCAL DE ORIGEM DO PRODUTO, PESO, DATA DE EMBALAGEM E DATA DE VENCIMENTO.",
+        "quantidade": 1500.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 12,25",
+        "valor_total": "R$ 18.375,00"
+      },
+      {
+        "id": "7834027",
+        "descricao": "CRAVO DA ÍNDIA PCT 50GR",
+        "quantidade": 30.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 14,19",
+        "valor_total": "R$ 425,70"
+      },
+      {
+        "id": "7834028",
+        "descricao": "DOCE DE FRUTA 1KG, SABORES: MORANGO, UVA, GOIABA, BANANA, PÊSSEGO, MAÇÃ OU ABOBORA. EMBALAGEM: POTE PLÁSTICO EM POLIETILENO TRANSPARENTE, ATÓXICO, INTEGRO, COM TAMPA E LACRE DE PROTEÇÃO. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS. VALIDADE MÍNIMA DE 9 (TRÊS) MESES A PARTIR DA DATA DA ENTREGA.",
+        "quantidade": 250.0,
+        "unidade": "PT",
+        "valor_unitario": "R$ 15,17",
+        "valor_total": "R$ 3.792,50"
+      },
+      {
+        "id": "7834029",
+        "descricao": "ERVILHA 200GR EMBALAGEM: DEVE ESTAR INTACTA, EM LATAS DE FLANDRES NÃO APRESENTANDO FERRUGEM, AMASSAMENTO, VAZAMENTO, ABAULAMENTO OU EMBALAGEM TETRA BRIK ASSÉPTIC. PRAZO DE VALIDADE: MÍNIMO DE 9 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 4,25",
+        "valor_total": "R$ 1.275,00"
+      },
+      {
+        "id": "7834030",
+        "descricao": "EXTRATO DE TOMATE 880G, CARACTERÍSTICAS TÉCNICAS: EXTRATO DE TOMATE SIMPLES E CONCENTRADO. O EXTRATO DE TOMATE DEVE SER PREPARADO COM FRUTOS MADUROS, ESCOLHIDOS, SÃOS, SEM PELE E SEMENTES. O PRODUTO DEVE ESTAR ISENTO DE FERMENTAÇÕES E NÃO INDICAR PROCESSAMENTO DEFEITUOSO. INGREDIENTES: TOMATE, SAL E AÇÚCAR. EMBALAGEM: DEVE ESTAR INTACTA, EM LATAS DE FLANDRES NÃO APRESENTANDO FERRUGEM, AMASSAMENTO, VAZAMENTO, ABAULAMENTO OU EMBALAGEM TETRA BRIK ASSÉPTIC. PRAZO DE VALIDADE: MÍNIMO DE 9 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 14,91",
+        "valor_total": "R$ 4.473,00"
+      },
+      {
+        "id": "7834031",
+        "descricao": "FARINHA DE MILHO (TIPO FUBÁ) 1 KG GRUPO: SECA, CLASSE: AMARELA, TIPO: 1. NÃO DEVERÁ APRESENTAR MISTURAS, RESÍDUOS E/OU IMPUREZAS. NÃO DEVERÁ APRESENTAR ODOR FORTE E INTENSO (NÃO CARACTERÍSTICO DO PRODUTO) ALÉM DE COLORAÇÃO ANORMAL (BRANCAS COM PONTOS AMARELO ESCURO E/OU MARROM). VALIDADE MÍNIMA DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 400.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 4,93",
+        "valor_total": "R$ 1.972,00"
+      },
+      {
+        "id": "7834032",
+        "descricao": "FARINHA DE MILHO 1 KG (TIPO BIJU) GRUPO: SECA, CLASSE: AMARELA, TIPO: 1. NÃO DEVERÁ APRESENTAR MISTURAS, RESÍDUOS E/OU IMPUREZAS. NÃO DEVERÁ APRESENTAR ODOR FORTE E INTENSO (NÃO CARACTERÍSTICO DO PRODUTO) ALÉM DE COLORAÇÃO ANORMAL (BRANCAS COM PONTOS AMARELO ESCURO E/OU MARROM). VALIDADE MÍNIMA DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 450.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 5,98",
+        "valor_total": "R$ 2.691,00"
+      },
+      {
+        "id": "7834033",
+        "descricao": "FARINHA DE TRIGO ESPECIAL OU DE PRIMEIRA 5KG, CARACTERÍSTICAS TÉCNICAS: TIPO 1. DEVE SER FABRICADA A PARTIR DE GRÃOS DE TRIGO SÃOS E LIMPOS, ISENTOS DE MATÉRIA TERROSA E EM PERFEITO ESTADO DE CONSERVAÇÃO. NÃO PODERÁ ESTAR ÚMIDA, FERMENTADA NEM RANÇOSA. ESPECIFICIDADE DE USO: PREPARO DE PÃES CASEIROS DIVERSOS, BOLOS E BISCOITOS. NÃO DEVERÁ APRESENTAR COR ESCURA OU MISTURA COM OUTRAS FARINHAS, FORMAÇÃO DE GRUMOS (UMIDADE), RESÍDUOS OU IMPUREZAS, NEM RENDIMENTO INSATISFATÓRIO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES, ATÓXICA, BEM VEDADA, CONTENDO 5KG. PRAZO DE VALIDADE: MÍNIMO DE 3 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 60.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 18,37",
+        "valor_total": "R$ 1.102,20"
+      },
+      {
+        "id": "7834034",
+        "descricao": "FEIJÃO PRETO 1KG ASPECTO BRILHOSO, LISO, EXCELENTE QUALIDADE, SAFRA NOVA. TIPO 1, EMBALAGENS RESISTENTES AO MANUSEIO E DEVIDAMENTE SELADAS.",
+        "quantidade": 750.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 6,43",
+        "valor_total": "R$ 4.822,50"
+      },
+      {
+        "id": "7834035",
+        "descricao": "FERMENTO EM PÓ QUIMICO PCT  250 GR",
+        "quantidade": 50.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 11,75",
+        "valor_total": "R$ 587,50"
+      },
+      {
+        "id": "7834036",
+        "descricao": "LARANJA IN NATURA; TAMANHO MÉDIO A GRANDE; FRUTO FRESCO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FITOSSANITÁRIA, FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 1000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 6,21",
+        "valor_total": "R$ 6.210,00"
+      },
+      {
+        "id": "7834037",
+        "descricao": "LEITE INTEGRAL UHT 1 LITRO, CARACTERÍSTICAS TÉCNICAS: COM AS SEGUINTES CARACTERÍSTICAS: TEOR DE GORDURA MÍNIMA DE 3. ACONDICIONADA EM CAIXA CARTONADA E ALUMINIZADA (TETRA BRIK ASEPTIC), CONTENDO 1000ML. VALIDADE MÍNIMA DE 03 MESES CONTADOS A PARTIR DO RECEBIMENTO DO PRODUTO; DEMAIS CONDIÇÕES DE ACORDO COM AS NORMAS DE SAÚDE/SANITÁRIAS VIGENTES (ANVISA, SIF E OUTRAS).",
+        "quantidade": 6000.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 5,89",
+        "valor_total": "R$ 35.340,00"
+      },
+      {
+        "id": "7834038",
+        "descricao": "LEITE SEM LACTOSE UHT 1 LITRO, CARACTERÍSTICAS TÉCNICAS: COM AS SEGUINTES CARACTERÍSTICAS: TEOR DE GORDURA MÍNIMA DE 3. ACONDICIONADA EM CAIXA CARTONADA E ALUMINIZADA (TETRA BRIK ASEPTIC), CONTENDO 1000ML. VALIDADE MÍNIMA DE 03 MESES CONTADOS A PARTIR DO RECEBIMENTO DO PRODUTO; DEMAIS CONDIÇÕES DE ACORDO COM AS NORMAS DE SAÚDE/SANITÁRIAS VIGENTES (ANVISA, SIF E OUTRAS).",
+        "quantidade": 300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 7,06",
+        "valor_total": "R$ 2.118,00"
+      },
+      {
+        "id": "7834039",
+        "descricao": "LENTILHA 500G, DE 1ª QUALIDADE, NOVA, CONSTITUÍDO DE GRÃOS INTEIROS E SADIOS, COM UMIDADE PERMITIDA EM LEI, ISENTO DE MATERIAL TERROSO, SUJIDADES E MISTURA DE OUTRAS ESPÉCIES, COM REGISTRO DO MINISTÉRIO DA AGRICULTURA.PRAZO DE VALIDADE DE NO MÍNIMO 6 MESES A PARTIR DA ENTREGA DO PRODUTO.",
+        "quantidade": 100.0,
+        "unidade": "PCT",
+        "valor_unitario": "R$ 12,71",
+        "valor_total": "R$ 1.271,00"
+      },
+      {
+        "id": "7834040",
+        "descricao": "MAÇÃ IN NATURA; TAMANHO MÉDIO A GRANDE; FRUTO FRESCO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FITOSSANITÁRIA, FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 3000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 11,49",
+        "valor_total": "R$ 34.470,00"
+      },
+      {
+        "id": "7834041",
+        "descricao": "MACARRÃO INTEGRAL CARACTERÍSTICAS TÉCNICAS: FARINHA DE TRIGO INTEGRAL, RICO EM FIBRAS. EMBALAGEM PLÁSTICA, RESISTENTE, VEDADA, CONTENDO DE 500 GRAMAS. PRAZO DE VALIDADE MÍNIMA DE 12 MESES.",
+        "quantidade": 50.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 7,76",
+        "valor_total": "R$ 388,00"
+      },
+      {
+        "id": "7834042",
+        "descricao": "MACARRÃO PARA SOPA TIPO ALFABETO 500GR CARACTERÍSTICAS TÉCNICAS: MACARRÃO DE SEMOLINA E VITAMINAS. NÃO DEVERÁ APRESENTAR SUJIDADES, BOLOR, MANCHAS OU FRAGILIDADE À PRESSÃO DOS DEDOS. AS MASSAS ALIMENTÍCIAS AO SEREM POSTAS NA ÁGUA NÃO DEVEM TURVA-LA ANTES DA COCÇÃO. NÃO DEVEM ESTAR FERMENTADAS OU RANÇOSAS. PÓS-COCÇÃO A MASSA NÃO PODERÁ APRESENTAR TEXTURA OU CONSISTÊNCIA DE EMPAPAMENTO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES DE PAPEL MULTIFOLIADO, BEM VEDADO. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 200.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 6,27",
+        "valor_total": "R$ 1.254,00"
+      },
+      {
+        "id": "7834043",
+        "descricao": "MACARRÃO PARA SOPA TIPO CONCHINHA 500GR CARACTERÍSTICAS TÉCNICAS: MACARRÃO DE SEMOLINA E VITAMINAS. NÃO DEVERÁ APRESENTAR SUJIDADES, BOLOR, MANCHAS OU FRAGILIDADE À PRESSÃO DOS DEDOS. AS MASSAS ALIMENTÍCIAS AO SEREM POSTAS NA ÁGUA NÃO DEVEM TURVA-LA ANTES DA COCÇÃO. NÃO DEVEM ESTAR FERMENTADAS OU RANÇOSAS. PÓS-COCÇÃO A MASSA NÃO PODERÁ APRESENTAR TEXTURA OU CONSISTÊNCIA DE EMPAPAMENTO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES DE PAPEL MULTIFOLIADO, BEM VEDADO. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 200.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 5,75",
+        "valor_total": "R$ 1.150,00"
+      },
+      {
+        "id": "7834044",
+        "descricao": "MACARRÃO PARA SOPA TIPO PADRE NOSSO 500GRS CARACTERÍSTICAS TÉCNICAS: MACARRÃO DE SEMOLINA E VITAMINAS. NÃO DEVERÁ APRESENTAR SUJIDADES, BOLOR, MANCHAS OU FRAGILIDADE À PRESSÃO DOS DEDOS. AS MASSAS ALIMENTÍCIAS AO SEREM POSTAS NA ÁGUA NÃO DEVEM TURVA-LA ANTES DA COCÇÃO. NÃO DEVEM ESTAR FERMENTADAS OU RANÇOSAS. PÓS-COCÇÃO A MASSA NÃO PODERÁ APRESENTAR TEXTURA OU CONSISTÊNCIA DE EMPAPAMENTO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES DE PAPEL MULTIFOLIADO, BEM VEDADO. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 200.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 6,01",
+        "valor_total": "R$ 1.202,00"
+      },
+      {
+        "id": "7834045",
+        "descricao": "MACARRÃO TIPO ESPAGUETE 1KG CARACTERÍSTICAS TÉCNICAS: MACARRÃO DE SEMOLINA E VITAMINAS. NÃO DEVERÁ APRESENTAR SUJIDADES, BOLOR, MANCHAS OU FRAGILIDADE À PRESSÃO DOS DEDOS. AS MASSAS ALIMENTÍCIAS AO SEREM POSTAS NA ÁGUA NÃO DEVEM TURVA-LA ANTES DA COCÇÃO. NÃO DEVEM ESTAR FERMENTADAS OU RANÇOSAS. PÓS-COCÇÃO A MASSA NÃO PODERÁ APRESENTAR TEXTURA OU CONSISTÊNCIA DE EMPAPAMENTO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES DE PAPEL MULTIFOLIADO, BEM VEDADO. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 400.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 7,64",
+        "valor_total": "R$ 3.056,00"
+      },
+      {
+        "id": "7834046",
+        "descricao": "MAMÃO IN NATURA; TAMANHO MÉDIO A GRANDE; FRUTO FRESCO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FITOSSANITÁRIA, FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 2000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 11,11",
+        "valor_total": "R$ 22.220,00"
+      },
+      {
+        "id": "7834047",
+        "descricao": "MANDIOCA  PACOTE COM 1KG DEVE SER SEM CASCA E LIMPA, NÃO SERÁ TOLERADO DANO PROFUNDO: QUALQUER LESÃO, NÃO IMPORTANDO A ORIGEM, QUE EXPONHA OU ATINJA A POLPA DA RAIZ, PODENDO OU NÃO ESTAR CICATRIZADA, RACHADURA MECÂNICA, PRAGA, PODRIDÃO: DANO PATOLÓGICO E OU FISIOLÓGICO QUE LEVA À DECOMPOSIÇÃO, DESINTEGRAÇÃO OU FERMENTAÇÃO EM QUALQUER GRAU.",
+        "quantidade": 100.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 11,97",
+        "valor_total": "R$ 1.197,00"
+      },
+      {
+        "id": "7834048",
+        "descricao": "MANGA IN NATURA; TAMANHO MÉDIO A GRANDE; FRUTO FRESCO, COM AROMA, COR E SABOR CARACTERÍSTICOS DA ESPÉCIE/VARIEDADE; DEVERÁ APRESENTAR GRAU DE MATURAÇÃO TAL QUE PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO MEDIATO E IMEDIATO; NÃO SERÃO ACEITOS DEFEITOS GRAVES DE NATUREZA FITOSSANITÁRIA, FISIOLÓGICAS E MECÂNICAS (FÍSICAS), QUE AFETEM SUA QUALIDADE E ASPECTO, COM A CASCA E POLPA INTACTAS E FIRMES; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 1000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 9,58",
+        "valor_total": "R$ 9.580,00"
+      },
+      {
+        "id": "7834049",
+        "descricao": "MARGARINA CARACTERÍSTICAS DO PRODUTO: PRODUTO OBTIDO DE VEGETAIS LÍQUIDOS HIDROGENADOS, DE CONSISTÊNCIA CREMOSA, AROMATIZADA ARTIFICIALMENTE E VITAMINADA, COM NO MÍNIMO 80 DE LIPÍDIOS. NÃO DEVE APRESENTAR MASSA NÃO CREMOSA, CHEIRO DESAGRADÁVEL, COR NÃO CARACTERÍSTICA DO PRODUTO, POTE VIOLADO. EMBALAGEM: DEVE ESTAR INTACTA, EM POTE DE POLIETILENO RESISTENTE, CONTENDO 1KG. PRAZO DE VALIDADE: MÍNIMO DE 3 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 260.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 18,12",
+        "valor_total": "R$ 4.711,20"
+      },
+      {
+        "id": "7834050",
+        "descricao": "MELÃO- DE 1ª QUALIDADE, REDONDO, CASCA LISA, GRAÚDO, LIVRE DE SUJIDADES, PARASITAS E LARVAS, TAMANHO E COLORAÇÃO UNIFORMES DESENVOLVIDA E MADURA, COM POLPA FIRME E INTACTA, FORNECIMENTO A GRANEL.",
+        "quantidade": 300.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 6,52",
+        "valor_total": "R$ 1.956,00"
+      },
+      {
+        "id": "7834051",
+        "descricao": "MELANCIA REDONDA, CATEGORIA EXTRA GRAÚDA, PESANDO ENTRE 10 A 13 QUILOS A UNIDADE SEM DEFEITOS GRAVES (PODRIDÃO, DANOS PROFUNDOS, FRUTOS PASSADOS) SEM MANCHAS OU DEFORMAÇÃO.",
+        "quantidade": 2000.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 2,82",
+        "valor_total": "R$ 5.640,00"
+      },
+      {
+        "id": "7834052",
+        "descricao": "MILHO VERDE 200 GR EMBALAGEM: DEVE ESTAR INTACTA, EM LATAS DE FLANDRES NÃO APRESENTANDO FERRUGEM, AMASSAMENTO, VAZAMENTO, ABAULAMENTO OU EMBALAGEM TETRA BRIK ASSÉPTIC. PRAZO DE VALIDADE: MÍNIMO DE 9 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 300.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 4,46",
+        "valor_total": "R$ 1.338,00"
+      },
+      {
+        "id": "7834053",
+        "descricao": "ÓLEO DE SOJA 900ML, CARACTERÍSTICAS TÉCNICAS: ÓLEO DE SOJA REFINADO, 100 NATURAL. NÃO DEVE APRESENTAR EMBALAGEM FRÁGIL, COM FERRUGEM, MISTURA DE OUTROS ÓLEOS, CHEIRO FORTE E INTENSO, VOLUME INSATISFATÓRIO. EMBALAGEM: ACONDICIONADA EM RECIPIENTE PLÁSTICO, DE 900 ML. PRAZO DE VALIDADE: MÍNIMO DE 6 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 700.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 8,23",
+        "valor_total": "R$ 5.761,00"
+      },
+      {
+        "id": "7834054",
+        "descricao": "OVOS DE GALINHA, DE PRIMEIRA QUALIDADE, FRESCOS, CLASSE A, COM CASCA ÍNTEGRA, LIMPA E SEM TRINCAS OU RACHADURAS. DEVERÃO APRESENTAR CARACTERÍSTICAS NATURAIS DO PRODUTO, SEM ALTERAÇÕES DE ODOR, COR OU CONSISTÊNCIA. DEVERÃO SER ACONDICIONADOS EM EMBALAGENS ADEQUADAS, RESISTENTES E LIMPA, CONTENDO IDENTIFICAÇÃO DO PRODUTO, DATA DE CLASSIFICAÇÃO, DATA DE VALIDADE E DEMAIS INFORMAÇÕES EXIGIDAS PELA LEGISLAÇÃO VIGENTE.",
+        "quantidade": 390.0,
+        "unidade": "DZ",
+        "valor_unitario": "R$ 11,84",
+        "valor_total": "R$ 4.617,60"
+      },
+      {
+        "id": "7834055",
+        "descricao": "PÃO FRANCÊS INTEGRAL UND. 50 G",
+        "quantidade": 500.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 17,80",
+        "valor_total": "R$ 8.900,00"
+      },
+      {
+        "id": "7834056",
+        "descricao": "PÃO FRANCÊS UND. 50 G",
+        "quantidade": 1600.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 16,49",
+        "valor_total": "R$ 26.384,00"
+      },
+      {
+        "id": "7834057",
+        "descricao": "PEITO DE FRANGO CONGELADO PRODUTO DE QUALIDADE TIPO CONGELADO EM EMBALAGENS QUE CONTENHAM ESPECIFICADOS O LOCAL DE ORIGEM DO PRODUTO, PESO, DATA DE EMBALAGEM E DATA DE VENCIMENTO.",
+        "quantidade": 200.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 20,07",
+        "valor_total": "R$ 4.014,00"
+      },
+      {
+        "id": "7834058",
+        "descricao": "REPOLHO IN NATURA TENDO NO MÍNIMO 300 GRAMAS CADA UNIDADE; TAMANHO GRANDE EQUIVALENTE A 18 CM DE DIÂMETRO; DEVEM SER FRESCOS, TEREM ATINGIDO O GRAU DE EVOLUÇÃO COMPLETA DO TAMANHO COM GRAU DE MATURAÇÃO QUE LHES PERMITA SUPORTAR A MANIPULAÇÃO, O TRANSPORTE E A CONSERVAÇÃO EM CONDIÇÕES ADEQUADAS PARA O CONSUMO; SEREM COLHIDOS CUIDADOSAMENTE E NÃO ESTAREM GOLPEADOS E DANIFICADOS POR QUAISQUER LESÕES DE ORIGEM FÍSICA, MECÂNICA OU BIOLÓGICA QUE AFETEM SUA APARÊNCIA; AS FOLHAS/INFLORESCÊNCIAS DEVERÃO SE APRESENTAR INTACTAS E FIRMES, COM COLORAÇÃO UNIFORME E FORMATO CARACTERÍSTICO A CADA TIPO DE PRODUTO; ESTAREM ISENTAS DE: SUBSTÂNCIAS TERROSAS, SUJIDADES OU CORPOS ESTRANHOS ADERIDOS À SUPERFÍCIE EXTERNA, PARASITOS, LARVAS E OUTROS ANIMAIS, UMIDADE EXTERNA ANORMAL, ODOR E SABOR ESTRANHOS, ENFERMIDADES; DEVERÃO ESTAR ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO.",
+        "quantidade": 500.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 4,09",
+        "valor_total": "R$ 2.045,00"
+      },
+      {
+        "id": "7834059",
+        "descricao": "SAGU 500G CARACTERÍSTICAS TÉCNICAS: 1ª QUALIDADE, EMBALAGEM PLÁSTICA ATÓXICA DE 500G, CONTENDO DATA DE FABRICAÇÃO E PRAZO DE VALIDADE DE NO MÍNIMO 06 MESES.",
+        "quantidade": 260.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 6,48",
+        "valor_total": "R$ 1.684,80"
+      },
+      {
+        "id": "7834060",
+        "descricao": "SAL IODADO 1 KG CARACTERÍSTICAS TÉCNICAS: NÃO DEVEM APRESENTAR SUJIDADE, UMIDADE, MISTURAS INADEQUADAS AO PRODUTO. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM PACOTES DE 1 KG, EM POLIETILENO TRANSPARENTE E TER EMBALAGEM SECUNDÁRIA DE RÁFIA OU SACOS DE POLIETILENO. PRAZO DE VALIDADE: MÍNIMO DE 12 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 200.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 2,13",
+        "valor_total": "R$ 426,00"
+      },
+      {
+        "id": "7834061",
+        "descricao": "TEMPERO LOURO PCT 5GR",
+        "quantidade": 30.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 4,78",
+        "valor_total": "R$ 143,40"
+      },
+      {
+        "id": "7834062",
+        "descricao": "TEMPERO MANJERICÃO DESIDRATADO PCT 50GR",
+        "quantidade": 20.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 9,65",
+        "valor_total": "R$ 193,00"
+      },
+      {
+        "id": "7834063",
+        "descricao": "TEMPERO ORÉGANO PCT 200GRS",
+        "quantidade": 20.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 22,54",
+        "valor_total": "R$ 450,80"
+      },
+      {
+        "id": "7834064",
+        "descricao": "TEMPERO PIMENTA DO REINO DESIDRATADA PCT 50GR",
+        "quantidade": 20.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 10,46",
+        "valor_total": "R$ 209,20"
+      },
+      {
+        "id": "7834065",
+        "descricao": "TOMATE IN NATURA, DE PRIMEIRA QUALIDADE, TAMANHO MÉDIO A GRANDE, COM COLORAÇÃO UNIFORME E CARACTERÍSTICA DA VARIEDADE, GRAU DE MATURAÇÃO ADEQUADO PARA CONSUMO, DEVENDO APRESENTAR POLPA FIRME E INTACTA, SEM RACHADURAS, AMASSADOS, PODRIDÃO, MANCHAS, DANOS FÍSICOS OU MECÂNICOS. DEVERÁ ESTAR ISENTO DE SUJIDADES, PARASITAS, LARVAS, RESÍDUOS DE SUBSTÂNCIAS TERROSAS OU CORPOS ESTRANHOS ADERIDOS À SUPERFÍCIE. DEVERÁ SER ACONDICIONADO EM CAIXAS PLÁSTICAS PADRÃO, EM CONDIÇÕES ADEQUADAS DE TRANSPORTE E CONSERVAÇÃO.",
+        "quantidade": 650.0,
+        "unidade": "KG",
+        "valor_unitario": "R$ 8,89",
+        "valor_total": "R$ 5.778,50"
+      },
+      {
+        "id": "7834066",
+        "descricao": "VINAGRE 900ML, CARACTERÍSTICAS TÉCNICAS: FERMENTADO ACÉTICO DE ÁLCOOL, ACIDEZ 4. EMBALAGEM: DEVE ESTAR INTACTA, ACONDICIONADA EM GARRAFAS PLÁSTICAS RESISTENTES, CONTENDO 900 ML. PRAZO DE VALIDADE: MÍNIMO DE 12 MESES A PARTIR DA DATA DE ENTREGA. A ROTULAGEM DEVE CONTER NO MÍNIMO AS SEGUINTES INFORMAÇÕES: NOME E/OU MARCA, INGREDIENTES, DATA DE VALIDADE, LOTE E INFORMAÇÕES NUTRICIONAIS.",
+        "quantidade": 150.0,
+        "unidade": "UN",
+        "valor_unitario": "R$ 2,61",
+        "valor_total": "R$ 391,50"
+      }
+    ],
+    "data_cache": "2026-08-03 20:00"
   }
 }
