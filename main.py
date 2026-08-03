@@ -19,7 +19,7 @@ import cache as cache_module
 import atualizador
 import etp_manager
 from etp_gerador import gerar_word
-from etp_importador import extrair_campos_etp
+from etp_importador import extrair_campos_etp, garantir_docx
 
 # =====================================================
 # INICIALIZAÇÃO
@@ -280,7 +280,7 @@ async def etp_importar(etp_id: str, arquivo: UploadFile = File(...)):
     if not etp_manager.get_etp(etp_id):
         return RedirectResponse("/etp", status_code=303)
 
-    if not (arquivo.filename or "").lower().endswith(".docx"):
+    if not (arquivo.filename or "").lower().endswith((".docx", ".doc", ".pdf", ".odt")):
         return RedirectResponse(f"/etp/{etp_id}?erro_importacao=formato", status_code=303)
 
     conteudo = await arquivo.read()
@@ -288,8 +288,10 @@ async def etp_importar(etp_id: str, arquivo: UploadFile = File(...)):
         return RedirectResponse(f"/etp/{etp_id}?erro_importacao=arquivo", status_code=303)
 
     try:
-        campos = extrair_campos_etp(conteudo)
-    except Exception:
+        conteudo_docx = await run_in_threadpool(garantir_docx, arquivo.filename, conteudo)
+        campos = extrair_campos_etp(conteudo_docx)
+    except Exception as e:
+        print(f"[etp] Erro na importacao: {e}")
         return RedirectResponse(f"/etp/{etp_id}?erro_importacao=leitura", status_code=303)
 
     if not campos:
@@ -310,7 +312,7 @@ async def etp_sintetizar(
         return RedirectResponse("/etp", status_code=303)
     if not objeto.strip() or not 3 <= len(arquivos) <= 5 or not 0 <= base_index < len(arquivos):
         return RedirectResponse(f"/etp/{etp_id}?erro_sintese=quantidade", status_code=303)
-    if any(not (arquivo.filename or "").lower().endswith(".docx") for arquivo in arquivos):
+    if any(not (arquivo.filename or "").lower().endswith((".docx", ".doc", ".pdf", ".odt")) for arquivo in arquivos):
         return RedirectResponse(f"/etp/{etp_id}?erro_sintese=formato", status_code=303)
 
     try:
@@ -319,7 +321,10 @@ async def etp_sintetizar(
             conteudo = await arquivo.read()
             if not conteudo or len(conteudo) > 10 * 1024 * 1024:
                 raise ValueError("Arquivo inválido")
-            documentos.append(extrair_campos_etp(conteudo))
+            
+            conteudo_docx = await run_in_threadpool(garantir_docx, arquivo.filename, conteudo)
+            documentos.append(extrair_campos_etp(conteudo_docx))
+            
         if any(not documento for documento in documentos):
             raise ValueError("Nenhum bloco identificado")
 
@@ -332,7 +337,10 @@ async def etp_sintetizar(
         )
     except Exception as erro:
         print(f"[etp] Erro ao sintetizar ETPs: {erro}")
-        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=processamento", status_code=303)
+        # Redirecionar incluindo a mensagem de erro para depuração
+        import urllib.parse
+        erro_msg = urllib.parse.quote(str(erro))
+        return RedirectResponse(f"/etp/{etp_id}?erro_sintese=processamento&detalhe={erro_msg}", status_code=303)
 
     if not campos:
         return RedirectResponse(f"/etp/{etp_id}?erro_sintese=resultado", status_code=303)

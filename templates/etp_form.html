@@ -28,15 +28,15 @@
     <div id="modo-importar-arquivo" style="padding-top:14px;">
     <form method="post" action="/etp/{{ etp.id }}/importar" enctype="multipart/form-data"
         onsubmit="return confirm('Os blocos identificados no arquivo serão usados para preencher os campos atuais. Deseja continuar?')">
-    <p style="margin:0 0 10px; color:#4b5563; font-size:.9rem;">Envie um arquivo Word (.docx). A importação identifica cada bloco pela numeração; se o título for diferente, usa a posição da seção para preencher o campo correspondente.</p>
+    <p style="margin:0 0 10px; color:#4b5563; font-size:.9rem;">Envie um arquivo Word (.docx, .doc), PDF (.pdf) ou OpenDocument (.odt). A importação identifica cada bloco pela numeração; se o título for diferente, usa a posição da seção para preencher o campo correspondente.</p>
     <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-        <input type="file" name="arquivo" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
+        <input type="file" name="arquivo" accept=".docx,.doc,.pdf,.odt,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,application/pdf,application/vnd.oasis.opendocument.text" required />
         <button type="submit" class="btn btn-outline">📤 Importar e preencher</button>
     </div>
     {% if request.query_params.get('importados') %}
     <p style="margin:10px 0 0; color:#166534;">✓ {{ request.query_params.get('importados') }} blocos foram preenchidos a partir do arquivo.</p>
     {% elif request.query_params.get('erro_importacao') %}
-    <p style="margin:10px 0 0; color:#b91c1c;">Não foi possível importar o arquivo. Envie um ETP Word (.docx) com seções de conteúdo.</p>
+    <p style="margin:10px 0 0; color:#b91c1c;">Não foi possível importar o arquivo. Envie um arquivo válido (.docx, .doc, .pdf ou .odt) contendo seções estruturadas.</p>
     {% endif %}
 </form>
 </div>
@@ -44,14 +44,14 @@
 <div id="modo-sintetizar-etp" class="hidden" style="padding-top:14px;">
     <form method="post" action="/etp/{{ etp.id }}/sintetizar" enctype="multipart/form-data" id="form-sintetizar-etp"
         >
-        <p id="titulo-sintetizar-etp" style="margin:0 0 18px; color:#4b5563; font-size:.9rem;">Escolha de 3 a 5 ETPs Word e defina qual deles é o modelo-base.</p>
+        <p id="titulo-sintetizar-etp" style="margin:0 0 18px; color:#4b5563; font-size:.9rem;">Escolha de 3 a 5 arquivos (Word, PDF ou ODT) e defina qual deles é o modelo-base.</p>
         <div class="form-group" style="margin:22px 0 16px;">
             <label for="objeto-sintese">Objeto da nova contratação</label>
             <textarea id="objeto-sintese" name="objeto" rows="3" required placeholder="Ex.: Aquisição de notebooks para uso administrativo..."
                 style="width:100%; box-sizing:border-box; margin:7px 0 12px; padding:8px 10px; border:1px solid #a5b4fc; border-radius:6px; resize:vertical;"></textarea>
             <label for="arquivos-sintese">ETPs para análise</label>
-            <input id="arquivos-sintese" name="arquivos" type="file" multiple required accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="listarArquivosSintese(this)" style="display:block; margin-top:7px;" />
-            <small style="display:block; margin-top:6px; color:#6b7280;">Envie entre 3 e 5 arquivos .docx.</small>
+            <input id="arquivos-sintese" name="arquivos" type="file" multiple required accept=".docx,.doc,.pdf,.odt,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,application/pdf,application/vnd.oasis.opendocument.text" onchange="listarArquivosSintese(this)" style="display:block; margin-top:7px;" />
+            <small style="display:block; margin-top:6px; color:#6b7280;">Envie entre 3 e 5 arquivos (.docx, .doc, .pdf ou .odt).</small>
         </div>
         <div id="base-sintese-container" class="hidden" style="margin:16px 0 22px; padding:14px; background:#f5f7ff; border:1px solid #c7d2fe; border-radius:8px;">
             <label for="base-sintese" style="font-weight:600;">ETP modelo-base</label>
@@ -65,7 +65,7 @@
 {% if request.query_params.get('sintetizados') %}
 <p style="margin:10px 0 0; color:#166534;">✓ {{ request.query_params.get('sintetizados') }} blocos foram sintetizados a partir dos ETPs enviados.</p>
 {% elif request.query_params.get('erro_sintese') %}
-<p style="margin:10px 0 0; color:#b91c1c;">Não foi possível sintetizar os ETPs. Envie de 3 a 5 arquivos Word válidos e verifique se a IA está configurada.</p>
+<p style="margin:10px 0 0; color:#b91c1c;">Não foi possível sintetizar os ETPs. Erro: {{ request.query_params.get('detalhe', 'Verifique se a IA está configurada.') }}</p>
 {% endif %}
 </div>
 
@@ -623,7 +623,7 @@ function listarArquivosSintese(input) {
     select.innerHTML = '';
     if (arquivos.length < 3 || arquivos.length > 5) {
         container.classList.add('hidden');
-        alert('Selecione entre 3 e 5 arquivos Word.');
+        alert('Selecione entre 3 e 5 arquivos (.docx, .doc, .pdf ou .odt).');
         return;
     }
     arquivos.forEach((arquivo, indice) => {
@@ -637,7 +637,7 @@ document.getElementById('form-sintetizar-etp').addEventListener('submit', event 
     const arquivos = document.getElementById('arquivos-sintese').files;
     if (arquivos.length < 3 || arquivos.length > 5) {
         event.preventDefault();
-        alert('Selecione entre 3 e 5 arquivos Word.');
+        alert('Selecione entre 3 e 5 arquivos (.docx, .doc, .pdf ou .odt).');
     }
 });
 

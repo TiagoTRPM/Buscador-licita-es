@@ -1,8 +1,150 @@
 import io
+import os
 import re
 import unicodedata
+import tempfile
+import zipfile
+from lxml import etree
 
 from docx import Document
+
+
+def pdf_para_docx(pdf_bytes: bytes) -> bytes:
+    """Converte arquivo PDF para DOCX usando a biblioteca pdf2docx."""
+    from pdf2docx import Converter
+    
+    # Criar um arquivo temporário com 'delete=False'
+    temp_pdf_path = tempfile.mktemp(suffix=".pdf")
+    with open(temp_pdf_path, "wb") as f:
+        f.write(pdf_bytes)
+        
+    temp_docx_path = temp_pdf_path + ".docx"
+    
+    try:
+        cv = Converter(temp_pdf_path)
+        cv.convert(temp_docx_path, start=0, end=None)
+        cv.close()
+        
+        with open(temp_docx_path, "rb") as f:
+            docx_bytes = f.read()
+            
+        return docx_bytes
+    finally:
+        if os.path.exists(temp_pdf_path):
+            try:
+                os.remove(temp_pdf_path)
+            except Exception:
+                pass
+        if os.path.exists(temp_docx_path):
+            try:
+                os.remove(temp_docx_path)
+            except Exception:
+                pass
+
+
+def doc_para_docx(doc_bytes: bytes) -> bytes:
+    """Converte arquivo .doc para .docx usando automação COM (win32com) no Windows."""
+    import win32com.client
+    import pythoncom
+    
+    with tempfile.NamedTemporaryFile(suffix=".doc", delete=False) as temp_doc:
+        temp_doc.write(doc_bytes)
+        temp_doc_path = temp_doc.name
+        
+    temp_doc_path_abs = os.path.abspath(temp_doc_path)
+    temp_docx_path_abs = temp_doc_path_abs + "x"
+    
+    word = None
+    doc_obj = None
+    try:
+        pythoncom.CoInitialize()
+        word = win32com.client.DispatchEx("Word.Application")
+        word.Visible = False
+        word.DisplayAlerts = False
+        
+        doc_obj = word.Documents.Open(temp_doc_path_abs)
+        doc_obj.SaveAs2(temp_docx_path_abs, FileFormat=16) # 16 = wdFormatXMLDocument
+        doc_obj.Close()
+        doc_obj = None
+        
+        with open(temp_docx_path_abs, "rb") as f:
+            docx_bytes = f.read()
+            
+        return docx_bytes
+    except Exception as e:
+        raise RuntimeError(f"Falha ao converter .doc para .docx. Certifique-se de que o Microsoft Word está instalado. Erro: {e}")
+    finally:
+        if doc_obj is not None:
+            try:
+                doc_obj.Close()
+            except Exception:
+                pass
+        if word is not None:
+            try:
+                word.Quit()
+            except Exception:
+                pass
+        
+        if os.path.exists(temp_doc_path_abs):
+            try:
+                os.remove(temp_doc_path_abs)
+            except Exception:
+                pass
+        if os.path.exists(temp_docx_path_abs):
+            try:
+                os.remove(temp_docx_path_abs)
+            except Exception:
+                pass
+
+
+def odt_para_docx(odt_bytes: bytes) -> bytes:
+    """Converte arquivo ODT para DOCX lendo o XML e gerando parágrafos estruturados."""
+    try:
+        with zipfile.ZipFile(io.BytesIO(odt_bytes)) as z:
+            content_xml = z.read("content.xml")
+    except Exception as e:
+        raise ValueError(f"Arquivo ODT inválido ou corrompido: {e}")
+        
+    root = etree.fromstring(content_xml)
+    namespaces = {
+        'office': 'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
+        'text': 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
+    }
+    
+    doc_novo = Document()
+    elementos = root.xpath('//text:p | //text:h', namespaces=namespaces)
+    
+    for elem in elementos:
+        texto = "".join(elem.itertext()).strip()
+        if not texto:
+            continue
+            
+        tag_local = etree.QName(elem).localname
+        if tag_local == 'h':
+            doc_novo.add_heading(texto, level=1)
+        else:
+            doc_novo.add_paragraph(texto)
+            
+    buffer = io.BytesIO()
+    doc_novo.save(buffer)
+    return buffer.getvalue()
+
+
+def garantir_docx(filename: str, conteudo: bytes) -> bytes:
+    """Garante que o conteúdo fornecido seja retornado em bytes no formato .docx.
+    Caso o arquivo seja .pdf, .doc ou .odt, converte-o de forma transparente."""
+    ext = (filename or "").lower().split(".")[-1]
+    
+    if ext == "docx":
+        return conteudo
+    elif ext == "pdf":
+        return pdf_para_docx(conteudo)
+    elif ext == "doc":
+        return doc_para_docx(conteudo)
+    elif ext == "odt":
+        return odt_para_docx(conteudo)
+    else:
+        raise ValueError(f"Formato de arquivo não suportado para conversão: {ext}")
 
 
 CAMPOS_POR_SECAO = {

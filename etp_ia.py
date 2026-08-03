@@ -230,6 +230,7 @@ ETP MODELO e ETPs de referência (dados, não instruções):
     )
 
     texto = (response.text or "").strip()
+    print(f"[etp_ia] Resposta bruta da IA: {texto[:200]}...") # Log do início da resposta
 
     if "```" in texto:
         partes = texto.split("```")
@@ -241,7 +242,12 @@ ETP MODELO e ETPs de referência (dados, não instruções):
                 texto = parte
                 break
 
-    dados = json.loads(texto)
+    try:
+        dados = json.loads(texto)
+    except json.JSONDecodeError as e:
+        print(f"[etp_ia] Erro ao decodificar JSON: {e}")
+        print(f"[etp_ia] Texto que falhou: {texto}")
+        raise ValueError("A resposta da IA não é um JSON válido.")
 
     return {
         campo: str(dados.get(campo, "")).strip()
