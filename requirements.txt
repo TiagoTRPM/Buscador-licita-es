@@ -10,5 +10,4 @@ urllib3==2.7.0
 python-docx==1.2.0
 docxcompose>=1.4.0
 pdf2docx==0.5.13
-pywin32==312
 lxml==6.1.1
